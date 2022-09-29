@@ -1,7 +1,7 @@
 import json
 import os
 import jmespath as jp
-from task import generate_prompts
+from task import generate_prompts as bigbench_prompts
 import re
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
@@ -52,7 +52,7 @@ def load_kaggle_mj(folderpath='./kaggle_mj'):
 def datasets_to_csv(filename='prompts.csv'):
 	p = loadBold('./bold-main/prompts')
 	# p.extend(load_kaggle_mj())
-	p.extend(generate_prompts())
+	p.extend(bigbench_prompts())
 	with open(filename, 'w', encoding='utf8') as f:
 		f.write('source,prompt,race,religion,gender,bias,other_tag,\n')
 		for s, prmpt, t in p:
@@ -82,7 +82,7 @@ def imagefile_to_dataframe(directory='./gender'):
 					#print(elements)
 					user = elements.pop(0)
 					elements = [e for e in elements if
-								not re.match('[A-z-\d]+(\.png)', e) and not re.match('(\d){1}', e)]
+								not re.match('[A-z-\d]+(\.png)', e) and not re.match('(\d){1}', e) and e != 'photorealistic']
 					filenames[node].append((os.path.abspath(impath), elements))
 	return filenames
 
@@ -138,15 +138,18 @@ def prompts_by_gender(filenames):
 if __name__ == '__main__':
 	# datasets_to_csv('bold_prompts.csv')
 	fn = imagefile_to_dataframe('./midjourney_zs')
-	print(fn)
+	#print(fn)
 	hypos = list()
 	# with open('person_hyponyms.txt', 'r') as f:
 	# 	for l in f.readlines():
 	# 		hypos.append(l.strip())
 	# prompts = prompts_by_gender(fn)
+	prompts = []
+	for f in fn['test']:
+		prompts.append("/imagine prompt:"+" ".join(f[1])+', photorealistic --s 625')
 
-	# with open('zs_prompts.csv', 'w') as f:
-	# 	f.write('\"key\",\"prompt\"\n')
-	# 	for k in prompts:
-	# 		for p in prompts[k]:
-	# 			f.write(f"\"{k}\",\"{p}\"\n")
+	print(prompts)
+	with open('zs_prompts.csv', 'w') as f:
+		f.write('\"key\",\"prompt\"\n')
+		for k in prompts:
+			f.write(f"\"{k}\",\"{k}\"\n")
