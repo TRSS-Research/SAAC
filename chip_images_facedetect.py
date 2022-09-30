@@ -34,7 +34,7 @@ def crop_bboxes(image: Image, bboxes: np.array):
 	return chips
 
 
-def process_directory(dir='./midjourney_zs/test'):
+def process_directory(dir='.data/images/midjourney_zs/test'):
 	midjourney_root = Path(dir)
 	midjourney_pngs = list(midjourney_root.glob('*.png'))
 	device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
