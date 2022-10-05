@@ -4,7 +4,7 @@ import cv2 as cv
 import numpy as np
 from deepface import DeepFace
 
-from saac.models import SkinColorMeanExtractor, SkinColorExtractor
+from saac.models import SkinColorExtractor, SkinColorModeExtractor
 from saac.utils import quadrant_bboxes, crop_bbox
 
 
@@ -82,7 +82,7 @@ class MidJourneyProcessor:
             equalizer = ImageEqualizer()
 
         if 'skin' in actions and extractor is None:
-            extractor = SkinColorMeanExtractor()
+            extractor = SkinColorModeExtractor()
 
         if equalizer:
             image = equalizer.equalize(image)
