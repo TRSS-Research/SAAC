@@ -1,3 +1,11 @@
 deepface>=0.0.76
-matplotlib
+vadersentiment
+textblob
 scikit-learn
+pandas
+numpy
+re
+seaborn
+matplotlib
+
+
