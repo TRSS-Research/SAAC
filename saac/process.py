@@ -1,17 +1,18 @@
-import cv2 as cv
-import numpy as np
 from typing import Tuple, List, Optional, Union
 
+import cv2 as cv
+import numpy as np
 from deepface import DeepFace
 
+from saac.models import SkinColorMeanExtractor, SkinColorExtractor
 from saac.utils import quadrant_bboxes, crop_bbox
 
 
 class ImageEqualizer:
     def __init__(self,
-                clipLimit: float = 2.0,
-                grid_size: int = 8
-                ) -> None:
+                 clipLimit: float = 2.0,
+                 grid_size: int = 8
+                 ) -> None:
         self.clipLimit = clipLimit
         self.grid_size = grid_size
 
@@ -32,25 +33,6 @@ class ImageEqualizer:
         img_lab = cv.merge((img_l, img_a, img_b))
         img_cl = cv.cvtColor(img_lab, cv.COLOR_LAB2BGR)
         return img_cl
-
-
-class SkinColorExtractor:
-    def __init__(self,
-                lower_quantile: float = 0.4,
-                upper_quantile: float = 0.9
-                ) -> None:
-        self.lower_quantile = lower_quantile
-        self.upper_quantile = upper_quantile
-
-    def extract(self, image: np.ndarray
-                ) -> Tuple[Tuple[int, int, int], np.ndarray]:
-        img_l = cv.cvtColor(image, cv.COLOR_BGR2LAB)[:, :, 0]
-        l_lower, l_upper = np.quantile(img_l, [self.lower_quantile, self.upper_quantile])
-
-        mask = ((img_l >= l_lower) & (img_l <= l_upper))
-        blue, green, red = image[mask].mean(axis=0)
-
-        return (red, green, blue), mask
 
 
 def df_bbox(region) -> List[int]:
@@ -76,7 +58,6 @@ DF_ACTIONS = (
     'emotion'
 )
 
-
 ALL_ACTIONS = DF_ACTIONS + ('skin',)
 
 
@@ -101,7 +82,7 @@ class MidJourneyProcessor:
             equalizer = ImageEqualizer()
 
         if 'skin' in actions and extractor is None:
-            extractor = SkinColorExtractor()
+            extractor = SkinColorMeanExtractor()
 
         if equalizer:
             image = equalizer.equalize(image)

@@ -1,5 +1,74 @@
+from abc import ABC, abstractmethod
+from typing import Tuple
+
 import numpy as np
+import cv2 as cv
 from sklearn import base
+
+
+class SkinColorExtractor(ABC):
+    def __init__(self,
+                 lower_quantile: float = 0.5,
+                 upper_quantile: float = 0.9,
+                 rgb_threshold: float = True
+                 ) -> None:
+        self.lower_quantile = lower_quantile
+        self.upper_quantile = upper_quantile
+        self.rgb_threshold = rgb_threshold
+
+    def luminance_mask(self, image: np.ndarray
+                       ) -> Tuple[Tuple[int, int, int], np.ndarray]:
+        img_l = cv.cvtColor(image, cv.COLOR_BGR2LAB)[:, :, 0]
+        l_lower, l_upper = np.quantile(img_l, [self.lower_quantile, self.upper_quantile])
+
+        mask = ((img_l >= l_lower) & (img_l <= l_upper))
+        return mask
+
+    @staticmethod
+    def rgb_mask(image: np.ndarray
+                 ) -> Tuple[Tuple[int, int, int], np.ndarray]:
+        mask = (image[:, :, 0] < image[:, :, 2]) & (image[:, :, 1] < image[:, :, 2])
+        return mask
+
+    @abstractmethod
+    def extract(self, image: np.ndarray
+                ) -> Tuple[Tuple[int, int, int], np.ndarray]:
+        return
+
+
+class SkinColorMeanExtractor(SkinColorExtractor):
+    def __init__(self,
+                 **kwargs
+                 ) -> None:
+        super().__init__(**kwargs)
+
+    def extract(self, image: np.ndarray
+                ) -> Tuple[Tuple[int, int, int], np.ndarray]:
+        mask = self.luminance_mask(image)
+        if self.rgb_threshold:
+            mask = mask & self.rgb_mask(image)
+        blue, green, red = image[mask].mean(axis=0)
+        return (red, green, blue), mask
+
+
+class SkinColorModeExtractor(SkinColorExtractor):
+    def __init__(self,
+                 hist_bins: int = 20,
+                 **kwargs
+                 ) -> None:
+        super().__init__(**kwargs)
+        self.hist_bins = hist_bins
+
+    def extract(self, image: np.ndarray
+                ) -> Tuple[Tuple[int, int, int], np.ndarray]:
+        mask = self.luminance_mask(image)
+        if self.rgb_threshold:
+            mask = mask & self.rgb_mask(image)
+        hist, edges = np.histogramdd(image[mask], bins=self.hist_bins)
+        mode_idx = np.array(np.unravel_index(np.argmax(hist, axis=None), hist.shape))
+        blue, green, red = [np.take(edges[c], np.array((i, i + 1)), mode='clip').mean()
+                            for c, i in enumerate(mode_idx)]
+        return (red, green, blue), mask
 
 
 class IdentityClassifier(
