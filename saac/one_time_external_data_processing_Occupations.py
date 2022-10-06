@@ -5,8 +5,8 @@ import warnings
 
 warnings.filterwarnings('once')
 
-readpath = '../../data/text_generation/raw/'
-savepath = '../../data/text_generation/interim/'
+raw_occupation_file = '../../data/text_generation/raw/'
+interim_occupation_file = '../../data/text_generation/interim/'
 
 '''
 *  = indicates that a wage estimate is not available
@@ -27,7 +27,7 @@ cols = [
 ]
 dtype_dic = {'OCC_CODE': str, 'OCC_TITLE': str, }
 
-jt = pd.read_csv(readpath + 'OEWS21_OccupationsDetailedView.csv', usecols=cols,
+jt = pd.read_csv(raw_occupation_file, usecols=cols,
                  dtype=dtype_dic,
                  na_values=r"*",
                  keep_default_na=True)
@@ -40,7 +40,6 @@ for col in missing_columns:
     percent_missing = jt[jt[col].isnull() == True].shape[0] / jt.shape[0] * 100
     print('{} missing percent: {}% --- {} missing count'.format(
         col, round(percent_missing, 2), count_missing))
-
 print(jt[jt[jt.columns].isnull().any(1)])
 
 jth = jt.loc[(jt['a_median'].isnull()) | (jt['a_mean'].isnull())]
@@ -75,7 +74,7 @@ pats = [
     'and',
     'except',
     '/'
- ]
+]
 pattern = '|'.join(pats)
 
 jta_conj = jta[jta['occ_title'].str.contains(pattern, case=False)]
@@ -138,4 +137,4 @@ wage_dict = {
 }
 jta_norm['wage_val'] = jta_norm['wage_cat'].map(wage_dict)
 
-jta_norm.to_csv(savepath + 'AnnualOccupations_TitleBank.csv', index=False)
+jta_norm.to_csv(interim_occupation_file, index=False)
