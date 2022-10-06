@@ -19,9 +19,9 @@ def score_sentiment(df,
     df_vader = pd.concat([df.drop(['compound'], axis=1), df['compound'].apply(pd.Series)], axis=1)
 
     if verbose:
-        print('Positive word count---{} '.format(df_vader.pos.sum()))
-        print('Negative word count---{} '.format(df_vader.neg.sum()))
-        print('Neutral word count---{} '.format(df_vader.neu.sum()))
+        print('Positive text count---{} '.format(df_vader.pos.sum()))
+        print('Negative text count---{} '.format(df_vader.neg.sum()))
+        print('Neutral text count---{} '.format(df_vader.neu.sum()))
 
     return df_vader
 
