@@ -99,6 +99,7 @@ def clean_string(string):
     string = re.sub(' +', ' ', string).strip()
     return string
 
+
 jta_norm['norm_title'] = jta_norm['occ_title'].apply(lambda x: clean_string(x))
 
 jta_norm.a_mean.hist()
