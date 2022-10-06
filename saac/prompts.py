@@ -1,15 +1,7 @@
-import random
-from numpy import random as nprandom
-import pandas as pd
-from prompt_utils import score_sentiment
-
-
 # TODO Separate out to mj individual section in repo
-
 # TODO Add remaining mj params + style banks + artist banks
 # https://github.com/willwulfken/MidJourney-Styles-and-Keywords-Reference
 # https://github.com/ymgenesis/Midjourney-Photography-Resource
-
 # TODO Create funcs + section for dale + stable dif
 # https://github.com/jina-ai/discoart
 

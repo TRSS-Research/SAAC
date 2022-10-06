@@ -1,6 +1,4 @@
 import pandas as pd
-import re
-from textblob import Word
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import warnings
 warnings.filterwarnings('once')
@@ -9,8 +7,8 @@ warnings.filterwarnings('once')
 def score_sentiment(df,
                     column_name: str,
                     verbose: bool = False):
-    """Compute the Vader polarity scores for a textfield.
-    Returns scores and original dataframe."""
+    """Compute the Vader polarity scores for a dataframe string column
+    Returns vader sentiment scores and original dataframe."""
     sid = SentimentIntensityAnalyzer()
 
     if verbose:
@@ -50,7 +48,7 @@ def sample_traits(adjective_file='../../data/text_generation/interim/TDA_Bank.cs
 
 
 def sample_occupations(occupation_file='../../data/text_generation/interim/AnnualOccupations_TitleBank.csv',
-                       nsamples=12):
+                       nsamples: int = 12):
     title_bank = pd.read_csv(occupation_file)
 
     vlow = title_bank.loc[title_bank.wage_cat == 1, 'norm_title'].sample(n=nsamples)
