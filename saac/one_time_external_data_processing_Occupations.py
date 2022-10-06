@@ -2,11 +2,10 @@ import pandas as pd
 import re
 from textblob import Word
 import warnings
+warnings.filterwarnings('ignore')
 
-warnings.filterwarnings('once')
-
-raw_occupation_file = '../../data/text_generation/raw/'
-interim_occupation_file = '../../data/text_generation/interim/'
+raw_occupation_file = '../data/prompt_generation/raw/OEWS21_OccupationsDetailedView.csv'
+interim_occupation_file = '../data/prompt_generation/interim/AnnualOccupations_TitleBank.csv'
 
 '''
 *  = indicates that a wage estimate is not available
@@ -32,7 +31,7 @@ jt = pd.read_csv(raw_occupation_file, usecols=cols,
                  na_values=r"*",
                  keep_default_na=True)
 jt.columns = jt.columns.str.lower()
-print('{} - Count of annual and hourly occupations'.format(len(jt)))
+print('{} -- Total annual and hourly occupations'.format(len(jt)))
 
 missing_columns = list(jt.columns[jt.isnull().any()])
 for col in missing_columns:
@@ -40,6 +39,8 @@ for col in missing_columns:
     percent_missing = jt[jt[col].isnull() == True].shape[0] / jt.shape[0] * 100
     print('{} missing percent: {}% --- {} missing count'.format(
         col, round(percent_missing, 2), count_missing))
+
+print('All rows with missing data:')
 print(jt[jt[jt.columns].isnull().any(1)])
 
 jth = jt.loc[(jt['a_median'].isnull()) | (jt['a_mean'].isnull())]
@@ -78,10 +79,10 @@ pats = [
 pattern = '|'.join(pats)
 
 jta_conj = jta[jta['occ_title'].str.contains(pattern, case=False)]
-print('{} Count of occupations with conjunctions'.format(len(jta_conj)))
+print('{} Occupations with conjunctions to be filtered out'.format(len(jta_conj)))
 
 jta_norm = jta[~jta['occ_title'].str.contains(pattern, case=False)]
-print('{} Count of occupations without conjunctions'.format(len(jta_norm)))
+print('{} Occupations without conjunctions remain in sample'.format(len(jta_norm)))
 
 
 def clean_string(string):
@@ -101,8 +102,6 @@ def clean_string(string):
 
 jta_norm['norm_title'] = jta_norm['occ_title'].apply(lambda x: clean_string(x))
 
-jta_norm.a_mean.hist()
-jta_norm.a_median.hist()
 
 vlow = jta_norm.loc[jta_norm['a_median'] <= 35000.0]
 print('{} -- very low wage occupations'.format(len(vlow)))

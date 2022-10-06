@@ -26,7 +26,7 @@ def score_sentiment(df,
     return df_vader
 
 
-def sample_traits(adjective_file='../../data/text_generation/interim/TDA_Bank.csv',
+def sample_traits(adjective_file='../../data/prompt_generation/interim/TDA_Bank.csv',
                   nsamples: int = 12):
     tda_bank = pd.read_csv(adjective_file)
 
@@ -47,7 +47,7 @@ def sample_traits(adjective_file='../../data/text_generation/interim/TDA_Bank.cs
     return tda_samples
 
 
-def sample_occupations(occupation_file='../../data/text_generation/interim/AnnualOccupations_TitleBank.csv',
+def sample_occupations(occupation_file='../../data/prompt_generation/interim/AnnualOccupations_TitleBank.csv',
                        nsamples: int = 12):
     title_bank = pd.read_csv(occupation_file)
 
