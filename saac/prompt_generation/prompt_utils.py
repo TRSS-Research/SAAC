@@ -5,7 +5,7 @@ import warnings
 
 warnings.filterwarnings('once')
 
-
+PROMPT_GENERATION_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
 def score_sentiment(df,
                     column_name: str,
                     verbose: bool = False):
@@ -28,11 +28,13 @@ def score_sentiment(df,
     return df_vader
 
 
-def sample_traits(nsamples: int = 12):
-    pg_data_path = os.path.join('..', '..', 'data', 'prompt_generation')
-    adjective_file = os.path.join(pg_data_path, 'interim', 'TDA_Bank.csv')
+def sample_traits(nsamples: int = 12,
+                  trait_filepath: str = None
+                  ):
+    if trait_filepath is None:
+        trait_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'TDA_Bank.csv')
 
-    tda_bank = pd.read_csv(adjective_file)
+    tda_bank = pd.read_csv(trait_filepath)
 
     vneg = tda_bank.loc[tda_bank.sentiment_cat == 1, 'word'].sample(n=nsamples)
     neg = tda_bank.loc[tda_bank.sentiment_cat == 2, 'word'].sample(n=nsamples)
@@ -51,11 +53,13 @@ def sample_traits(nsamples: int = 12):
     return tda_samples
 
 
-def sample_occupations(nsamples: int = 12):
-    pg_data_path = os.path.join('..', '..', 'data', 'prompt_generation')
-    occupation_file = os.path.join(pg_data_path, 'interim', 'AnnualOccupations_TitleBank.csv')
+def sample_occupations(nsamples: int = 12,
+                       occupation_filepath: str = None
+                       ):
+    if occupation_filepath is None:
+        occupation_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'AnnualOccupations_TitleBank.csv')
 
-    title_bank = pd.read_csv(occupation_file)
+    title_bank = pd.read_csv(occupation_filepath)
 
     vlow = title_bank.loc[title_bank.wage_cat == 1, 'norm_title'].sample(n=nsamples)
     low = title_bank.loc[title_bank.wage_cat == 2, 'norm_title'].sample(n=nsamples)
