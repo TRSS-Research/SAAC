@@ -3,6 +3,7 @@ git+https://github.com/serengil/deepface@94e5c59
 vadersentiment
 textblob
 scikit-learn
+scipy
 pandas
 numpy
 seaborn

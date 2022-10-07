@@ -28,3 +28,7 @@ def load_tda_data():
     tda_data = pd.read_csv(adjective_file, header=0, usecols=cols, names=colnames)
 
     return tda_data
+
+
+def rgb_sorter(rgb_tuples):
+    return sorted(rgb_tuples, key=lambda x: sum(x), reverse=False)
