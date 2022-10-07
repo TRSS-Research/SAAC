@@ -58,12 +58,17 @@ allows for users to provide their own pre-trained models; however, we decided to
 
 ##### Face detection
 The module uses a face detector prior to identifying gender - the face detector draws a tight bound around the face of the image entity. 
-The default face detector for the module is opencv; however, we used the MTCNN face detector. MTCNN was chosen over opencv because it generally
-had a accuracy ~1-2% greater than that of opencv.
+The default face detector for the module is opencv. Other face detection options include Retinaface, MTCNN, SSD or Dlib. After examining all possible face detection options, we used the MTCNN face detector. MTCNN was chosen over opencv and other face detection options because it generally had a accuracy ~1-2% greater than that of all other options.
 
 #### Calibration
+
 ##### Process
+Upon initial examination, the Deepface predictions seemed to skew towards mislabeling women as men as shown in Figure 1. As such,
+we explored ways to mitigate this bias through calibrating the gender detection classifier. For calibration, we pursued a
+cross-validation approach through using [CalibratedClassifierCV](https://scikit-learn.org/stable/modules/calibration.html).
+
 ##### Results Comparison
+The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.
 
 
 
@@ -74,34 +79,44 @@ had a accuracy ~1-2% greater than that of opencv.
 <i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
 </p>
 
+<p align="center">
+<img width="213" alt="Uncalibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/61bee301-f7ef-45e6-b705-7f7bc096ee6e" style="width:50%">
+</p>
+<p align = "center">
+<i>Fig. 2</i> - Uncalibrated Metrics
+</p>
 
 
 <p align="center">
 <img width="289" alt="Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/3cc2630e-0177-441a-b4bc-088a694fae52" style="width:50%">
 </p>
 <p align = "center">
-<i>Fig. 2</i> - Uncalibrated Model Results
+<i>Fig. 3</i> - Uncalibrated Model Results
 </p>
 
 
 		   
 <p align="center">
-<img width="290" alt="Uncalibrated_Results" src="https://media.github.trssllc.com/user/146/files/b543f640-ed1e-4dbc-8c2d-710216b6f33a" style="width:50%">
+<img width="291" alt="Calibrated_Results" src="https://media.github.trssllc.com/user/146/files/3cae1ba3-359f-481c-b3da-598c986b23db" style="width:50%">
 </p>
 <p align = "center">
-<i>Fig. 3</i> - Calibrated Model - Calibration Plot
+<i>Fig. 4</i> - Calibrated Model - Calibration Plot
 </p>
 
 
+<p align="center">
+<img width="209" alt="Calibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/80aa7146-3d73-4188-85c3-6d32b49c1b0b" style="width:50%">
+</p>
+<p align = "center">
+<i>Fig. 5</i> - Calibrated Metrics
+</p>
 
 <p align="center">
 <img width="277" alt="Calibrated_Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/50ccba69-a546-4c8f-b892-6a3f9178d0ea" style="width:50%">
 </p>
 <p align = "center">
-<i>Fig. 4</i> - Calibrated Model Results
+<i>Fig. 6</i> - Calibrated Model Results
 </p>
-
-
 
 
 #### Limitations & biases
@@ -153,8 +168,14 @@ the best results.
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.
 
 ### Results of image evaluation workflow 
-Upon going through the image evaluation workflow, the resulting 
-- Description of output csv
+Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:
+| Column Name     | Value Description |
+| ----------- | ----------- |
+| image      | image name/path       |
+| label   | 0 indicating that the image is of a woman, 1 indicating that the image is of a man        |
+| bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |
+| gender.Woman   | probability that the image is a women        |
+| gender.Man   | probability that the image is a man|
 
 ## Evaluation of Results
 
