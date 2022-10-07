@@ -1,6 +1,8 @@
+import os
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import warnings
+
 warnings.filterwarnings('once')
 
 
@@ -26,8 +28,10 @@ def score_sentiment(df,
     return df_vader
 
 
-def sample_traits(adjective_file='../../data/prompt_generation/interim/TDA_Bank.csv',
-                  nsamples: int = 12):
+def sample_traits(nsamples: int = 12):
+    pg_data_path = os.path.join('..', '..', 'data', 'prompt_generation')
+    adjective_file = os.path.join(pg_data_path, 'interim', 'TDA_Bank.csv')
+
     tda_bank = pd.read_csv(adjective_file)
 
     vneg = tda_bank.loc[tda_bank.sentiment_cat == 1, 'word'].sample(n=nsamples)
@@ -42,13 +46,15 @@ def sample_traits(adjective_file='../../data/prompt_generation/interim/TDA_Bank.
         *neu,
         *pos,
         *vpos
-        ]
+    ]
 
     return tda_samples
 
 
-def sample_occupations(occupation_file='../../data/prompt_generation/interim/AnnualOccupations_TitleBank.csv',
-                       nsamples: int = 12):
+def sample_occupations(nsamples: int = 12):
+    pg_data_path = os.path.join('..', '..', 'data', 'prompt_generation')
+    occupation_file = os.path.join(pg_data_path, 'interim', 'AnnualOccupations_TitleBank.csv')
+
     title_bank = pd.read_csv(occupation_file)
 
     vlow = title_bank.loc[title_bank.wage_cat == 1, 'norm_title'].sample(n=nsamples)
@@ -63,7 +69,7 @@ def sample_occupations(occupation_file='../../data/prompt_generation/interim/Ann
         *medium,
         *high,
         *vhigh
-        ]
+    ]
 
     return title_samples
 
