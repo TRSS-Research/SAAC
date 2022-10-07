@@ -170,11 +170,13 @@ the best results.
 
 ### Results of image evaluation workflow 
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:
-- image name/path
-- label: 0 indicating that the image is of a woman, 1 indicating that the image is of a man
-- bbox: contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})
-- gender.Woman: probability that the image is a women
-- gender.Man: probability that the image is a man
+| Column Name     | Value Description |
+| ----------- | ----------- |
+| image      | image name/path       |
+| label   | 0 indicating that the image is of a woman, 1 indicating that the image is of a man        |
+| bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |
+| gender.Woman   | probability that the image is a women        |
+| gender.Man   | probability that the image is a man|
 
 ## Evaluation of Results
 
