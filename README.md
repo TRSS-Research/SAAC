@@ -106,7 +106,7 @@ The calibration of the gender classifier evidently mitigated the bias that we we
 
 
 <p align="center">
-<img width="209" alt="Calibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/80aa7146-3d73-4188-85c3-6d32b49c1b0b" stype="width:50%">
+<img width="209" alt="Calibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/80aa7146-3d73-4188-85c3-6d32b49c1b0b" style="width:50%">
 </p>
 <p align = "center">
 <i>Fig. 5</i> - Calibrated Metrics
