@@ -58,7 +58,7 @@ allows for users to provide their own pre-trained models; however, we decided to
 
 ##### Face detection
 The module uses a face detector prior to identifying gender - the face detector draws a tight bound around the face of the image entity. 
-The default face detector for the module is opencv. Other face detection options include retinaface, mtcnn, ssd or dlib. After examining all possible face detection options, we used the MTCNN face detector. MTCNN was chosen over opencv and other face detection options because it generally had a accuracy ~1-2% greater than that of all other options.
+The default face detector for the module is opencv. Other face detection options include Retinaface, MTCNN, SSD or Dlib. After examining all possible face detection options, we used the MTCNN face detector. MTCNN was chosen over opencv and other face detection options because it generally had a accuracy ~1-2% greater than that of all other options.
 
 #### Calibration
 
