@@ -70,30 +70,30 @@ had a accuracy ~1-2% greater than that of opencv.
 <figure>
 <p align="center">
 <img width="290" alt="Uncalibrated_Results" src="https://media.github.trssllc.com/user/146/files/b543f640-ed1e-4dbc-8c2d-710216b6f33a">
-</p>
 <figcaption align = "center"><i>Fig. 1</i> - Uncalibrated Model - Calibration Plot </figcaption>
+</p>
 </figure>
 
 
 <p align="center">
 <img width="289" alt="Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/3cc2630e-0177-441a-b4bc-088a694fae52">
-</p>
 <figcaption align = "center"><i>Fig. 2</i> - Uncalibrated Model Results</figcaption>
+</p>
 </figure>
 
 <figure>
 <p align="center">
 <img width="290" alt="Uncalibrated_Results" src="https://media.github.trssllc.com/user/146/files/b543f640-ed1e-4dbc-8c2d-710216b6f33a">
-</p>
 <figcaption align = "center"><i>Fig. 3</i> - Calibrated Model - Calibration Plot </figcaption>
+</p>
 </figure>
 
 
 <figure>
 <p align="center">
 <img width="277" alt="Calibrated_Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/50ccba69-a546-4c8f-b892-6a3f9178d0ea">
-</p>
 <figcaption align = "center"><i>Fig. 4</i> - Calibrated Model Results</figcaption>
+</p>
 </figure>
 
 
