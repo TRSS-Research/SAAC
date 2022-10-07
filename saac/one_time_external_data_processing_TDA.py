@@ -9,7 +9,7 @@ interim_adjective_file = '../data/prompt_generation/interim/TDA_Bank.csv'
 tda = pd.read_csv(raw_adjective_file, usecols=['word'])
 print('{} -- Total trait descriptive adjectives'.format(len(tda)))
 
-tdav = score_sentiment(tda, 'word', verbose=False)
+tdav = score_sentiment(tda, 'word')
 
 vneg = tdav.loc[tdav['compound'] < -0.4]
 print('{} -- very negative traits'.format(len(vneg)))
