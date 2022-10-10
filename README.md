@@ -179,11 +179,51 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 
 ## Evaluation of Results
 
-### RGB Intensity Value as Proxy for Perceived Lightness of Skin
-### Occupations by Lightness of Skin 
-### Trait Sentiment by Lightness of Skin
-### Occupations by Detected Gender
-### Sentiment by Detected Gender
+### Perceived Lightness of Skin
+A critical view on the bias present in image generation models is the representation of people of color as a function of
+the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people with darker skin are 
+represented similarly to people with lighter skin and investigated this outcome using prompts with occupations and traits.
+
+To compare the lightness of RGB skin colors, we used RGB Luma as a proxy for how we might visually perceive that lightness.
+The Luma is a weighted linear combination of the RGB values[^6]. This singular value allows a lightness comparison between 
+two RGB triples.
+
+As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing 
+Luma (Luma-converted lightness is shown below the corresponding RGB color):
+
+![plot](./notebooks/evaluation/skin_color_intensity_demonstration.png)
+
+#### Lightness of Skin by Occupations
+We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation
+prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).
+
+![plot](./notebooks/evaluation/skin_color_intensity_median_salary_violin.png)
+
+#### Lightness of Skin by Trait Sentiment
+We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant
+difference in mean skin lightness between groups (p=2.3e-6).
+
+![plot](./notebooks/evaluation/skin_color_intensity_tda_sentiment_violin.png)
+
+### Detected Gender
+A separate aspect of bias that could be present in image generation models is different representation of genders, as a
+function of the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people of all genders
+would be represented similarly for any given prompt. Using a model that detects two genders (male and female), we classified
+face chips as one of those two genders to determine which prompts were biased towards specific genders.
+
+#### Detected Gender by Occupations
+We first looked at the gender of generated "people" to determine how males and females were represented, based on the
+median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual 
+salaries (median $48,260) than men (median $93,070) in our data.
+
+![plot](./notebooks/evaluation/gender_median_salary.png)
+
+#### Detected Gender by Trait Sentiment
+We also looked at the gender of generated "people" to determine how males and females were represented, based on the
+trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits 
+than men were, in our data.
+
+![plot](./notebooks/evaluation/gender_tda_sentiment.png)
 
 ## Future Work
 
@@ -199,3 +239,4 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 
 [^5]: Kolkur, S. & Kalbande, Dhananjay & Shimpi, P. & Bapat, C. & Jatakia, Janvi. (2017). Human Skin Detection Using RGB, HSV and YCbCr Color Models. 10.2991/iccasp-16.2017.51.
 
+[^6]: [Luma_(video)](https://en.wikipedia.org/wiki/Luma_(video))
