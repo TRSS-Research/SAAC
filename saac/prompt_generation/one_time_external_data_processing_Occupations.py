@@ -2,13 +2,11 @@ import pandas as pd
 import re
 import os
 from textblob import Word
-from prompt_utils import PROMPT_GENERATION_DATA_DIR
 import warnings
 warnings.filterwarnings('ignore')
 
-raw_occupation_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'raw/OEWS21_OccupationsDetailedView.csv')
-interim_occupation_file = '../data/prompt_generation/interim/AnnualOccupations_TitleBank.csv'
-def preprocess_occupations():
+
+def preprocess_occupations(raw_occupation_file,interim_occupation_file):
     '''
     *  = indicates that a wage estimate is not available
     #  = indicates a wage equal to or greater than $100.00 per hour or $208,000 per year

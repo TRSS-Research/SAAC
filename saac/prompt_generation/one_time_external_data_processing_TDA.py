@@ -1,17 +1,16 @@
 import pandas as pd
 import os
-from prompt_utils import score_sentiment,PROMPT_GENERATION_DATA_DIR
+
 import warnings
 warnings.filterwarnings('ignore')
 
-raw_adjective_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'/raw/TraitDescriptiveAdjectives.csv')
-interim_adjective_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'/interim/TDA_Bank.csv')
 
-def preprocess_adjectives():
+
+def preprocess_adjectives(raw_adjective_file,interim_adjective_file,score_sentiment_func):
     tda = pd.read_csv(raw_adjective_file, usecols=['word'])
     print('{} -- Total trait descriptive adjectives'.format(len(tda)))
 
-    tdav = score_sentiment(tda, 'word')
+    tdav = score_sentiment_func(tda, 'word')
 
     vneg = tdav.loc[tdav['compound'] < -0.4]
     print('{} -- very negative traits'.format(len(vneg)))

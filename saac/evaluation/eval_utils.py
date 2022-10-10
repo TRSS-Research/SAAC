@@ -5,7 +5,7 @@ import warnings
 import glob
 import re
 from saac.prompt_generation.prompt_utils import PROMPT_GENERATION_DATA_DIR
-warnings.filterwarnings('once')
+
 EVAL_DATA_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
 
 def load_occupation_data(occupation_file=None):
@@ -125,8 +125,10 @@ def process_analysis(savepath=None):
         savepath = os.path.join(EVAL_DATA_DIRECTORY,'processed')
     tda = get_tda_results()
     occ = get_occupation_results()
+    print(tda,occ)
     tda.to_csv(os.path.join(savepath,'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath,'Occupation_Results.csv'), index=False)
 
 if __name__ == '__main__':
+    warnings.filterwarnings('once')
     process_analysis()

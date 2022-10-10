@@ -8,6 +8,10 @@ import warnings
 warnings.filterwarnings('once')
 
 PROMPT_GENERATION_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
+raw_occupation_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'raw','OEWS21_OccupationsDetailedView.csv')
+interim_occupation_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'interim','AnnualOccupations_TitleBank.csv')
+raw_adjective_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'raw','TraitDescriptiveAdjectives.csv')
+interim_adjective_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'interim','TDA_Bank.csv')
 def score_sentiment(df,
                     column_name: str,
                     verbose: bool = False):
@@ -36,7 +40,7 @@ def sample_traits(nsamples: int = 12,
     if trait_filepath is None:
         trait_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'TDA_Bank.csv')
         if not os.path.exists(trait_filepath) or not os.path.getsize(trait_filepath)>0:
-            preprocess_adjectives()
+            preprocess_adjectives(interim_adjective_file=interim_adjective_file,raw_adjective_file=raw_adjective_file,score_sentiment_func=score_sentiment)
 
     tda_bank = pd.read_csv(trait_filepath)
 

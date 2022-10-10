@@ -8,7 +8,7 @@
 import os
 from typing import Callable, Optional
 
-from prompt_utils import score_sentiment, generate_traits, generate_occupations, PROMPT_GENERATION_DATA_DIR
+from .prompt_utils import score_sentiment, generate_traits, generate_occupations, PROMPT_GENERATION_DATA_DIR
 import pandas as pd
 
 
