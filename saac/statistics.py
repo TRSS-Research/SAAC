@@ -4,12 +4,15 @@ from scipy.stats import binom, fisher_exact, chi2_contingency, ks_2samp
 
 def ks2sample_test(df, id_key=None, value_key=None, test=ks_2samp):
     """
-    Takes dataframe and 2 dataframe columns and applies the two sample Kolmogorov-Smirnov test to n pair of groups in
-    id_key column to compare the underlying distributions given their values in value_key column. Uses the 'twosided'
-    value for null and alternative hypothesis testing which sets the following: The null hypothesis is that the two
-    distributions are identical, F(x)=G(x) for all x The alternative is that they are not identical. With a conf
-    level of 95%, the null hypothesis can be rejected in favor of the alternative if the p-value is less than 0.05.
+    Applies the two sample Kolmogorov-Smirnov which tests if the empirical cumulative distribution of the samples
+    are statistically similar or different. Takes dataframe and 2 dataframe columns test applies to n pair of groups in
+    id_key column to compare their underlying distributions in the value_key column.
+    Uses the 'twosided' value for H0 and Ha which sets the following:
+    H0- the 2 distributions are identical, F(x)=G(x) for all x
+    Ha- the 2 distributions are not identical
+    With a confidence level of 95%, the H0 can be rejected in favor of the Ha if the p-value is less than 0.05
     https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html#id1
+
     """
     # Group dataframe by identifier:
     g = df.groupby(id_key)
