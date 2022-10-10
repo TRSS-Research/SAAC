@@ -2,31 +2,39 @@ import itertools
 from scipy.stats import binom, fisher_exact, chi2_contingency, ks_2samp
 
 
-def ks2sample_test(df, id_key=None, value_key=None, test=ks_2samp):
+def ks2sample_test(df, group_col=None, value_col=None):
     """
-    Applies the two sample Kolmogorov-Smirnov which tests if the empirical cumulative distribution of the samples
-    are statistically similar or different. Takes dataframe and 2 dataframe columns test applies to n pair of groups in
-    id_key column to compare their underlying distributions in the value_key column.
-    Uses the 'twosided' value for H0 and Ha which sets the following:
+    Takes dataframe and 2 dataframe columns and applies the 2 sample Kolmogorov-Smirnov test which evaluates whether
+    the empirical cumulative distribution of the sampled groups are statistically similar or different.
+    Uses the default 'twosided' parameter for H0 and Ha which sets the following:
     H0- the 2 distributions are identical, F(x)=G(x) for all x
     Ha- the 2 distributions are not identical
-    With a confidence level of 95%, the H0 can be rejected in favor of the Ha if the p-value is less than 0.05
     https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html#id1
 
     """
+    test = ks_2samp
     # Group dataframe by identifier:
-    g = df.groupby(id_key)
+    g = df.groupby(group_col)
     # Generate all 2-combination of identifier:
     for k1, k2 in itertools.combinations(g.groups.keys(), 2):
         # Apply Statistical Test to grouped data:
-        t = test(df.loc[g.groups[k1], value_key], df.loc[g.groups[k2], value_key], alternative='twosided')
+        t = test(df.loc[g.groups[k1], value_col], df.loc[g.groups[k2], value_col], alternative='twosided')
         # Store identifier pair(s):
-        res = {"id1": k1, "id2": k2}
+        res = {"group1": k1, "group2": k2}
         # Store statistics and p-value:
         res.update({k: getattr(t, k) for k in t._fields})
         # Yield result:
         yield res
 
+def binomial_significance(n_true_1: int, n_true_2: int, n_false_1: int, n_false_2: int):
+    table = [[n_true_1, n_true_2], [n_false_1, n_false_2]]
+
+    if n_true_1/(n_true_1 + n_false_1) < n_true_2/(n_true_2 + n_false_2):
+        alternative = "less"
+    elif n_true_1/(n_true_1 + n_false_1) > n_true_2/(n_true_2 + n_false_2):
+        alternative = "greater"
+    else:
+        alternative = "two-sided"
 def binomial_significance(n_true_1: int, n_true_2: int, n_false_1: int, n_false_2: int):
     table = [[n_true_1, n_true_2], [n_false_1, n_false_2]]
 
