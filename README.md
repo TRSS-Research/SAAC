@@ -38,7 +38,7 @@ The final area of analysis addresses a socioeconomic dimension, i.e. representat
 stratification of occupations based on median income.
 
 ## Prompt Generation
-
+`facia -generate`
 ## Images
 
 ### Face Detection -

@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 with open('requirements.txt') as f:
     required = f.read().splitlines()
-
+print(required)
 setuptools.setup(
     name="saac",
     version="0.0.1",
@@ -18,7 +18,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     entry_points ={
             'console_scripts': [
-                'facia:saac.main'
+                'facia=saac.main:main'
             ]
         },
     classifiers=[

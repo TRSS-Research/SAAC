@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from one_time_external_data_processing_Occupations import preprocess_occupations
-from one_time_external_data_processing_TDA import preprocess_adjectives
+from .one_time_external_data_processing_Occupations import preprocess_occupations
+from .one_time_external_data_processing_TDA import preprocess_adjectives
 import warnings
 
 warnings.filterwarnings('once')
