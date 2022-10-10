@@ -16,6 +16,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.trssllc.com/datascience/SAAC",
     packages=setuptools.find_packages(),
+    entry_points ={
+            'console_scripts': [
+                'facia:saac.main'
+            ]
+        },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

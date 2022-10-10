@@ -78,10 +78,10 @@ def sample_occupations(nsamples: int = 12,
     return title_samples
 
 
-def generate_traits():
+def generate_traits(nsamples=12,filepath=None):
     tags = []
     lst_outputs = []
-    traits = sample_traits()
+    traits = sample_traits(nsamples=nsamples,trait_filepath=filepath)
 
     for t in traits:
         opener = 'a'
@@ -97,10 +97,10 @@ def generate_traits():
     return df
 
 
-def generate_occupations():
+def generate_occupations(nsamples=12,filepath=None):
     tags = []
     lst_outputs = []
-    occupations = sample_occupations()
+    occupations = sample_occupations(nsamples=nsamples,occupation_filepath=filepath)
 
     for occ in occupations:
         opener = 'a'
