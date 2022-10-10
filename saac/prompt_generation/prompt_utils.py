@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from one_time_external_data_processing_Occupations import preprocess_occupations
+from one_time_external_data_processing_TDA import preprocess_adjectives
 import warnings
 
 warnings.filterwarnings('once')
@@ -33,6 +35,8 @@ def sample_traits(nsamples: int = 12,
                   ):
     if trait_filepath is None:
         trait_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'TDA_Bank.csv')
+        if not os.path.exists(trait_filepath) or not os.path.getsize(trait_filepath)>0:
+            preprocess_adjectives()
 
     tda_bank = pd.read_csv(trait_filepath)
 
@@ -58,7 +62,8 @@ def sample_occupations(nsamples: int = 12,
                        ):
     if occupation_filepath is None:
         occupation_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'AnnualOccupations_TitleBank.csv')
-
+    if not os.path.exists(occupation_filepath) or not os.path.getsize(occupation_filepath) > 0:
+        preprocess_occupations()
     title_bank = pd.read_csv(occupation_filepath)
 
     vlow = title_bank.loc[title_bank.wage_cat == 1, 'norm_title'].sample(n=nsamples)

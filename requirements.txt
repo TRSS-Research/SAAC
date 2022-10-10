@@ -9,4 +9,6 @@ numpy
 seaborn
 matplotlib
 jupyter
+textblob
+
 
