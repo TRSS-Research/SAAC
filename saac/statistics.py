@@ -1,5 +1,28 @@
-from scipy.stats import binom, fisher_exact, chi2_contingency
+import itertools
+from scipy.stats import binom, fisher_exact, chi2_contingency, ks_2samp
 
+
+def ks2sample_test(df, id_key=None, value_key=None, test=ks_2samp):
+    """
+    Takes dataframe and 2 dataframe columns and applies the two sample Kolmogorov-Smirnov test to n pair of groups in
+    id_key column to compare the underlying distributions given their values in value_key column. Uses the 'twosided'
+    value for null and alternative hypothesis testing which sets the following: The null hypothesis is that the two
+    distributions are identical, F(x)=G(x) for all x The alternative is that they are not identical. With a conf
+    level of 95%, the null hypothesis can be rejected in favor of the alternative if the p-value is less than 0.05.
+    https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html#id1
+    """
+    # Group dataframe by identifier:
+    g = df.groupby(id_key)
+    # Generate all 2-combination of identifier:
+    for k1, k2 in itertools.combinations(g.groups.keys(), 2):
+        # Apply Statistical Test to grouped data:
+        t = test(df.loc[g.groups[k1], value_key], df.loc[g.groups[k2], value_key], alternative='twosided')
+        # Store identifier pair(s):
+        res = {"id1": k1, "id2": k2}
+        # Store statistics and p-value:
+        res.update({k: getattr(t, k) for k in t._fields})
+        # Yield result:
+        yield res
 
 def binomial_significance(n_true_1: int, n_true_2: int, n_false_1: int, n_false_2: int):
     table = [[n_true_1, n_true_2], [n_false_1, n_false_2]]
