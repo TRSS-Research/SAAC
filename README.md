@@ -227,7 +227,10 @@ than men were, in our data.
 
 ## Future Work
 
+During processing of our data, we removed images with no face or faces that the Deepface model could not distinguish as either male or female. We classified these as 'no face' and 'unknown' respectively. It would be interesting in the future to analyze any trends in the prompts that produced these images. Reproducing our work with other image generation models such as Google's [Imagen](https://imagen.research.google/) or OpenAI's [DALL-E](https://openai.com/dall-e-2/) could provide insight on which prompts produce faceless images across the different models. Finally, while we focused on gender and perceived skin tone here, it may be worth analyzing trends in age or emotion in the future as well.
 
+
+*****
 
 [^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework. 10.1109/ASYU50717.2020.9259802.
 
