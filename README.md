@@ -179,6 +179,16 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 
 ## Evaluation of Results
 
+### RGB Intensity Value as Proxy for Perceived Lightness of Skin
+### Occupations by Lightness of Skin 
+### Trait Sentiment by Lightness of Skin
+### Occupations by Detected Gender
+### Sentiment by Detected Gender
+
+## Future Work
+
+
+
 [^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework. 10.1109/ASYU50717.2020.9259802.
 
 [^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X. 
