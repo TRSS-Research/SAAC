@@ -193,8 +193,7 @@ control over color balance or lighting in the generated images. Applying Contras
 Histogram Equalization (CLAHE)[^2] to the input images mitigated the variations in lighting caused
 by the choice of text prompts.
 
-
-To generate the skin tone measure, we followed the methodolgy below proposed by Harville et al.[^4]
+To generate the skin tone measure, we followed the methodology below proposed by Harville et al.[^4]
 1. Face detection
 2. Skin pixel identification
 3. Skin tone estimation
@@ -224,11 +223,6 @@ the best results.
 - Mean value - return the separate means of the RBG components of all skin pixels.
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.
 
-<<<<<<< HEAD
-### Results of image evaluation workflow
-
-- Description of output csv
-=======
 ### Results of image evaluation workflow 
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:
 | Column Name     | Value Description |
@@ -238,22 +232,27 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 | bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |
 | gender.Woman   | probability that the image is a women        |
 | gender.Man   | probability that the image is a man|
->>>>>>> 44d4b7c222585d6d9b67db10b5c51b7785e39f44
 
 ## Evaluation of Results
+
+### RGB Intensity Value as Proxy for Perceived Lightness of Skin
+### Occupations by Lightness of Skin 
+### Trait Sentiment by Lightness of Skin
+### Occupations by Detected Gender
+### Sentiment by Detected Gender
+
+## Future Work
+
+
 
 [^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework.
 10.1109/ASYU50717.2020.9259802.
 
-[^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar
-Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer
-Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X.
+[^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X. 
 
-[^3]: Zhang, Kaipeng & Zhang, Zhanpeng & Li, Zhifeng & Qiao, Yu. (2016). Joint Face Detection and Alignment Using
-Multitask Cascaded Convolutional Networks. IEEE Signal Processing Letters. 23. 10.1109/LSP.2016.2603342.
+[^3]: Zhang, Kaipeng & Zhang, Zhanpeng & Li, Zhifeng & Qiao, Yu. (2016). Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks. IEEE Signal Processing Letters. 23. 10.1109/LSP.2016.2603342.
 
-[^4]: Harville, Michael & Baker, Harlyn & Susstrunk, S.. (2005). Image-based measurement and classification of skin
-color. Proc IEEE Int Conf Image Process. 2. II - 374. 10.1109/ICIP.2005.1530070.
+[^4]: Harville, Michael & Baker, Harlyn & Susstrunk, S.. (2005). Image-based measurement and classification of skin color. Proc IEEE Int Conf Image Process. 2. II - 374. 10.1109/ICIP.2005.1530070.
 
 [^5]: Kolkur, S. & Kalbande, Dhananjay & Shimpi, P. & Bapat, C. & Jatakia, Janvi. (2017). Human Skin Detection Using RGB, HSV and YCbCr Color Models. 10.2991/iccasp-16.2017.51.
 
