@@ -1,45 +1,45 @@
-# TRSS Submission to the Stanford AI Audit Challenge
+# SAAC    
+## Prompt Generation   
 
-Artificial intelligence as the application of machine learning to human reasoning problems remains severely limited when
-leveraging large language models and reliant on human oversight for image-related tasks other than identity
-verification.
-Problems introduced by computational limits or limited labeled data are masked by an inability to generate
-intersectional
-and adversarial examples, minority classes in the open domain. This audit technology, FACIA (Facial Adjectival Color and
-Income Auditor) instead attempts to address some of the most common use cases
-in one of the most readily-available AI technologies ever: text to image synthesis.
+### Data  
+#### Trait Descriptive Adjectives  
+The word bank of trait descriptive adjectives was obtained from [Harvard Dataverse's Trait Descriptive Adjective Data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/5T80PF&version=3.0)[^6].
+ ##### *Filtering, Cleaning and Processing*  
+ Words contained in the adjective column of the masterkeys.csv were extracted and deduplicated producing a word bank of 2,818 traits. 
+Vader Sentiment's[^7] sentiment intensity analyzer was used to output a compound score for each trait. Due to the fact that the majority of trait descriptive adjectives were of a neutral sentiment (0.0 compound) and because we wanted to ensure that  generated prompts accounted for a full range of sentiment values, we created sentiment categories based on the distribution of the compound score. Sentiment categories and trait counts per category are defined as follows
 
-While withholding model weights and architectures or providing only API-level access to models provide a bottleneck for
-oversight, filtering, and correction, even analyzing training data can only expose data bias while algorithmic and human
-bias introduced
-through methods, wrappers, and assumptions. To that end, we focus on a black-box approach addressing only person-centric
-application.
-While human representations in language, facial, and object classification datasets are under constant development to
-improve privacy and equity of representation,
-the disproportionate risk of categorically missing or misrepresenting a human identity in application merits a threefold
-analysis.
+| Sentiment Category 	| Number of Traits 	| Sentiment Range           	|
+|--------------------	|------------------	|---------------------------	|
+| Very Negative      	| 164              	| compound < -0.4           	|
+| Negative           	| 190              	| compound < 0.0 &  >= -0.4 	|
+| Neutral            	| 2157             	| compound == 0.0           	|
+| Positive           	| 120              	| compound > 0.0 &  <= .4   	|
+| Very Positive      	| 187              	| compound > .4             	|
 
-First, we assess a simple descriptor's influence on generation (i.e. 'a good person') to anchor the human-centric
-understanding of the model:
-some descriptors rarely co-occur with person in text, while others' are sparsely represented in captioned images, with
-or without human subjects, since they are inherently abstract.
-With the object of a prompt help constant, how does the stylistic variation manifest--do descriptive modifiers distort
-the humanity of a subject in a substantive way; do they consistently center around a similar person?
+The full workflow is viewable in one_time_external_data_processing_TDA.py
 
-In addressing similarity between people, we settle on two variables: gender markers and facial complexion. Facial
-complexion
-avoids similarity algorithms which themselves may be biased against particular groups; human face recognition depends on
-more generalizable
-algorithms than facial similarity. Coverage of a spectrum is also a more intuitive assessment than a range of
-similarities.
-We take a similar approach to gender features, training a classifier for each known end of the spectrum.
+#### Occupation Data  
+Occupation data was obtained as a [zip file](https://www.bls.gov/oes/special.requests/oesm21nat.zip) from the U.S. Bureau of Labor Statistics website for [May 2021 National, State, Metropolitan, and Nonmetropolitan Area Occupational Employment and Wage Estimates](https://www.bls.gov/oes/current/oes_nat.htm)   
+In order to capture occupational titles at their most granular level, the raw data was filtered to only detailed view occupations.    
+ ##### *Filtering, Cleaning and Processing*  
+Occupations were filtered to only those that contained annual wage data, removing 6 hourly wage occupations from the results.   
+Annual wage data containing a *'#'* was replaced with the minimum wage amount of 208000 as indicated in the BLS notes.  Annual wage occupations underwent further filtering to remove data for occupational titles that contained *'and', 'or', 'except'* and *'/'.* The remaining 410 occupational titles underwent basic cleaning and singularization.   
+In order to ensure that generated prompts accounted for the wide range of salary wages for occupations, we created wage categories based on the distribution of the annual median wage. Wage categories are defined as follows: 
 
-The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a
-stratification of occupations based on median income.
+| Wage Category 	| Number of Occupations 	| Wage Range                                  	|
+|---------------	|-----------------------	|---------------------------------------------	|
+| Very Low      	| 50                    	| Annual Median Wage <= 35000.0               	|
+| Low           	| 133                   	| Annual Median Wage > 35000.0  &  <= 50000.0 	|
+| Middle        	| 114                   	| Annual Median Wage > 50000.0  &  <= 80000.0 	|
+| High          	| 61                    	| Annual Median Wage > 80000.0 & <= 105000.0  	|
+| Very High     	| 52                    	| Annual Median Wage > 105000.0               	|
 
-## Prompt Generation
-`facia -generate`
-## Images
+The full workflow is viewable in one_time_external_data_processing_Occupations.py
+
+## Image Generation
+Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half focusing on trait descriptive adjectives and the other half focusing on occupational titles. All of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 results.
+
+## Image Processing and Analysis
 
 ### Face Detection -
 
@@ -126,54 +126,24 @@ cross-validation approach through using [CalibratedClassifierCV](https://scikit-
 ##### Results Comparison
 The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.
 
+![plot](notebooks/image_analysis/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
+<p><i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
+
+![plot](notebooks/image_analysis/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
+<p><i>Fig. 2</i> - Uncalibrated Metrics
+
+![plot](notebooks/image_analysis/model_calibration_figures/Fig3UncalibratedModelResults.png)
+<p><i>Fig. 3</i> - Uncalibrated Model Results
+
+![plot](notebooks/image_analysis/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
+<p><i>Fig. 4</i> - Calibrated Model - Calibration Plot
 
 
-<p align="center">
-<img width="290" alt="Uncalibrated_Results" src="https://media.github.trssllc.com/user/146/files/b543f640-ed1e-4dbc-8c2d-710216b6f33a" style="width:50%">
-</p>
-<p align = "center">
-<i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
-</p>
+![plot](notebooks/image_analysis/model_calibration_figures/Fig5CalibratedMetrics.png)
+<p><i>Fig. 5</i> - Calibrated Metrics
 
-<p align="center">
-<img width="213" alt="Uncalibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/61bee301-f7ef-45e6-b705-7f7bc096ee6e" style="width:50%">
-</p>
-<p align = "center">
-<i>Fig. 2</i> - Uncalibrated Metrics
-</p>
-
-
-<p align="center">
-<img width="289" alt="Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/3cc2630e-0177-441a-b4bc-088a694fae52" style="width:50%">
-</p>
-<p align = "center">
-<i>Fig. 3</i> - Uncalibrated Model Results
-</p>
-
-
-		   
-<p align="center">
-<img width="291" alt="Calibrated_Results" src="https://media.github.trssllc.com/user/146/files/3cae1ba3-359f-481c-b3da-598c986b23db" style="width:50%">
-</p>
-<p align = "center">
-<i>Fig. 4</i> - Calibrated Model - Calibration Plot
-</p>
-
-
-<p align="center">
-<img width="209" alt="Calibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/80aa7146-3d73-4188-85c3-6d32b49c1b0b" style="width:50%">
-</p>
-<p align = "center">
-<i>Fig. 5</i> - Calibrated Metrics
-</p>
-
-<p align="center">
-<img width="277" alt="Calibrated_Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/50ccba69-a546-4c8f-b892-6a3f9178d0ea" style="width:50%">
-</p>
-<p align = "center">
-<i>Fig. 6</i> - Calibrated Model Results
-</p>
-
+![plot](notebooks/image_analysis/model_calibration_figures/Fig6CalibratedModelResults.png)
+<p><i>Fig. 6</i> - Calibrated Model Results
 
 #### Limitations & biases
 Some limitations and biases with Deepface include:
@@ -230,23 +200,65 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 | image      | image name/path       |
 | label   | 0 indicating that the image is of a woman, 1 indicating that the image is of a man        |
 | bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |
-| gender.Woman   | probability that the image is a women        |
+| gender.Woman   | probability that the image is a woman        |
 | gender.Man   | probability that the image is a man|
 
 ## Evaluation of Results
 
-### RGB Intensity Value as Proxy for Perceived Lightness of Skin
-### Occupations by Lightness of Skin 
-### Trait Sentiment by Lightness of Skin
-### Occupations by Detected Gender
-### Sentiment by Detected Gender
+#### Perceived Lightness of Skin
+A critical view on the bias present in image generation models is the representation of people of color as a function of
+the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people with darker skin are 
+represented similarly to people with lighter skin and investigated this outcome using prompts with occupations and traits.
+
+To compare the lightness of RGB skin colors, we used RGB Luma as a proxy for how we might visually perceive that lightness.
+The Luma is a weighted linear combination of the RGB values[^8]. This singular value allows a lightness comparison between 
+two RGB triples.
+
+As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing 
+Luma (Luma-converted lightness is shown below the corresponding RGB color):
+
+![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_demonstration.png)
+
+#### Lightness of Skin by Occupations
+We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation
+prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).
+
+![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_median_salary_violin.png)
+
+#### Lightness of Skin by Trait Sentiment
+We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant
+difference in mean skin lightness between groups (p=2.3e-6).
+
+![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)
+
+#### Detected Gender
+A separate aspect of bias that could be present in image generation models is different representation of genders, as a
+function of the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people of all genders
+would be represented similarly for any given prompt. Using a model that detects two genders (male and female), we classified
+face chips as one of those two genders to determine which prompts were biased towards specific genders.
+
+#### Detected Gender by Occupations
+We first looked at the gender of generated "people" to determine how males and females were represented, based on the
+median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual 
+salaries (median $48,260) than men (median $93,070) in our data.
+
+![plot](notebooks/evaluation/evaluation_figures/gender_median_salary.png)
+
+#### Detected Gender by Trait Sentiment
+We also looked at the gender of generated "people" to determine how males and females were represented, based on the
+trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits 
+than men were, in our data.
+
+![plot](notebooks/evaluation/evaluation_figures/gender_tda_sentiment.png)
 
 ## Future Work
 
+During processing of our data, we removed images with no face or faces that the Deepface model could not distinguish as either male or female. We classified these as 'no face' and 'unknown' respectively. It would be interesting in the future to analyze any trends in the prompts that produced these images. Reproducing our work with other image generation models such as Google's [Imagen](https://imagen.research.google/) or OpenAI's [DALL-E](https://openai.com/dall-e-2/) could provide insight on which prompts produce faceless images across the different models. Finally, while we focused on gender and perceived skin tone here, it may be worth analyzing trends in age or emotion in the future as well.
 
 
-[^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework.
-10.1109/ASYU50717.2020.9259802.
+*****
+
+[^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework. 10.1109/ASYU50717.2020.9259802.
 
 [^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X. 
 
@@ -256,3 +268,8 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 
 [^5]: Kolkur, S. & Kalbande, Dhananjay & Shimpi, P. & Bapat, C. & Jatakia, Janvi. (2017). Human Skin Detection Using RGB, HSV and YCbCr Color Models. 10.2991/iccasp-16.2017.51.
 
+[^6]: Condon, David; Coughlin, Joshua; Weston, Sara, 2021, "Trait Descriptive Adjectives", [https://doi.org/10.7910/DVN/5T80PF](https://doi.org/10.7910/DVN/5T80PF), Harvard Dataverse, V3, UNF:6:vG7u+/RiNFqg5vQqoxPGbw== [fileUNF]
+
+[^7]: Hutto, C.J. & Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014. 
+
+[^8]: [Luma_(video)](https://en.wikipedia.org/wiki/Luma_(video))
