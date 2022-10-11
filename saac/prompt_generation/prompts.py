@@ -40,9 +40,11 @@ def generate_prompts(output_dir: str = None,
                      sampledims: tuple[int, int] = (60, 60),
                      prompt_wrapper: Optional[Callable] = mj_prompt,
                      occupation_filename:Optional[str]=None,
-                     trait_filename:Optional[str]=None
+                     trait_filename:Optional[str]=None,
+                     force:bool=False
                      ) -> pd.DataFrame:
     if output_dir is None:
+        pathlib.Path(os.path.join(PROMPT_GENERATION_DATA_DIR,'processed')).mkdir(parents=True, exist_ok=True)
         output_dir = os.path.join(PROMPT_GENERATION_DATA_DIR, 'processed')
     trait_n, occ_n = sampledims
 
