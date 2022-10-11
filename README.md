@@ -103,54 +103,24 @@ cross-validation approach through using [CalibratedClassifierCV](https://scikit-
 ###### Results Comparison
 The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.
 
-
-
-<p align="center">
-<img width="290" alt="Uncalibrated_Results" src="https://media.github.trssllc.com/user/146/files/b543f640-ed1e-4dbc-8c2d-710216b6f33a" style="width:50%">
-</p>
-<p align = "center">
+![plot](notebooks/image_analysis/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
 <i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
-</p>
 
-<p align="center">
-<img width="213" alt="Uncalibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/61bee301-f7ef-45e6-b705-7f7bc096ee6e" style="width:50%">
-</p>
-<p align = "center">
+![plot](notebooks/image_analysis/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
 <i>Fig. 2</i> - Uncalibrated Metrics
-</p>
 
-
-<p align="center">
-<img width="289" alt="Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/3cc2630e-0177-441a-b4bc-088a694fae52" style="width:50%">
-</p>
-<p align = "center">
+![plot](notebooks/image_analysis/model_calibration_figures/Fig3UncalibratedModelResults.png)
 <i>Fig. 3</i> - Uncalibrated Model Results
-</p>
 
-
-		   
-<p align="center">
-<img width="291" alt="Calibrated_Results" src="https://media.github.trssllc.com/user/146/files/3cae1ba3-359f-481c-b3da-598c986b23db" style="width:50%">
-</p>
-<p align = "center">
+![plot](notebooks/image_analysis/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
 <i>Fig. 4</i> - Calibrated Model - Calibration Plot
-</p>
 
 
-<p align="center">
-<img width="209" alt="Calibrated_Metrics" src="https://media.github.trssllc.com/user/146/files/80aa7146-3d73-4188-85c3-6d32b49c1b0b" style="width:50%">
-</p>
-<p align = "center">
+![plot](notebooks/image_analysis/model_calibration_figures/Fig5CalibratedMetrics.png)
 <i>Fig. 5</i> - Calibrated Metrics
-</p>
 
-<p align="center">
-<img width="277" alt="Calibrated_Gender_Detection_Matrix" src="https://media.github.trssllc.com/user/146/files/50ccba69-a546-4c8f-b892-6a3f9178d0ea" style="width:50%">
-</p>
-<p align = "center">
+![plot](notebooks/image_analysis/model_calibration_figures/Fig6CalibratedModelResults.png)
 <i>Fig. 6</i> - Calibrated Model Results
-</p>
-
 
 ##### Limitations & biases
 Some limitations and biases with Deepface include:
@@ -224,19 +194,19 @@ two RGB triples.
 As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing 
 Luma (Luma-converted lightness is shown below the corresponding RGB color):
 
-![plot](./notebooks/evaluation/skin_color_intensity_demonstration.png)
+![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_demonstration.png)
 
 ##### Lightness of Skin by Occupations
 We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation
 prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).
 
-![plot](./notebooks/evaluation/skin_color_intensity_median_salary_violin.png)
+![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_median_salary_violin.png)
 
 ##### Lightness of Skin by Trait Sentiment
 We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant
 difference in mean skin lightness between groups (p=2.3e-6).
 
-![plot](./notebooks/evaluation/skin_color_intensity_tda_sentiment_violin.png)
+![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)
 
 #### Detected Gender
 A separate aspect of bias that could be present in image generation models is different representation of genders, as a
@@ -249,14 +219,14 @@ We first looked at the gender of generated "people" to determine how males and f
 median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual 
 salaries (median $48,260) than men (median $93,070) in our data.
 
-![plot](./notebooks/evaluation/gender_median_salary.png)
+![plot](notebooks/evaluation/evaluation_figures/gender_median_salary.png)
 
 ##### Detected Gender by Trait Sentiment
 We also looked at the gender of generated "people" to determine how males and females were represented, based on the
 trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits 
 than men were, in our data.
 
-![plot](./notebooks/evaluation/gender_tda_sentiment.png)
+![plot](notebooks/evaluation/evaluation_figures/gender_tda_sentiment.png)
 
 ### Future Work
 
