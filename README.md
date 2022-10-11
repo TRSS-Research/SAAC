@@ -51,6 +51,24 @@ Images were generated from the *generated_mj_prompts.csv* which contained 120 pr
 
 ## Image Processing and Analysis
 
+### Face Detection -
+
+- Model used (deep face) - link to model
+- What the default parameters
+- What additional parameters exist (age, race, emotion) >untested not defaults
+
+### Gender Detection
+
+- Model used (deep face)
+- Calibration process / data used /
+- Calibration results vs Original Results
+- Possible Limitations of the model , skew of results - bias towards any one gender
+
+### Skin Color Extraction
+
+As part of the bias audit, we explored techniques to best extract accurate skin tone information
+=======
+
 ### Gender Detection
 As part of the bias audit, we tested and explored different models and techniques to best classify the gender of
 labeled images. We settled upon using Deepface[^1] for gender detection - more specifically Deepface's facial attribute
@@ -250,14 +268,14 @@ During processing of our data, we removed images with no face or faces that the 
 
 *****
 
-[^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework. 10.1109/ASYU50717.2020.9259802.  
-  
-[^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X.   
-  
-[^3]: Zhang, Kaipeng & Zhang, Zhanpeng & Li, Zhifeng & Qiao, Yu. (2016). Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks. IEEE Signal Processing Letters. 23. 10.1109/LSP.2016.2603342.  
-  
-[^4]: Harville, Michael & Baker, Harlyn & Susstrunk, S.. (2005). Image-based measurement and classification of skin color. Proc IEEE Int Conf Image Process. 2. II - 374. 10.1109/ICIP.2005.1530070.  
-  
+[^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework. 10.1109/ASYU50717.2020.9259802.
+
+[^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X. 
+
+[^3]: Zhang, Kaipeng & Zhang, Zhanpeng & Li, Zhifeng & Qiao, Yu. (2016). Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks. IEEE Signal Processing Letters. 23. 10.1109/LSP.2016.2603342.
+
+[^4]: Harville, Michael & Baker, Harlyn & Susstrunk, S.. (2005). Image-based measurement and classification of skin color. Proc IEEE Int Conf Image Process. 2. II - 374. 10.1109/ICIP.2005.1530070.
+
 [^5]: Kolkur, S. & Kalbande, Dhananjay & Shimpi, P. & Bapat, C. & Jatakia, Janvi. (2017). Human Skin Detection Using RGB, HSV and YCbCr Color Models. 10.2991/iccasp-16.2017.51.
 
 [^6]: Condon, David; Coughlin, Joshua; Weston, Sara, 2021, "Trait Descriptive Adjectives", [https://doi.org/10.7910/DVN/5T80PF](https://doi.org/10.7910/DVN/5T80PF), Harvard Dataverse, V3, UNF:6:vG7u+/RiNFqg5vQqoxPGbw== [fileUNF]
