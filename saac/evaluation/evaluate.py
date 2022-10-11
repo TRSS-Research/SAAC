@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from saac.statistics import ks2sample_test
 from scipy.stats import ranksums,f_oneway,binomtest
-from eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
+from .eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
 
 def evaluate_by_occupation(occupation_results=None):
 	if occupation_results is None:
@@ -178,9 +178,9 @@ def evaluate_skin_by_occupation(occ_res):
 	return (F, p)
 
 
-def evaluate(filepath=None):
-	evaluate_by_adjectives(filepath)
-	evaluate_by_occupation(filepath)
+def evaluate(processed_filedir=None):
+	evaluate_by_adjectives(processed_filedir)
+	evaluate_by_occupation(processed_filedir)
 
 if __name__=='__main__':
 	evaluate()
