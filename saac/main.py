@@ -24,18 +24,19 @@ def main():
 						metavar="path",
 						const=os.path.join(MAIN_DIR,'evaluation','data','processed'),
 						help="Assesses facial generation, color composition, and gender tendencies for occupational and adjectival distributions")
-
+	parser.add_argument("-f",'--force',type=bool,default=False,nargs="?",const=True,
+						help="Whether or not to force re-computation/processing")
 	# parse the arguments from standard input
 	args = parser.parse_args()
 
 	print(args)
 	# calling functions depending on type of argument
 	if args.generate is not None:
-		generate_prompts(sampledims=args.generate)
+		generate_prompts(sampledims=args.generate,force=args.force)
 	if args.analysis is not None:
-		process_images(raw_images_dir=args.analysis)
+		process_images(raw_images_dir=args.analysis,force=args.force)
 	if args.evaluate is not None:
-		evaluate(processed_filedir=args.evaluate)
+		evaluate(processed_filedir=args.evaluate,force=args.force)
 
 
 if __name__ == "__main__":

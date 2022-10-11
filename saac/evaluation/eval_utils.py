@@ -60,26 +60,26 @@ def load_image_analysis_results():
             shutil.copyfile(src=os.path.join(ANALYSIS_DIR,'data',analysis_file[0]),dst=eval_data_path)
 
     files = glob.glob(os.path.join(eval_data_path, '*.csv'))
-    colnames = ['file_prompt','image_file','quadrant','bbox','skincolor','gender_woman','gender_man']
+    colnames = ['prompt','image','quadrant','bbox','skin color','gender.Woman','gender.Man']
     results = pd.concat([pd.read_csv(fp,header=0, names=colnames)\
                      .assign(model =os.path.basename(fp).split('_')[0]) for fp in files],sort=False)
-    base_prompt= []
-    for row in results['image_file']:
-        try:
-            base_prompt.append(row.split('_')[1:-2])
-        except:
-            base_prompt.append('')
-    results['base_prompt'] = base_prompt
-    results['base_prompt'] = results['base_prompt'].apply(lambda x: ' '.join(x)+" photorealistic")
-    results['base_prompt'] = results['base_prompt'].astype(str).str.strip().str.rstrip()
+    # base_prompt= []
+    # for row in results['']:
+    #     try:
+    #         base_prompt.append(row.split('_')[1:-2])
+    #     except:
+    #         base_prompt.append('')
+    # results['prompt'] = base_prompt
+    results['prompt'] = results['prompt'].apply(lambda x: 'a '+x+" photorealistic" if x[0]!='a' and 'photorealistic' not in x else x)
+    # results['prompt'] = results['prompt'].astype(str).str.strip().str.rstrip()
     #Normalizing gender categories
-    results['gender_woman'] = results['gender_woman'].apply(lambda x: x / 100.)
-    results['gender_man'] = results['gender_man'].apply(lambda x: x / 100.)
+    results['gender.Woman'] = results['gender.Woman'].apply(lambda x: x / 100.)
+    results['gender.Man'] = results['gender.Man'].apply(lambda x: x / 100.)
     #Mapping gender detection values to single column
-    noface= (results['skincolor'].isnull()).values
-    unknown=  ((results['gender_woman']<=.50) & (results['gender_man']<=.50)).values
-    woman= ((results['gender_woman']>=.50) & (results['gender_man']<.50)).values
-    man= ((results['gender_man']>=.50) & (results['gender_woman']<.50)).values
+    noface= (results['skin color'].isnull()).values
+    unknown=  ((results['gender.Woman']<=.50) & (results['gender.Man']<=.50)).values
+    woman= ((results['gender.Woman']>=.50) & (results['gender.Man']<.50)).values
+    man= ((results['gender.Man']>=.50) & (results['gender.Woman']<.50)).values
 
     results['gender_detected_cat'] = 0
     results['gender_detected_cat'][noface]=1
@@ -93,8 +93,8 @@ def load_image_analysis_results():
                  4: 'man'
                     }
     results['gender_detected_val'] = results['gender_detected_cat'].map(gender_dict)
-    #Extracting RGB intensity from skincolor
-    results['rgb_intensity'] = results['skincolor'].apply(lambda x:rgb_intensity(eval(x)) if not pd.isna(x) else None)
+    #Extracting RGB intensity from skin color
+    results['rgb_intensity'] = results['skin color'].apply(lambda x:rgb_intensity(eval(x)) if not pd.isna(x) else None)
     return results
 #%%
 def load_prompts():
@@ -105,29 +105,25 @@ def load_prompts():
     prompts = pd.concat([pd.read_csv(fp,header=0,usecols= cols, names=colnames)for fp in files],sort=False)
     base_prompt =[]
     for line in prompts['prompt']:
-        if '/imagine prompt:' in line:
+        if '/imagine prompt:' in line: # "/imagine prompt:a pitiless person, photorealistic --s 625"
             line = line.replace('/imagine prompt:','')
             line = line.replace(', photorealistic --s 625',' photorealistic')
             line = line.replace(',',' ')
             line = re.sub(' +',' ',line).strip().rstrip()
             base_prompt.append(line)
-        else:
+        else: # "a passionless person, photorealistic"
+            line = line.replace(',', ' ')
+            line = re.sub(' +', ' ', line).strip().rstrip()
             base_prompt.append(line)
-    prompts['base_prompt'] = base_prompt
+    prompts['prompt'] = base_prompt
     return prompts
 
-def get_occupation_results():
-    results = load_image_analysis_results()
-    prompts = load_prompts()
-    res_prompts = results.merge(prompts, right_on=['base_prompt'], left_on=['base_prompt'])
+def get_occupation_results(res_prompts):
     occupations = load_occupation_data()
     occ_results = res_prompts.merge(occupations,right_on=['norm_title'],left_on=['tag'],how='inner')
     return occ_results
 
-def get_tda_results():
-    results = load_image_analysis_results()
-    prompts = load_prompts()
-    res_prompts = results.merge(prompts, right_on=['base_prompt'], left_on=['base_prompt'])
+def get_tda_results(res_prompts):
     tda_data = load_tda_data()
     tda_results = res_prompts.merge(tda_data,right_on=['tda'],left_on=['tag'],how='inner')
     return tda_results
@@ -136,10 +132,17 @@ def process_analysis(savepath=None):
     if savepath is None or not os.path.isdir(savepath):
         savepath = os.path.join(EVAL_DATA_DIRECTORY,'processed')
         pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
-    tda = get_tda_results()
-    occ = get_occupation_results()
-    print(tda)
-    print(occ)
+    image_analysis = load_image_analysis_results()
+    # print(image_analysis)
+    # prompt,image,quadrant,bbox,skin color,gender.Woman,gender.Man
+    prompts = load_prompts()
+    # print(prompts)
+    # prompt,tag,neg,neu,pos,compound
+    res_prompts = image_analysis.merge(prompts, right_on=['prompt'], left_on=['prompt'])
+    tda = get_tda_results(res_prompts)
+    occ = get_occupation_results(res_prompts)
+    # print(tda)
+    # print(occ)
     pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
     tda.to_csv(os.path.join(savepath,'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath,'Occupation_Results.csv'), index=False)

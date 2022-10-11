@@ -8,3 +8,4 @@ numpy
 seaborn
 matplotlib
 jupyter
+build

@@ -7,10 +7,10 @@ from saac.statistics import ks2sample_test
 from scipy.stats import ranksums,f_oneway,binomtest
 from .eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
 
-def evaluate_by_occupation(occupation_results=None):
+def evaluate_by_occupation(occupation_results=None,force=True):
 	if occupation_results is None:
 		occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
-	if not os.path.exists(occupation_results):
+	if not os.path.exists(occupation_results) or force:
 		pathlib.Path(os.path.join(EVAL_DATA_DIRECTORY,'processed')).mkdir(parents=True, exist_ok=True)
 		process_analysis(os.path.dirname(occupation_results))
 	occ_res_all = pd.read_csv(occupation_results).sort_values('a_median')
@@ -70,10 +70,10 @@ def evaluate_gender_by_occupation(occ_res):
 	return(o)
 
 
-def evaluate_by_adjectives(adjective_results=None):
+def evaluate_by_adjectives(adjective_results=None,force=True):
 	if adjective_results is None:
 		adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
-	if not os.path.exists(adjective_results):
+	if not os.path.exists(adjective_results) or force:
 		process_analysis(os.path.dirname(adjective_results))
 	tda_res_all = pd.read_csv(adjective_results)
 	# print(f'Total rows: {len(tda_res_all)}')
@@ -128,7 +128,7 @@ def evaluate_skin_by_adjectives(tda_res):
 		else:
 			mask = (tda_res['tda_compound'] >= tda_division[idx - 1]) & (tda_res['tda_compound'] < tda_division[idx])
 
-		sorted_rgb = rgb_sorter(tda_res[mask]['skincolor'].apply(eval))
+		sorted_rgb = rgb_sorter(tda_res[mask]['skin color'].apply(eval))
 		# fig, ax = plt.subplots(1, 1)
 
 		tda_count, tda_division = np.histogram(tda_res['tda_compound'], bins=n_bins)
@@ -146,7 +146,7 @@ def evaluate_skin_by_adjectives(tda_res):
 			if sum(mask) <= 0:
 				continue
 
-			rgb_intensities = tda_res[mask]['skincolor'].apply(eval).apply(rgb_intensity)
+			rgb_intensities = tda_res[mask]['skin color'].apply(eval).apply(rgb_intensity)
 			all_rgb_intensities.append(list(rgb_intensities.values))
 	F, p = f_oneway(*all_rgb_intensities)
 	print(f"An analysis of variance {'fails to reject' if p>0.05 else 'suggests rejecting'} the null hypothesis that each of the sentiment divisions exhibit the same variability in RGB intensity ")
@@ -168,7 +168,7 @@ def evaluate_skin_by_occupation(occ_res):
 		if sum(mask) <= 0:
 			continue
 
-		rgb_intensities = occ_res[mask]['skincolor'].apply(eval).apply(rgb_intensity)
+		rgb_intensities = occ_res[mask]['skin color'].apply(eval).apply(rgb_intensity)
 		all_rgb_intensities.append(list(rgb_intensities.values))
 
 	F, p = f_oneway(*all_rgb_intensities)
@@ -181,16 +181,19 @@ def evaluate_skin_by_occupation(occ_res):
 	return (F, p)
 
 
-def evaluate(processed_filedir=None):
+def evaluate(processed_filedir=None,force=False):
 
 	adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
 	occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
 	if processed_filedir is not None:
 		adjective_results = os.path.join(processed_filedir, 'TDA_Results.csv')
 		occupation_results = os.path.join(processed_filedir, 'Occupation_Results.csv')
-	evaluate_by_adjectives(adjective_results)
+	if force:
+		os.remove(adjective_results)
+		os.remove(occupation_results)
 
-	evaluate_by_occupation(occupation_results)
+	evaluate_by_adjectives(adjective_results,force=force)
+	evaluate_by_occupation(occupation_results,force=force)
 
 if __name__=='__main__':
 	evaluate()
