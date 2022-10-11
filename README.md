@@ -193,7 +193,7 @@ the sentiment of the prompt, or of occupations within the prompt. We would hope 
 represented similarly to people with lighter skin and investigated this outcome using prompts with occupations and traits.
 
 To compare the lightness of RGB skin colors, we used RGB Luma as a proxy for how we might visually perceive that lightness.
-The Luma is a weighted linear combination of the RGB values[^6]. This singular value allows a lightness comparison between 
+The Luma is a weighted linear combination of the RGB values[^8]. This singular value allows a lightness comparison between 
 two RGB triples.
 
 As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing 
@@ -250,8 +250,8 @@ During processing of our data, we removed images with no face or faces that the 
   
 [^5]: Kolkur, S. & Kalbande, Dhananjay & Shimpi, P. & Bapat, C. & Jatakia, Janvi. (2017). Human Skin Detection Using RGB, HSV and YCbCr Color Models. 10.2991/iccasp-16.2017.51.
 
-[^6]: [Luma_(video)](https://en.wikipedia.org/wiki/Luma_(video))
+[^6]: Condon, David; Coughlin, Joshua; Weston, Sara, 2021, "Trait Descriptive Adjectives", [https://doi.org/10.7910/DVN/5T80PF](https://doi.org/10.7910/DVN/5T80PF), Harvard Dataverse, V3, UNF:6:vG7u+/RiNFqg5vQqoxPGbw== [fileUNF]
 
-[^7]: Condon, David; Coughlin, Joshua; Weston, Sara, 2021, "Trait Descriptive Adjectives", [https://doi.org/10.7910/DVN/5T80PF](https://doi.org/10.7910/DVN/5T80PF), Harvard Dataverse, V3, UNF:6:vG7u+/RiNFqg5vQqoxPGbw== [fileUNF]
+[^7]: Hutto, C.J. & Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014. 
 
-[^8]: Hutto, C.J. & Gilbert, E.E. (2014). VADER: A Parsimonious Rule-based Model for Sentiment Analysis of Social Media Text. Eighth International Conference on Weblogs and Social Media (ICWSM-14). Ann Arbor, MI, June 2014. 
+[^8]: [Luma_(video)](https://en.wikipedia.org/wiki/Luma_(video))
