@@ -251,6 +251,11 @@ def process_multiple(raw_root,force=False):
         ]
 
     results_df = results_df.reindex(columns=lead_cols + [col for col in results_df.columns if col not in lead_cols])
+    if force:
+        for f in os.listdir(os.path.join(ANALYSIS_DIR,'data')):
+            fpath = os.path.join(ANALYSIS_DIR,'data',f)
+            if os.path.isfile(fpath) and os.path.splitext(fpath)[-1]=='.csv':
+                os.remove()
     results_df.to_csv(Path(os.path.join(ANALYSIS_DIR,'data',f'{os.path.basename(raw_root)}_processed.csv')), index=False)
     return results_df
 

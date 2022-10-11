@@ -188,6 +188,9 @@ def evaluate(processed_filedir=None,force=False):
 	if processed_filedir is not None:
 		adjective_results = os.path.join(processed_filedir, 'TDA_Results.csv')
 		occupation_results = os.path.join(processed_filedir, 'Occupation_Results.csv')
+	if force:
+		os.remove(adjective_results)
+		os.remove(occupation_results)
 
 	evaluate_by_adjectives(adjective_results,force=force)
 	evaluate_by_occupation(occupation_results,force=force)

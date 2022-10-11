@@ -24,7 +24,8 @@ def main():
 						metavar="path",
 						const=os.path.join(MAIN_DIR,'evaluation','data','processed'),
 						help="Assesses facial generation, color composition, and gender tendencies for occupational and adjectival distributions")
-	parser.add_argument("-f",'--force',type=bool,default=False,help="Whether or not to force re-computation/processing")
+	parser.add_argument("-f",'--force',type=bool,default=False,nargs="?",const=True,
+						help="Whether or not to force re-computation/processing")
 	# parse the arguments from standard input
 	args = parser.parse_args()
 
