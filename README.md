@@ -104,23 +104,23 @@ cross-validation approach through using [CalibratedClassifierCV](https://scikit-
 The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.
 
 ![plot](notebooks/image_analysis/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
-<i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
+<p><i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
 
 ![plot](notebooks/image_analysis/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
-<i>Fig. 2</i> - Uncalibrated Metrics
+<p><i>Fig. 2</i> - Uncalibrated Metrics
 
 ![plot](notebooks/image_analysis/model_calibration_figures/Fig3UncalibratedModelResults.png)
-<i>Fig. 3</i> - Uncalibrated Model Results
+<p><i>Fig. 3</i> - Uncalibrated Model Results
 
 ![plot](notebooks/image_analysis/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
-<i>Fig. 4</i> - Calibrated Model - Calibration Plot
+<p><i>Fig. 4</i> - Calibrated Model - Calibration Plot
 
 
 ![plot](notebooks/image_analysis/model_calibration_figures/Fig5CalibratedMetrics.png)
-<i>Fig. 5</i> - Calibrated Metrics
+<p><i>Fig. 5</i> - Calibrated Metrics
 
 ![plot](notebooks/image_analysis/model_calibration_figures/Fig6CalibratedModelResults.png)
-<i>Fig. 6</i> - Calibrated Model Results
+<p><i>Fig. 6</i> - Calibrated Model Results
 
 ##### Limitations & biases
 Some limitations and biases with Deepface include:
