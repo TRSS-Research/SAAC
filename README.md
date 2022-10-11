@@ -8,9 +8,7 @@ First, we assess a simple descriptor's influence on generation (i.e. 'a good per
 In addressing similarity between people, we settle on two variables: gender markers and facial complexion. Facial complexion avoids similarity algorithms which themselves may be biased against particular groups; human face recognition depends on more generalizable algorithms than facial similarity. Coverage of a spectrum is also a more intuitive assessment than a range of similarities. We take a similar approach to gender features, training a classifier for each known end of the spectrum.
 
 The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.
-## Prompt Generation   
-
-
+## Prompt Generation
 ### Data  
 #### Trait Descriptive Adjectives  
 The word bank of trait descriptive adjectives was obtained from [Harvard Dataverse's Trait Descriptive Adjective Data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/5T80PF&version=3.0)[^6].
@@ -45,6 +43,24 @@ In order to ensure that generated prompts accounted for the wide range of salary
 | Very High     	| 52                    	| Annual Median Wage > 105000.0               	|
 
 The full workflow is viewable in one_time_external_data_processing_Occupations.py
+
+### Automated Sampling and Generation
+Our approach to prompt generation focused on developing an automated generator that samples equally across all sentiment and wage categories for Trait Descriptive Adjectives and Occupations respectively. 
+Sampled traits from are  inserted into a string constructed as follows:
+
+> {article} {trait} person
+
+ While sampled occupations are inserted into a string constructed as follows:
+
+>  {article} {trait}
+
+All generated samples contain a 'tag' column that contains the sampled trait and/or occupation.
+
+![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledTraits.png)
+<p><i>Example Sampled Traits</i> 
+
+![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledOccupations.png)
+<p><i>Example Sampled Occupations</i>
 
 ## Image Generation
 Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half focusing on trait descriptive adjectives and the other half focusing on occupational titles. All of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 results.
@@ -136,23 +152,23 @@ cross-validation approach through using [CalibratedClassifierCV](https://scikit-
 ##### Results Comparison
 The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.
 
-![plot](notebooks/image_analysis/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
+![plot](data/images/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
 <p><i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
 
-![plot](notebooks/image_analysis/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
+![plot](data/images/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
 <p><i>Fig. 2</i> - Uncalibrated Metrics
 
-![plot](notebooks/image_analysis/model_calibration_figures/Fig3UncalibratedModelResults.png)
+![plot](data/images/model_calibration_figures/Fig3UncalibratedModelResults.png)
 <p><i>Fig. 3</i> - Uncalibrated Model Results
 
-![plot](notebooks/image_analysis/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
+![plot](data/images/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
 <p><i>Fig. 4</i> - Calibrated Model - Calibration Plot
 
 
-![plot](notebooks/image_analysis/model_calibration_figures/Fig5CalibratedMetrics.png)
+![plot](data/images/model_calibration_figures/Fig5CalibratedMetrics.png)
 <p><i>Fig. 5</i> - Calibrated Metrics
 
-![plot](notebooks/image_analysis/model_calibration_figures/Fig6CalibratedModelResults.png)
+![plot](data/images/model_calibration_figures/Fig6CalibratedModelResults.png)
 <p><i>Fig. 6</i> - Calibrated Model Results
 
 #### Limitations & biases
@@ -227,19 +243,19 @@ two RGB triples.
 As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing 
 Luma (Luma-converted lightness is shown below the corresponding RGB color):
 
-![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_demonstration.png)
+![plot](data/evaluation_figures/skin_color_intensity_demonstration.png)
 
 #### Lightness of Skin by Occupations
 We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation
 prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).
 
-![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_median_salary_violin.png)
+![plot](data/evaluation_figures/skin_color_intensity_median_salary_violin.png)
 
 #### Lightness of Skin by Trait Sentiment
 We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant
 difference in mean skin lightness between groups (p=2.3e-6).
 
-![plot](notebooks/evaluation/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)
+![plot](data/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)
 
 #### Detected Gender
 A separate aspect of bias that could be present in image generation models is different representation of genders, as a
@@ -252,14 +268,14 @@ We first looked at the gender of generated "people" to determine how males and f
 median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual 
 salaries (median $48,260) than men (median $93,070) in our data.
 
-![plot](notebooks/evaluation/evaluation_figures/gender_median_salary.png)
+![plot](data/evaluation_figures/gender_median_salary.png)
 
 #### Detected Gender by Trait Sentiment
 We also looked at the gender of generated "people" to determine how males and females were represented, based on the
 trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits 
 than men were, in our data.
 
-![plot](notebooks/evaluation/evaluation_figures/gender_tda_sentiment.png)
+![plot](data/evaluation_figures/gender_tda_sentiment.png)
 
 ## Future Work
 
