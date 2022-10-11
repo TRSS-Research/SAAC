@@ -1,5 +1,15 @@
-# SAAC    
+# Stanford AI Audit Challenge    
+Artificial intelligence as the application of machine learning to human reasoning problems remains severely limited when leveraging large language models and reliant on human oversight for image-related tasks other than identity verification. Problems introduced by computational limits or limited labeled data are masked by an inability to generate intersectional and adversarial examples, minority classes in the open domain. This audit technology, FACIA (Facial Adjectival Color and Income Auditor) instead attempts to address some of the most common use cases in one of the most readily-available AI technologies ever: text to image synthesis.
+
+While withholding model weights and architectures or providing only API-level access to models provide a bottleneck for oversight, filtering, and correction, even analyzing training data can only expose data bias while algorithmic and human bias introduced through methods, wrappers, and assumptions. To that end, we focus on a black-box approach addressing only person-centric application. While human representations in language, facial, and object classification datasets are under constant development to improve privacy and equity of representation, the disproportionate risk of categorically missing or misrepresenting a human identity in application merits a threefold analysis.
+
+First, we assess a simple descriptor's influence on generation (i.e. 'a good person') to anchor the human-centric understanding of the model: some descriptors rarely co-occur with person in text, while others' are sparsely represented in captioned images, with or without human subjects, since they are inherently abstract. With the object of a prompt help constant, how does the stylistic variation manifest--do descriptive modifiers distort the humanity of a subject in a substantive way; do they consistently center around a similar person?
+
+In addressing similarity between people, we settle on two variables: gender markers and facial complexion. Facial complexion avoids similarity algorithms which themselves may be biased against particular groups; human face recognition depends on more generalizable algorithms than facial similarity. Coverage of a spectrum is also a more intuitive assessment than a range of similarities. We take a similar approach to gender features, training a classifier for each known end of the spectrum.
+
+The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.
 ## Prompt Generation   
+
 
 ### Data  
 #### Trait Descriptive Adjectives  
