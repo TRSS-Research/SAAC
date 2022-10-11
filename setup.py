@@ -5,7 +5,11 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 with open('requirements.txt') as f:
     required = f.read().splitlines()
-print(required)
+if 'deepface' in required:
+    required.pop(required.index('deepface'))
+    required.append("deepface @ git+https://github.com/serengil/deepface@94e5c59")
+    print(required)
+
 setuptools.setup(
     name="saac",
     version="0.0.1",
@@ -15,6 +19,11 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.trssllc.com/datascience/SAAC",
+    package_data={
+        'saac':['./image_analysis/models/gender_model/gender_model_default_calibrated.joblib',
+                './prompt_generation/data/raw/TraitDescriptiveAdjectives.csv',
+                './prompt_generation/data/raw/OEWS21_OccupationsDetailedView.csv']
+    },
     packages=setuptools.find_packages(),
     entry_points ={
             'console_scripts': [

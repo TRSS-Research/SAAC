@@ -111,8 +111,8 @@ class MidJourneyProcessor:
                 prog_bar=False
                 )
             i = 0
-            for k in r.keys():
-                predictions = df_predictions(r[k], tuple(a for a in actions if a in DF_ACTIONS))
+            for k in r:
+                predictions = df_predictions(k, tuple(a for a in actions if a in DF_ACTIONS))
                 if 'skin' in actions:
                     color, _ = extractor.extract(crop_bbox(batch[i], predictions['bbox']))
                     predictions['skin color'] = color
@@ -251,13 +251,11 @@ def process_multiple(raw_root):
         ]
 
     results_df = results_df.reindex(columns=lead_cols + [col for col in results_df.columns if col not in lead_cols])
-    results_df.to_csv(Path('./data/midjourney_deepface_calibrated_equalized.csv'), index=False)
+    results_df.to_csv(Path(os.path.join(ANALYSIS_DIR,'data',f'{os.path.basename(raw_root)}_processed.csv')), index=False)
     return results_df
 
 def process_images(raw_images_dir: str = './data/mj_raw'):
-
     raw_root = Path(raw_images_dir)
-
     return process_multiple(raw_root=raw_root)
 
 

@@ -1,10 +1,14 @@
 import os
+import shutil
+
 import numpy as np
 import pandas as pd
+import pathlib
 import warnings
 import glob
 import re
 from saac.prompt_generation.prompt_utils import PROMPT_GENERATION_DATA_DIR
+from saac.image_analysis.process import ANALYSIS_DIR
 
 EVAL_DATA_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
 
@@ -12,6 +16,7 @@ def load_occupation_data(occupation_file=None):
     if occupation_file is None or not os.path.exists(occupation_file):
         occupation_file = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'AnnualOccupations_TitleBank.csv')
     occupation_data = pd.read_csv(occupation_file)
+    # print('occupation data',occupation_data)
     return occupation_data
 
 
@@ -27,7 +32,7 @@ def load_tda_data(tda_file=None):
         'tda_sentiment_val'
     ]
     tda_data = pd.read_csv(tda_file, header=0, usecols=cols, names=colnames)
-
+    # print('tda data',tda_data)
     return tda_data
 
 
@@ -47,6 +52,13 @@ We will parse and extract the base prompt from the image_file column
 '''
 def load_image_analysis_results():
     eval_data_path = os.path.join(EVAL_DATA_DIRECTORY,'raw')
+    if len(os.listdir(eval_data_path))<1:
+        analysis_file = [n  for n in os.listdir(os.path.join(ANALYSIS_DIR,'data')) if os.path.splitext(n)[-1]=='.csv']
+        print(analysis_file)
+        if len(analysis_file)>0:
+            pathlib.Path(eval_data_path).mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(src=os.path.join(ANALYSIS_DIR,'data',analysis_file[0]),dst=eval_data_path)
+
     files = glob.glob(os.path.join(eval_data_path, '*.csv'))
     colnames = ['file_prompt','image_file','quadrant','bbox','skincolor','gender_woman','gender_man']
     results = pd.concat([pd.read_csv(fp,header=0, names=colnames)\
@@ -59,7 +71,7 @@ def load_image_analysis_results():
             base_prompt.append('')
     results['base_prompt'] = base_prompt
     results['base_prompt'] = results['base_prompt'].apply(lambda x: ' '.join(x)+" photorealistic")
-    results['base_prompt'] = results['base_prompt'].str.strip().str.rstrip()
+    results['base_prompt'] = results['base_prompt'].astype(str).str.strip().str.rstrip()
     #Normalizing gender categories
     results['gender_woman'] = results['gender_woman'].apply(lambda x: x / 100.)
     results['gender_man'] = results['gender_man'].apply(lambda x: x / 100.)
@@ -89,10 +101,10 @@ def load_prompts():
     prompt_data_path = os.path.join(PROMPT_GENERATION_DATA_DIR,'processed')
     files = glob.glob(os.path.join(prompt_data_path, '*.csv'))
     cols = [0, 1, 5]
-    colnames = ['full_prompt','tag','prompt_compound']
+    colnames = ['prompt','tag','compound']
     prompts = pd.concat([pd.read_csv(fp,header=0,usecols= cols, names=colnames)for fp in files],sort=False)
     base_prompt =[]
-    for line in prompts['full_prompt']:
+    for line in prompts['prompt']:
         if '/imagine prompt:' in line:
             line = line.replace('/imagine prompt:','')
             line = line.replace(', photorealistic --s 625',' photorealistic')
@@ -123,9 +135,12 @@ def get_tda_results():
 def process_analysis(savepath=None):
     if savepath is None or not os.path.isdir(savepath):
         savepath = os.path.join(EVAL_DATA_DIRECTORY,'processed')
+        pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
     tda = get_tda_results()
     occ = get_occupation_results()
-    print(tda,occ)
+    print(tda)
+    print(occ)
+    pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
     tda.to_csv(os.path.join(savepath,'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath,'Occupation_Results.csv'), index=False)
 

@@ -7,8 +7,8 @@
 # %%
 import os
 from typing import Callable, Optional
-
-from .prompt_utils import score_sentiment, generate_traits, generate_occupations, PROMPT_GENERATION_DATA_DIR
+import pathlib
+from saac.prompt_generation.prompt_utils import score_sentiment, generate_traits, generate_occupations, PROMPT_GENERATION_DATA_DIR
 import pandas as pd
 
 
@@ -56,6 +56,7 @@ def generate_prompts(output_dir: str = None,
     prompts_df = pd.concat([trait_samples, occ_samples])
     prompts_dfv = score_sentiment(prompts_df, 'prompt', verbose=True)
     prompts_dfv['prompt'] = prompts_dfv['prompt'].apply(prompt_wrapper)
+    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
     prompts_dfv.to_csv(os.path.join(output_dir, 'generated_prompts.csv'), index=False)
     return prompts_dfv
 

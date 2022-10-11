@@ -1,4 +1,6 @@
 import os.path
+import pathlib
+
 import pandas as pd
 import numpy as np
 from saac.statistics import ks2sample_test
@@ -8,8 +10,9 @@ from .eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_an
 def evaluate_by_occupation(occupation_results=None):
 	if occupation_results is None:
 		occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
-		if not os.path.exists(occupation_results):
-			process_analysis(os.path.dirname(occupation_results))
+	if not os.path.exists(occupation_results):
+		pathlib.Path(os.path.join(EVAL_DATA_DIRECTORY,'processed')).mkdir(parents=True, exist_ok=True)
+		process_analysis(os.path.dirname(occupation_results))
 	occ_res_all = pd.read_csv(occupation_results).sort_values('a_median')
 	# print(f'Total rows: {len(occ_res_all)}')
 	# print('Counts of sampled wage categories for median annual wage for all possible gender detected values ')
@@ -70,18 +73,18 @@ def evaluate_gender_by_occupation(occ_res):
 def evaluate_by_adjectives(adjective_results=None):
 	if adjective_results is None:
 		adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
-		if not os.path.exists(adjective_results):
-			process_analysis(os.path.dirname(adjective_results))
+	if not os.path.exists(adjective_results):
+		process_analysis(os.path.dirname(adjective_results))
 	tda_res_all = pd.read_csv(adjective_results)
 	# print(f'Total rows: {len(tda_res_all)}')
 
-	sentcheck = tda_res_all[tda_res_all['tda_compound'] == tda_res_all['prompt_compound']]
+	sentcheck = tda_res_all[tda_res_all['tda_compound'] == tda_res_all['compound']]
 	# print(f'Total rows where tda sentiment is equal to prompt sentiment : {len(sentcheck)}')
 
 	# print('Counts of sampled sentiment categories for all possible gender detected values ')
 	sentiment_order = ['very negative', 'negative', 'neutral', 'positive', 'very positive']
 	gender_order = ['man', 'woman', 'unknown', 'no face']
-	pd.crosstab(tda_res_all['gender_detected_val'], tda_res_all['tda_sentiment_val']).reindex(gender_order)[
+	var = pd.crosstab(tda_res_all['gender_detected_val'], tda_res_all['tda_sentiment_val']).reindex(gender_order)[
 		sentiment_order]
 	tda_res = tda_res_all[~tda_res_all['gender_detected_val'].isin(['unknown', 'no face'])]
 	gender_sig = binomtest(len(tda_res[tda_res['gender_detected_val'] == 'woman']), n=len(tda_res), p=0.5)
@@ -179,8 +182,15 @@ def evaluate_skin_by_occupation(occ_res):
 
 
 def evaluate(processed_filedir=None):
-	evaluate_by_adjectives(processed_filedir)
-	evaluate_by_occupation(processed_filedir)
+
+	adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
+	occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
+	if processed_filedir is not None:
+		adjective_results = os.path.join(processed_filedir, 'TDA_Results.csv')
+		occupation_results = os.path.join(processed_filedir, 'Occupation_Results.csv')
+	evaluate_by_adjectives(adjective_results)
+
+	evaluate_by_occupation(occupation_results)
 
 if __name__=='__main__':
 	evaluate()
