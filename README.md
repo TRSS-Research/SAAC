@@ -9,8 +9,7 @@ In addressing similarity between people, we settle on two variables: gender mark
 
 The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.
 ## Prompt Generation   
-
-
+`facia --generate <number_occupational_prompts,number_adjectival_prompts>`
 ### Data  
 #### Trait Descriptive Adjectives  
 The word bank of trait descriptive adjectives was obtained from [Harvard Dataverse's Trait Descriptive Adjective Data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/5T80PF&version=3.0)[^6].
@@ -49,25 +48,14 @@ The full workflow is viewable in one_time_external_data_processing_Occupations.p
 ## Image Generation
 Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half focusing on trait descriptive adjectives and the other half focusing on occupational titles. All of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 results.
 
+
 ## Image Processing and Analysis
 
-### Face Detection -
-
-- Model used (deep face) - link to model
-- What the default parameters
-- What additional parameters exist (age, race, emotion) >untested not defaults
-
-### Gender Detection
-
-- Model used (deep face)
-- Calibration process / data used /
-- Calibration results vs Original Results
-- Possible Limitations of the model , skew of results - bias towards any one gender
 
 ### Skin Color Extraction
 
 As part of the bias audit, we explored techniques to best extract accurate skin tone information
-=======
+
 
 ### Gender Detection
 As part of the bias audit, we tested and explored different models and techniques to best classify the gender of
