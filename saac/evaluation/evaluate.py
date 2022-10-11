@@ -128,7 +128,7 @@ def evaluate_skin_by_adjectives(tda_res):
 		else:
 			mask = (tda_res['tda_compound'] >= tda_division[idx - 1]) & (tda_res['tda_compound'] < tda_division[idx])
 
-		sorted_rgb = rgb_sorter(tda_res[mask]['skincolor'].apply(eval))
+		sorted_rgb = rgb_sorter(tda_res[mask]['skin color'].apply(eval))
 		# fig, ax = plt.subplots(1, 1)
 
 		tda_count, tda_division = np.histogram(tda_res['tda_compound'], bins=n_bins)
@@ -146,7 +146,7 @@ def evaluate_skin_by_adjectives(tda_res):
 			if sum(mask) <= 0:
 				continue
 
-			rgb_intensities = tda_res[mask]['skincolor'].apply(eval).apply(rgb_intensity)
+			rgb_intensities = tda_res[mask]['skin color'].apply(eval).apply(rgb_intensity)
 			all_rgb_intensities.append(list(rgb_intensities.values))
 	F, p = f_oneway(*all_rgb_intensities)
 	print(f"An analysis of variance {'fails to reject' if p>0.05 else 'suggests rejecting'} the null hypothesis that each of the sentiment divisions exhibit the same variability in RGB intensity ")
@@ -168,7 +168,7 @@ def evaluate_skin_by_occupation(occ_res):
 		if sum(mask) <= 0:
 			continue
 
-		rgb_intensities = occ_res[mask]['skincolor'].apply(eval).apply(rgb_intensity)
+		rgb_intensities = occ_res[mask]['skin color'].apply(eval).apply(rgb_intensity)
 		all_rgb_intensities.append(list(rgb_intensities.values))
 
 	F, p = f_oneway(*all_rgb_intensities)
@@ -189,7 +189,6 @@ def evaluate(processed_filedir=None):
 		adjective_results = os.path.join(processed_filedir, 'TDA_Results.csv')
 		occupation_results = os.path.join(processed_filedir, 'Occupation_Results.csv')
 	evaluate_by_adjectives(adjective_results)
-
 	evaluate_by_occupation(occupation_results)
 
 if __name__=='__main__':
