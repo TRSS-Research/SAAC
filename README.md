@@ -56,10 +56,10 @@ Sampled traits from are  inserted into a string constructed as follows:
 
 All generated samples contain a 'tag' column that contains the sampled trait and/or occupation.
 
-![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledTraits.png)
+![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledTraits.PNG)
 <p><i>Example Sampled Traits</i> 
 
-![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledOccupations.png)
+![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledOccupations.PNG)
 <p><i>Example Sampled Occupations</i>
 
 ## Image Generation
