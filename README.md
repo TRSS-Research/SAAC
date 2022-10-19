@@ -1,6 +1,9 @@
 **PLEASE NOTE:
 The [main branch](https://github.com/TRSS-Research/SAAC/tree/main) is under development to be converted into a command line tool. 
 Please use the [evaluation_structure branch](https://github.com/TRSS-Research/SAAC/tree/evaluation_structure) to work through the results of the evaluation. The evaluation_structure branch preserves the data and project structure as it was during the evaluation.** 
+
+*****  
+
 # Stanford AI Audit Challenge  
   
 Artificial intelligence as the application of machine learning to human reasoning problems remains severely limited when leveraging large language models and reliant on human oversight for image-related tasks other than identity verification. Problems introduced by computational limits or limited labeled data are masked by an inability to generate intersectional and adversarial examples, minority classes in the open domain. This audit technology, FACIA (Facial Adjectival Color and Income Auditor) instead attempts to address some of the most common use cases in one of the most readily-available AI technologies ever: text to image synthesis.  
@@ -12,7 +15,9 @@ First, we assess a simple descriptor's influence on generation (i.e. 'a good per
 In addressing similarity between people, we settle on two variables: gender markers and facial complexion. Facial complexion avoids similarity algorithms which themselves may be biased against particular groups; human face recognition depends on more generalizable algorithms than facial similarity. Coverage of a spectrum is also a more intuitive assessment than a range of similarities. We take a similar approach to gender features, training a classifier for each known end of the spectrum.  
   
 The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.  
-  
+
+*****  
+
 ## Prompt Generation     
 `facia --generate <number_occupational_prompts,number_adjectival_prompts>`  
   
@@ -67,12 +72,15 @@ All generated samples contain a 'tag' column that contains the sampled trait and
   
 ![plot](data/readme_figures/prompt_generation_figures/ExampleSampledOccupations.PNG)  
 <p><i>Fig. 2 - Example Sampled Occupations </i>   
-  
+
+*****  
+
 ## Image Generation  
 Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half   
 focusing on trait descriptive adjectives and the other half focusing on occupational titles.   
 Each of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 image results.  
-  
+
+*****  
   
 ## Image Processing and Analysis  
   
@@ -86,9 +94,36 @@ Deepface's facial attribute analysis module which provides age, gender, facial e
 image. The module contained various parameters that could be adjusted for a given use case, we changed some of the module   
 parameters for gender detection. By default, the module provides a dictionary output, as shown below.  
   
-```  
-{  
- "region": {'x': 230, 'y': 120, 'w': 36, 'h': 45}, "age": 28.66, "dominant_gender": "Woman", "gender": { 'Woman': 99.99407529830933, 'Man': 0.005928758764639497, } "dominant_emotion": "neutral", "emotion": { 'sad': 37.65260875225067, 'angry': 0.15512987738475204, 'surprise': 0.0022171278033056296, 'fear': 1.2489334680140018, 'happy': 4.609785228967667, 'disgust': 9.698561953541684e-07, 'neutral': 56.33133053779602 } "dominant_race": "white", "race": { 'indian': 0.5480832420289516, 'asian': 0.7830780930817127, 'latino hispanic': 2.0677512511610985, 'black': 0.06337375962175429, 'middle eastern': 3.088453598320484, 'white': 93.44925880432129 } }```  
+```
+{
+			"region": {'x': 230, 'y': 120, 'w': 36, 'h': 45},
+			"age": 28.66,
+			"dominant_gender": "Woman",
+			"gender": {
+				'Woman': 99.99407529830933,
+				'Man': 0.005928758764639497,
+			}
+			"dominant_emotion": "neutral",
+			"emotion": {
+				'sad': 37.65260875225067,
+				'angry': 0.15512987738475204,
+				'surprise': 0.0022171278033056296,
+				'fear': 1.2489334680140018,
+				'happy': 4.609785228967667,
+				'disgust': 9.698561953541684e-07,
+				'neutral': 56.33133053779602
+			}
+			"dominant_race": "white",
+			"race": {
+				'indian': 0.5480832420289516,
+				'asian': 0.7830780930817127,
+				'latino hispanic': 2.0677512511610985,
+				'black': 0.06337375962175429,
+				'middle eastern': 3.088453598320484,
+				'white': 93.44925880432129
+			}
+		}
+``` 
   
 #### Parameters  
   
@@ -114,7 +149,7 @@ we explored ways to mitigate this bias through calibrating the gender detection 
 cross-validation approach through using [CalibratedClassifierCV](https://scikit-learn.org/stable/modules/calibration.html).  
   
 ##### Results Comparison  
-The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.  
+The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 8, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 5. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 8. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 4 & 7.  
   
 ![plot](data/readme_figures/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)  
 <p><i>Fig. 3 - Uncalibrated Model - Calibration Plot</i>   
@@ -136,12 +171,9 @@ The calibration of the gender classifier evidently mitigated the bias that we we
   
 #### Limitations & biases  
 Some limitations and biases with Deepface include:  
-- The model was trained on a labeled dataset of ~4 million faces belonging to over 4,000 individuals. Due to the training data  
-  being solely comprised of photorealistic images, there are limitations in how the model predicts the gender of images that are more abstract  
-  in nature.  
-- Results are skewed towards one gender. We found that generally Deepface had a tendency to mislabel women as men (an issue that is addressed using calibration).  
-  
-  
+- The model was trained on a labeled dataset of ~4 million faces belonging to over 4,000 individuals. Due to the training data being solely comprised of photorealistic images, there are limitations in how the model predicts the gender of images that are more abstract in nature.  
+- Results are skewed towards one gender. We found that generally Deepface had a tendency to mislabel women as men (an issue that is addressed using calibration).
+
 *****  
   
 ### Skin Color Extraction  
@@ -181,9 +213,12 @@ the best results.
   
 - Mean value - return the separate means of the RBG components of all skin pixels.  
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.  
-  
+
+*****  
+
 ### Results of image evaluation workflow   
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:  
+
 | Column Name     | Value Description |  
 | ----------- | ----------- |  
 | image      | image name/path       |  
@@ -191,7 +226,9 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 | bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |  
 | gender.Woman   | probability that the image is a woman        |  
 | gender.Man   | probability that the image is a man|  
-  
+
+*****   
+
 ## Evaluation of Results  
   
 ### Perceived Lightness of Skin  
@@ -244,7 +281,9 @@ than men were, in our data.
   
 ![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)  
 <p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>  
-  
+
+*****  
+
 ## Future Work  
   
 During processing of our data, we removed images with no face or faces that the Deepface model could not distinguish as either male or female. We classified these as 'no face' and 'unknown' respectively. It would be interesting in the future to analyze any trends in the prompts that produced these images. Reproducing our work with other image generation models such as Google's [Imagen](https://imagen.research.google/) or OpenAI's [DALL-E](https://openai.com/dall-e-2/) could provide insight on which prompts produce faceless images across the different models. Finally, while we focused on gender and perceived skin tone here, it may be worth analyzing trends in age or emotion in the future as well.  
