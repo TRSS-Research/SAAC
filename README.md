@@ -1,6 +1,9 @@
 **PLEASE NOTE:
 The [main branch](https://github.com/TRSS-Research/SAAC/tree/main) is under development to be converted into a command line tool. 
 Please use the [evaluation_structure branch](https://github.com/TRSS-Research/SAAC/tree/evaluation_structure) to work through the results of the evaluation. The evaluation_structure branch preserves the data and project structure as it was during the evaluation.** 
+
+*****  
+
 # Stanford AI Audit Challenge  
   
 Artificial intelligence as the application of machine learning to human reasoning problems remains severely limited when leveraging large language models and reliant on human oversight for image-related tasks other than identity verification. Problems introduced by computational limits or limited labeled data are masked by an inability to generate intersectional and adversarial examples, minority classes in the open domain. This audit technology, FACIA (Facial Adjectival Color and Income Auditor) instead attempts to address some of the most common use cases in one of the most readily-available AI technologies ever: text to image synthesis.  
