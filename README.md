@@ -213,7 +213,7 @@ the best results.
 
 *****  
 
-## Results of image evaluation workflow   
+### Results of image evaluation workflow   
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:  
 
 | Column Name     | Value Description |  
