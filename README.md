@@ -12,7 +12,9 @@ First, we assess a simple descriptor's influence on generation (i.e. 'a good per
 In addressing similarity between people, we settle on two variables: gender markers and facial complexion. Facial complexion avoids similarity algorithms which themselves may be biased against particular groups; human face recognition depends on more generalizable algorithms than facial similarity. Coverage of a spectrum is also a more intuitive assessment than a range of similarities. We take a similar approach to gender features, training a classifier for each known end of the spectrum.  
   
 The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.  
-  
+
+*****  
+
 ## Prompt Generation     
 `facia --generate <number_occupational_prompts,number_adjectival_prompts>`  
   
@@ -67,12 +69,15 @@ All generated samples contain a 'tag' column that contains the sampled trait and
   
 ![plot](data/readme_figures/prompt_generation_figures/ExampleSampledOccupations.PNG)  
 <p><i>Fig. 2 - Example Sampled Occupations </i>   
-  
+
+*****  
+
 ## Image Generation  
 Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half   
 focusing on trait descriptive adjectives and the other half focusing on occupational titles.   
 Each of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 image results.  
-  
+
+*****  
   
 ## Image Processing and Analysis  
   
@@ -163,12 +168,9 @@ The calibration of the gender classifier evidently mitigated the bias that we we
   
 #### Limitations & biases  
 Some limitations and biases with Deepface include:  
-- The model was trained on a labeled dataset of ~4 million faces belonging to over 4,000 individuals. Due to the training data  
-  being solely comprised of photorealistic images, there are limitations in how the model predicts the gender of images that are more abstract  
-  in nature.  
-- Results are skewed towards one gender. We found that generally Deepface had a tendency to mislabel women as men (an issue that is addressed using calibration).  
-  
-  
+- The model was trained on a labeled dataset of ~4 million faces belonging to over 4,000 individuals. Due to the training data being solely comprised of photorealistic images, there are limitations in how the model predicts the gender of images that are more abstract in nature.  
+- Results are skewed towards one gender. We found that generally Deepface had a tendency to mislabel women as men (an issue that is addressed using calibration).
+
 *****  
   
 ### Skin Color Extraction  
@@ -208,9 +210,12 @@ the best results.
   
 - Mean value - return the separate means of the RBG components of all skin pixels.  
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.  
-  
-### Results of image evaluation workflow   
+
+*****  
+
+## Results of image evaluation workflow   
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:  
+
 | Column Name     | Value Description |  
 | ----------- | ----------- |  
 | image      | image name/path       |  
@@ -218,7 +223,9 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 | bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |  
 | gender.Woman   | probability that the image is a woman        |  
 | gender.Man   | probability that the image is a man|  
-  
+
+*****   
+
 ## Evaluation of Results  
   
 ### Perceived Lightness of Skin  
@@ -271,7 +278,9 @@ than men were, in our data.
   
 ![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)  
 <p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>  
-  
+
+*****  
+
 ## Future Work  
   
 During processing of our data, we removed images with no face or faces that the Deepface model could not distinguish as either male or female. We classified these as 'no face' and 'unknown' respectively. It would be interesting in the future to analyze any trends in the prompts that produced these images. Reproducing our work with other image generation models such as Google's [Imagen](https://imagen.research.google/) or OpenAI's [DALL-E](https://openai.com/dall-e-2/) could provide insight on which prompts produce faceless images across the different models. Finally, while we focused on gender and perceived skin tone here, it may be worth analyzing trends in age or emotion in the future as well.  
