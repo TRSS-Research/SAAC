@@ -14,7 +14,7 @@ setuptools.setup(
     description="Framework for text-to-image auditing",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.trssllc.com/datascience/SAAC",
+    url="//https://github.com/TRSS-Research/SAAC",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
