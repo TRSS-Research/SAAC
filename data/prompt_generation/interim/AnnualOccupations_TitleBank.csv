@@ -1,0 +1,411 @@
+occ_code,occ_title,tot_emp,emp_prse,a_mean,mean_prse,a_pct10,a_pct25,a_median,a_pct75,a_pct90,norm_title,wage_cat,wage_val
+11-1011,Chief Executives,200480.0,1.6,213020.0,0.8,60300.0,111080.0,179520.0,208000.0,208000.0,chief executive,5,very high
+11-1031,Legislators,44590.0,2.7,57110.0,1.8,17850.0,22880.0,37270.0,78510.0,100580.0,legislator,2,low
+11-2021,Marketing Managers,278690.0,1.0,153440.0,0.5,77680.0,100010.0,135030.0,192520.0,208000.0,marketing manager,5,very high
+11-2022,Sales Managers,453800.0,1.2,142390.0,0.4,61090.0,84450.0,127490.0,173010.0,208000.0,sales manager,5,very high
+11-2032,Public Relations Managers,59850.0,2.2,138000.0,0.9,66000.0,94660.0,125780.0,164830.0,208000.0,public relations manager,5,very high
+11-2033,Fundraising Managers,23190.0,1.8,119400.0,0.8,60400.0,77170.0,100810.0,150920.0,204430.0,fundraising manager,4,high
+11-3012,Administrative Services Managers,224620.0,0.7,113030.0,0.4,59470.0,77070.0,100170.0,131130.0,168910.0,administrative services manager,4,high
+11-3013,Facilities Managers,101230.0,1.3,101970.0,0.5,59010.0,74700.0,97930.0,125940.0,161140.0,facilities manager,4,high
+11-3031,Financial Managers,681070.0,0.6,153460.0,0.3,77040.0,99620.0,131710.0,191860.0,208000.0,financial manager,5,very high
+11-3051,Industrial Production Managers,192270.0,0.6,117780.0,0.3,64150.0,80190.0,103150.0,134130.0,170470.0,industrial production manager,4,high
+11-3061,Purchasing Managers,69310.0,0.9,134590.0,0.5,77310.0,98720.0,127150.0,162630.0,206540.0,purchasing manager,5,very high
+11-3121,Human Resources Managers,166530.0,1.4,136590.0,0.5,75000.0,95310.0,126230.0,163360.0,208000.0,human resources manager,5,very high
+11-9021,Construction Managers,284750.0,1.5,108210.0,0.8,60050.0,76960.0,98890.0,127110.0,163800.0,construction manager,4,high
+11-9032,"Education Administrators, Kindergarten through Secondary",274710.0,0.8,102650.0,0.3,61480.0,77450.0,98420.0,125520.0,153520.0,"education administrators, kindergarten through secondary",4,high
+11-9033,"Education Administrators, Postsecondary",155990.0,0.3,111260.0,0.3,59150.0,74730.0,96910.0,128020.0,190770.0,"education administrators, postsecondary",4,high
+11-9039,"Education Administrators, All Other",49970.0,1.7,94730.0,0.7,47630.0,62190.0,90560.0,119400.0,150540.0,education administrator,4,high
+11-9051,Food Service Managers,210680.0,1.9,63970.0,1.4,36630.0,46590.0,59440.0,76130.0,98070.0,food service manager,3,medium
+11-9071,Gambling Managers,3660.0,3.5,89190.0,1.6,47580.0,60150.0,76910.0,100170.0,145770.0,gambling manager,3,medium
+11-9081,Lodging Managers,35920.0,2.5,67770.0,1.8,35530.0,46400.0,59430.0,77510.0,103780.0,lodging manager,3,medium
+11-9121,Natural Sciences Managers,74760.0,1.6,156110.0,0.7,75040.0,101400.0,137900.0,202910.0,208000.0,natural sciences manager,5,very high
+11-9161,Emergency Management Directors,10320.0,1.6,84800.0,0.8,46670.0,59350.0,76730.0,100450.0,133580.0,emergency management director,3,medium
+11-9171,Funeral Home Managers,12710.0,3.4,82900.0,1.8,42260.0,50200.0,74000.0,97980.0,135660.0,funeral home manager,3,medium
+11-9179,"Personal Service Managers, All Other",7350.0,21.3,59580.0,2.1,31350.0,46700.0,60360.0,60890.0,84170.0,personal service manager,3,medium
+11-9199,"Managers, All Other",497890.0,0.6,129710.0,0.4,60390.0,80890.0,124650.0,162380.0,208000.0,manager,5,very high
+13-1032,"Insurance Appraisers, Auto Damage",11430.0,4.0,68180.0,1.0,47240.0,58850.0,62680.0,79110.0,91680.0,"insurance appraisers, auto damage",3,medium
+13-1041,Compliance Officers,334340.0,1.5,75810.0,0.5,38950.0,50020.0,71650.0,96660.0,117500.0,compliance officer,3,medium
+13-1051,Cost Estimators,208950.0,1.1,73740.0,0.5,38880.0,49600.0,65170.0,89210.0,115690.0,cost estimator,3,medium
+13-1071,Human Resources Specialists,740830.0,0.8,70720.0,0.4,37680.0,48080.0,62290.0,81090.0,108160.0,human resources specialist,3,medium
+13-1074,Farm Labor Contractors,440.0,24.9,54400.0,7.2,31990.0,38140.0,47770.0,61700.0,81100.0,farm labor contractor,2,low
+13-1075,Labor Relations Specialists,63810.0,1.6,77070.0,1.1,22880.0,49310.0,77010.0,100180.0,126330.0,labor relations specialist,3,medium
+13-1081,Logisticians,189320.0,1.0,79230.0,0.5,45160.0,59740.0,77030.0,98680.0,122390.0,logistician,3,medium
+13-1082,Project Management Specialists,743860.0,0.8,98420.0,0.4,49750.0,64250.0,94500.0,125430.0,159140.0,project management specialist,4,high
+13-1111,Management Analysts,768450.0,1.0,100530.0,0.5,50190.0,64150.0,93000.0,124430.0,163760.0,management analyst,4,high
+13-1131,Fundraisers,82080.0,1.3,64870.0,0.6,37020.0,47250.0,60660.0,78470.0,100620.0,fundraiser,3,medium
+13-1199,"Business Operations Specialists, All Other",1030330.0,0.6,79240.0,0.4,38050.0,49630.0,74670.0,98490.0,128030.0,business operations specialist,3,medium
+13-2031,Budget Analysts,47440.0,1.2,84240.0,0.4,49330.0,62750.0,79940.0,101730.0,124440.0,budget analyst,3,medium
+13-2041,Credit Analysts,68770.0,1.5,88030.0,0.8,47630.0,60490.0,77440.0,101250.0,153560.0,credit analyst,3,medium
+13-2052,Personal Financial Advisors,263030.0,1.6,119960.0,1.0,47570.0,61200.0,94170.0,158890.0,208000.0,personal financial advisor,4,high
+13-2053,Insurance Underwriters,107690.0,2.8,79940.0,0.9,47330.0,58840.0,76390.0,98270.0,126380.0,insurance underwriter,3,medium
+13-2054,Financial Risk Specialists,54320.0,2.1,110610.0,0.9,59370.0,77310.0,100000.0,131910.0,171000.0,financial risk specialist,4,high
+13-2061,Financial Examiners,60750.0,1.4,96180.0,0.6,48830.0,62320.0,81410.0,122030.0,160850.0,financial examiner,4,high
+13-2071,Credit Counselors,31230.0,3.6,50430.0,1.0,35240.0,37900.0,47580.0,59390.0,75230.0,credit counselor,2,low
+13-2072,Loan Officers,340170.0,1.1,80570.0,0.8,32520.0,47490.0,63380.0,98130.0,138310.0,loan officer,3,medium
+13-2082,Tax Preparers,83190.0,2.8,51080.0,1.4,23930.0,30340.0,46290.0,62100.0,85470.0,tax preparer,2,low
+13-2099,"Financial Specialists, All Other",123200.0,1.8,80370.0,1.5,38220.0,50120.0,73240.0,98680.0,129010.0,financial specialist,3,medium
+15-1211,Computer Systems Analysts,505150.0,1.0,102210.0,0.5,60680.0,77620.0,99270.0,126780.0,158010.0,computer systems analyst,4,high
+15-1212,Information Security Analysts,157220.0,2.0,113270.0,0.6,61520.0,79400.0,102600.0,131340.0,165920.0,information security analyst,4,high
+15-1231,Computer Network Support Specialists,176200.0,1.8,71350.0,0.7,38560.0,48900.0,62760.0,80220.0,102410.0,computer network support specialist,3,medium
+15-1232,Computer User Support Specialists,654310.0,0.8,57650.0,0.4,34220.0,39380.0,49770.0,68130.0,91060.0,computer user support specialist,2,low
+15-1241,Computer Network Architects,168830.0,1.4,120650.0,0.7,63240.0,83870.0,120520.0,151960.0,168890.0,computer network architect,5,very high
+15-1242,Database Administrators,85870.0,1.5,96550.0,0.9,48880.0,63160.0,96710.0,124550.0,151400.0,database administrator,4,high
+15-1243,Database Architects,50440.0,5.5,121840.0,2.5,63260.0,81110.0,123430.0,156140.0,169500.0,database architect,5,very high
+15-1251,Computer Programmers,152610.0,2.0,96650.0,1.1,47560.0,62840.0,93000.0,122600.0,155240.0,computer programmer,4,high
+15-1252,Software Developers,1364180.0,0.7,120990.0,0.4,64470.0,90870.0,120730.0,151960.0,168570.0,software developer,5,very high
+15-1254,Web Developers,84820.0,2.7,81320.0,1.1,38280.0,51100.0,77030.0,100670.0,129760.0,web developer,3,medium
+15-1299,"Computer Occupations, All Other",370190.0,1.2,98180.0,0.7,45630.0,61920.0,95270.0,127360.0,162410.0,computer occupation,4,high
+15-2011,Actuaries,23040.0,4.1,125300.0,2.4,63260.0,80320.0,105900.0,153310.0,206820.0,actuary,5,very high
+15-2021,Mathematicians,1770.0,2.8,112430.0,1.1,61760.0,78850.0,108100.0,134780.0,169500.0,mathematician,5,very high
+15-2031,Operations Research Analysts,98700.0,3.2,95830.0,2.1,48690.0,61940.0,82360.0,119240.0,160850.0,operations research analyst,4,high
+15-2041,Statisticians,31370.0,3.0,99450.0,1.1,49350.0,70120.0,95570.0,125800.0,157300.0,statistician,4,high
+15-2051,Data Scientists,105980.0,2.4,108660.0,1.1,59430.0,77620.0,100910.0,130770.0,167040.0,data scientist,4,high
+15-2099,"Mathematical Science Occupations, All Other",3970.0,6.1,77960.0,2.3,35460.0,47330.0,62460.0,97080.0,144120.0,mathematical science occupation,3,medium
+17-1022,Surveyors,46390.0,2.8,68880.0,1.3,37360.0,47690.0,61600.0,79600.0,101240.0,surveyor,3,medium
+17-2011,Aerospace Engineers,56640.0,2.6,122970.0,0.7,77440.0,96130.0,122270.0,152950.0,168370.0,aerospace engineer,5,very high
+17-2021,Agricultural Engineers,1120.0,6.8,87350.0,2.3,55810.0,61740.0,82640.0,99880.0,127030.0,agricultural engineer,4,high
+17-2041,Chemical Engineers,24180.0,3.3,121840.0,3.6,62730.0,80140.0,105550.0,139310.0,187430.0,chemical engineer,5,very high
+17-2051,Civil Engineers,304310.0,1.3,95490.0,0.5,60550.0,74250.0,88050.0,117270.0,133320.0,civil engineer,4,high
+17-2061,Computer Hardware Engineers,73750.0,2.0,136230.0,0.9,77100.0,99880.0,128170.0,164930.0,208000.0,computer hardware engineer,5,very high
+17-2071,Electrical Engineers,186020.0,1.4,107890.0,0.5,62360.0,78500.0,100420.0,128560.0,162930.0,electrical engineer,4,high
+17-2081,Environmental Engineers,42660.0,2.6,100220.0,1.2,59820.0,74850.0,96820.0,126190.0,153200.0,environmental engineer,4,high
+17-2112,Industrial Engineers,293950.0,0.9,95200.0,0.4,60850.0,76650.0,95300.0,105530.0,129620.0,industrial engineer,4,high
+17-2131,Materials Engineers,21530.0,2.7,101950.0,0.8,60580.0,76650.0,98300.0,127110.0,161080.0,materials engineer,4,high
+17-2141,Mechanical Engineers,278240.0,1.0,97000.0,0.6,60750.0,76050.0,95300.0,120180.0,136210.0,mechanical engineer,4,high
+17-2161,Nuclear Engineers,12670.0,5.1,121760.0,2.3,75460.0,93840.0,120380.0,136240.0,169000.0,nuclear engineer,5,very high
+17-2171,Petroleum Engineers,22100.0,4.2,145720.0,1.3,78390.0,100880.0,130850.0,167750.0,208000.0,petroleum engineer,5,very high
+17-2199,"Engineers, All Other",151940.0,1.6,107800.0,0.6,58730.0,77560.0,100640.0,130650.0,164690.0,engineer,4,high
+17-3013,Mechanical Drafters,47760.0,1.9,62650.0,0.7,37590.0,47230.0,60200.0,76150.0,95860.0,mechanical drafter,3,medium
+17-3019,"Drafters, All Other",15300.0,3.7,58330.0,1.2,36900.0,46150.0,54240.0,67880.0,85470.0,drafter,3,medium
+19-1011,Animal Scientists,2790.0,7.1,80390.0,7.2,46930.0,52430.0,65090.0,89610.0,129470.0,animal scientist,3,medium
+19-1022,Microbiologists,19430.0,3.9,87820.0,1.4,47630.0,59860.0,79260.0,110010.0,136780.0,microbiologist,3,medium
+19-1029,"Biological Scientists, All Other",47050.0,3.0,90010.0,1.1,48260.0,62490.0,82530.0,104210.0,133830.0,biological scientist,4,high
+19-1031,Conservation Scientists,22550.0,2.0,68230.0,0.8,38670.0,49340.0,63750.0,81500.0,100440.0,conservation scientist,3,medium
+19-1032,Foresters,9500.0,5.6,67710.0,2.0,43280.0,50510.0,64110.0,79530.0,98330.0,forester,3,medium
+19-1041,Epidemiologists,8180.0,2.2,86740.0,1.2,50100.0,62350.0,78830.0,101600.0,130050.0,epidemiologist,3,medium
+19-1099,"Life Scientists, All Other",6820.0,6.6,94430.0,3.9,48620.0,61830.0,81500.0,113400.0,151900.0,life scientist,4,high
+19-2011,Astronomers,1930.0,16.4,139410.0,2.8,61910.0,80110.0,128160.0,172490.0,208000.0,astronomer,5,very high
+19-2012,Physicists,20020.0,4.4,151580.0,0.7,78870.0,107030.0,152430.0,184280.0,208000.0,physicist,5,very high
+19-2031,Chemists,80600.0,1.9,89130.0,0.7,48100.0,61540.0,79430.0,107140.0,134780.0,chemist,3,medium
+19-2032,Materials Scientists,6690.0,5.9,104790.0,1.7,56380.0,77500.0,100090.0,130400.0,162950.0,materials scientist,4,high
+19-2043,Hydrologists,6390.0,5.5,94780.0,2.3,51120.0,64670.0,84030.0,106440.0,135170.0,hydrologist,4,high
+19-2099,"Physical Scientists, All Other",19680.0,2.0,113220.0,0.8,52060.0,78320.0,104100.0,141540.0,172490.0,physical scientist,4,high
+19-3011,Economists,15640.0,4.5,120830.0,1.7,62460.0,79760.0,105630.0,151110.0,193690.0,economist,5,very high
+19-3022,Survey Researchers,8850.0,5.3,64690.0,3.7,26360.0,38840.0,59740.0,78560.0,101180.0,survey researcher,3,medium
+19-3032,Industrial-Organizational Psychologists,610.0,6.4,113320.0,1.9,63750.0,79590.0,105310.0,135070.0,168300.0,industrial-organizational psychologist,5,very high
+19-3034,School Psychologists,57110.0,2.1,82770.0,0.8,49260.0,62070.0,78780.0,100040.0,124950.0,school psychologist,3,medium
+19-3039,"Psychologists, All Other",13800.0,3.4,98010.0,1.4,39760.0,73910.0,102900.0,120240.0,133200.0,psychologist,4,high
+19-3041,Sociologists,2640.0,11.9,96260.0,1.6,60770.0,65530.0,92910.0,114300.0,135420.0,sociologist,4,high
+19-3092,Geographers,1440.0,4.7,86740.0,1.3,53410.0,64740.0,85220.0,102060.0,118380.0,geographer,4,high
+19-3093,Historians,2910.0,5.1,72130.0,1.3,37310.0,48440.0,63940.0,92540.0,118380.0,historian,3,medium
+19-3094,Political Scientists,5650.0,5.7,120430.0,1.6,61480.0,82450.0,122510.0,155190.0,172490.0,political scientist,5,very high
+19-4012,Agricultural Technicians,13560.0,3.9,44850.0,1.0,29010.0,32160.0,40430.0,50860.0,62200.0,agricultural technician,2,low
+19-4013,Food Science Technicians,11530.0,2.6,47870.0,0.9,33710.0,37650.0,46590.0,55260.0,62920.0,food science technician,2,low
+19-4021,Biological Technicians,76150.0,1.9,51770.0,0.7,31170.0,37820.0,48140.0,61530.0,78090.0,biological technician,2,low
+19-4031,Chemical Technicians,57690.0,1.7,55040.0,0.7,31980.0,38740.0,48990.0,63180.0,80570.0,chemical technician,2,low
+19-4044,Hydrologic Technicians,3550.0,4.7,71760.0,2.6,38310.0,46410.0,62280.0,84570.0,130050.0,hydrologic technician,3,medium
+19-4051,Nuclear Technicians,5360.0,4.0,95200.0,1.1,60490.0,78810.0,99340.0,106260.0,126600.0,nuclear technician,4,high
+19-4061,Social Science Research Assistants,28690.0,1.9,56430.0,0.9,31240.0,44800.0,49720.0,61970.0,79140.0,social science research assistant,2,low
+19-4092,Forensic Science Technicians,17020.0,1.1,66850.0,0.5,37670.0,47750.0,61930.0,80670.0,103430.0,forensic science technician,3,medium
+21-1015,Rehabilitation Counselors,90310.0,2.3,44740.0,0.8,28890.0,30610.0,38560.0,52920.0,65880.0,rehabilitation counselor,2,low
+21-1019,"Counselors, All Other",29480.0,4.1,49730.0,1.8,29490.0,37060.0,45160.0,58090.0,76780.0,counselor,2,low
+21-1022,Healthcare Social Workers,173860.0,1.2,62310.0,0.5,37630.0,47630.0,60840.0,76920.0,86820.0,healthcare social worker,3,medium
+21-1029,"Social Workers, All Other",49730.0,1.7,63010.0,0.6,36780.0,46340.0,61190.0,80040.0,93540.0,social worker,3,medium
+21-1091,Health Education Specialists,55830.0,2.3,64930.0,1.0,37020.0,46770.0,60600.0,78220.0,102480.0,health education specialist,3,medium
+21-1094,Community Health Workers,61010.0,2.2,47780.0,0.7,30440.0,36940.0,46590.0,59280.0,70720.0,community health worker,2,low
+21-2011,Clergy,50790.0,2.0,57230.0,1.2,30450.0,38800.0,49720.0,63560.0,80920.0,clergy,2,low
+21-2099,"Religious Workers, All Other",10490.0,7.9,43290.0,3.6,24710.0,29170.0,37500.0,49060.0,73700.0,religious worker,2,low
+23-1011,Lawyers,681010.0,1.0,148030.0,1.1,61400.0,81620.0,127990.0,194580.0,208000.0,lawyer,5,very high
+23-1012,Judicial Law Clerks,14800.0,1.6,62730.0,1.0,36520.0,43580.0,50750.0,74390.0,102080.0,judicial law clerk,3,medium
+23-2099,"Legal Support Workers, All Other",46090.0,3.1,73000.0,1.3,36090.0,46070.0,59790.0,94520.0,141540.0,legal support worker,3,medium
+25-1011,"Business Teachers, Postsecondary",79640.0,0.7,105720.0,0.4,46910.0,61760.0,94360.0,132070.0,198240.0,"business teachers, postsecondary",4,high
+25-1021,"Computer Science Teachers, Postsecondary",37600.0,0.8,89610.0,0.6,47280.0,50010.0,77910.0,105950.0,156650.0,"computer science teachers, postsecondary",3,medium
+25-1022,"Mathematical Science Teachers, Postsecondary",44140.0,0.3,87980.0,0.4,45280.0,60310.0,77580.0,103420.0,155350.0,"mathematical science teachers, postsecondary",3,medium
+25-1031,"Architecture Teachers, Postsecondary",5950.0,1.8,98600.0,0.4,48720.0,64490.0,95160.0,124440.0,157700.0,"architecture teachers, postsecondary",4,high
+25-1032,"Engineering Teachers, Postsecondary",35440.0,0.6,115590.0,0.4,60380.0,78130.0,104940.0,134760.0,182590.0,"engineering teachers, postsecondary",4,high
+25-1041,"Agricultural Sciences Teachers, Postsecondary",8570.0,1.5,97520.0,0.5,48720.0,64280.0,95910.0,123630.0,157210.0,"agricultural sciences teachers, postsecondary",4,high
+25-1042,"Biological Science Teachers, Postsecondary",47690.0,0.3,98710.0,0.3,48720.0,61750.0,81440.0,123730.0,169410.0,"biological science teachers, postsecondary",4,high
+25-1052,"Chemistry Teachers, Postsecondary",20260.0,0.4,94060.0,0.3,49330.0,62060.0,79410.0,104270.0,157670.0,"chemistry teachers, postsecondary",3,medium
+25-1053,"Environmental Science Teachers, Postsecondary",5440.0,0.7,92210.0,0.4,47760.0,62160.0,81980.0,105850.0,150150.0,"environmental science teachers, postsecondary",4,high
+25-1054,"Physics Teachers, Postsecondary",12460.0,0.2,99480.0,0.3,49000.0,62540.0,93070.0,124660.0,164150.0,"physics teachers, postsecondary",4,high
+25-1063,"Economics Teachers, Postsecondary",11790.0,0.6,124090.0,0.4,58330.0,78400.0,104940.0,157320.0,208000.0,"economics teachers, postsecondary",4,high
+25-1064,"Geography Teachers, Postsecondary",3440.0,0.6,88150.0,0.4,48960.0,63600.0,81440.0,102720.0,131040.0,"geography teachers, postsecondary",4,high
+25-1065,"Political Science Teachers, Postsecondary",14060.0,0.6,98980.0,0.4,48990.0,63050.0,81980.0,122690.0,164670.0,"political science teachers, postsecondary",4,high
+25-1066,"Psychology Teachers, Postsecondary",36060.0,1.3,88390.0,0.7,43050.0,60740.0,77860.0,102040.0,155270.0,"psychology teachers, postsecondary",3,medium
+25-1067,"Sociology Teachers, Postsecondary",12550.0,0.4,87850.0,0.4,46870.0,61420.0,77980.0,101010.0,155270.0,"sociology teachers, postsecondary",3,medium
+25-1069,"Social Sciences Teachers, Postsecondary, All Other",16140.0,0.9,87320.0,0.5,38080.0,60270.0,77500.0,102230.0,155580.0,"social sciences teachers, postsecondary",3,medium
+25-1071,"Health Specialties Teachers, Postsecondary",191830.0,0.7,133310.0,0.4,48890.0,64630.0,102720.0,172680.0,208000.0,"health specialties teachers, postsecondary",4,high
+25-1081,"Education Teachers, Postsecondary",58780.0,0.8,76990.0,0.4,31200.0,48780.0,63910.0,97450.0,127420.0,"education teachers, postsecondary",3,medium
+25-1082,"Library Science Teachers, Postsecondary",4330.0,0.6,80850.0,0.3,48390.0,61350.0,77100.0,97340.0,124680.0,"library science teachers, postsecondary",3,medium
+25-1112,"Law Teachers, Postsecondary",14110.0,4.6,130820.0,0.7,48760.0,73150.0,123470.0,168210.0,208000.0,"law teachers, postsecondary",5,very high
+25-1113,"Social Work Teachers, Postsecondary",12280.0,1.7,77650.0,0.3,36200.0,49990.0,71010.0,98070.0,125820.0,"social work teachers, postsecondary",3,medium
+25-1122,"Communications Teachers, Postsecondary",27330.0,0.4,84580.0,0.5,46640.0,60420.0,77560.0,99330.0,132720.0,"communications teachers, postsecondary",3,medium
+25-1125,"History Teachers, Postsecondary",18590.0,0.3,86460.0,0.4,39090.0,61070.0,78130.0,101180.0,132720.0,"history teachers, postsecondary",3,medium
+25-1199,"Postsecondary Teachers, All Other",199020.0,0.8,92200.0,0.5,37550.0,56550.0,78160.0,123970.0,160930.0,postsecondary teacher,3,medium
+25-2051,"Special Education Teachers, Preschool",21130.0,5.1,71970.0,1.5,37540.0,48450.0,62420.0,85040.0,123860.0,"special education teachers, preschool",3,medium
+25-2057,"Special Education Teachers, Middle School",79070.0,3.3,68860.0,1.3,46840.0,49120.0,61820.0,78550.0,100310.0,"special education teachers, middle school",3,medium
+25-2058,"Special Education Teachers, Secondary School",145690.0,1.7,70100.0,0.7,47230.0,49850.0,62120.0,79030.0,100310.0,"special education teachers, secondary school",3,medium
+25-2059,"Special Education Teachers, All Other",38000.0,4.1,71330.0,2.1,38130.0,48350.0,61720.0,82230.0,104370.0,special education teacher,3,medium
+25-3021,Self-Enrichment Teachers,216910.0,1.6,49230.0,1.1,23860.0,29900.0,43580.0,59920.0,78660.0,self-enrichment teacher,2,low
+25-3031,"Substitute Teachers, Short-Term",374620.0,2.8,38410.0,0.9,22270.0,25670.0,30100.0,41570.0,50560.0,"substitute teachers, short-term",1,very low
+25-3041,Tutors,147100.0,2.1,41780.0,1.7,23640.0,29230.0,36470.0,47070.0,61580.0,tutor,2,low
+25-4011,Archivists,6120.0,4.5,61880.0,1.5,36750.0,46350.0,60050.0,76930.0,98070.0,archivist,3,medium
+25-4012,Curators,11030.0,2.1,63880.0,1.9,35990.0,46590.0,60110.0,76920.0,98490.0,curator,3,medium
+25-4031,Library Technicians,73000.0,1.6,39070.0,0.5,23370.0,29330.0,36970.0,47160.0,59250.0,library technician,2,low
+25-9031,Instructional Coordinators,184740.0,1.1,70560.0,0.5,38390.0,49750.0,63740.0,80780.0,101090.0,instructional coordinator,3,medium
+25-9044,"Teaching Assistants, Postsecondary",121290.0,0.5,41170.0,0.3,22730.0,29670.0,38040.0,49010.0,62260.0,"teaching assistants, postsecondary",2,low
+27-1011,Art Directors,42080.0,2.6,115430.0,1.9,57220.0,77490.0,100890.0,135350.0,194130.0,art director,4,high
+27-1012,Craft Artists,3740.0,7.6,40730.0,3.6,22760.0,28830.0,35930.0,47170.0,61290.0,craft artist,2,low
+27-1022,Fashion Designers,19310.0,5.3,83650.0,2.5,37480.0,50630.0,77450.0,101320.0,130870.0,fashion designer,3,medium
+27-1023,Floral Designers,36000.0,1.8,32100.0,1.0,22830.0,27830.0,29880.0,36770.0,44820.0,floral designer,1,very low
+27-1024,Graphic Designers,204040.0,1.3,59970.0,1.0,31310.0,39270.0,50710.0,74700.0,98260.0,graphic designer,3,medium
+27-1025,Interior Designers,61970.0,2.4,62570.0,1.2,30930.0,46420.0,60340.0,77700.0,99070.0,interior designer,3,medium
+27-1029,"Designers, All Other",10190.0,5.8,73480.0,4.5,30230.0,44580.0,62310.0,98030.0,129990.0,designer,3,medium
+27-2032,Choreographers,3990.0,12.0,49630.0,6.3,22150.0,29800.0,42700.0,61750.0,78030.0,choreographer,2,low
+27-3031,Public Relations Specialists,242710.0,0.9,73250.0,0.9,37020.0,48670.0,62800.0,81960.0,124620.0,public relations specialist,3,medium
+27-3041,Editors,88780.0,1.9,76400.0,1.3,36970.0,48380.0,63350.0,97770.0,129420.0,editor,3,medium
+27-3042,Technical Writers,47620.0,2.7,81470.0,1.1,48890.0,61830.0,78060.0,98840.0,125010.0,technical writer,3,medium
+27-4012,Broadcast Technicians,25270.0,6.4,51280.0,3.3,24580.0,30060.0,44740.0,62590.0,90850.0,broadcast technician,2,low
+27-4014,Sound Engineering Technicians,10800.0,10.0,67360.0,3.0,29110.0,42100.0,60500.0,79730.0,124690.0,sound engineering technician,3,medium
+27-4015,Lighting Technicians,4280.0,13.1,58020.0,4.0,30230.0,38470.0,51470.0,62750.0,98070.0,lighting technician,3,medium
+27-4021,Photographers,38420.0,4.6,48210.0,1.6,24540.0,30090.0,38950.0,60000.0,77760.0,photographer,2,low
+29-1011,Chiropractors,35810.0,2.5,81240.0,1.4,37400.0,50470.0,75000.0,98760.0,128750.0,chiropractor,3,medium
+29-1021,"Dentists, General",108680.0,3.3,167160.0,1.8,62810.0,101570.0,160370.0,208000.0,208000.0,dentist,5,very high
+29-1023,Orthodontists,5140.0,11.4,267280.0,6.0,95940.0,150690.0,208000.0,208000.0,208000.0,orthodontist,5,very high
+29-1024,Prosthodontists,790.0,30.4,143730.0,18.3,78850.0,100570.0,100950.0,172650.0,208000.0,prosthodontist,4,high
+29-1029,"Dentists, All Other Specialists",4750.0,11.1,179400.0,5.6,76990.0,86230.0,175160.0,208000.0,208000.0,dentists specialist,5,very high
+29-1041,Optometrists,38720.0,3.6,125440.0,1.2,61590.0,96230.0,124300.0,141730.0,192390.0,optometrist,5,very high
+29-1051,Pharmacists,312550.0,1.0,125690.0,0.3,76840.0,121070.0,128570.0,143600.0,164590.0,pharmacist,5,very high
+29-1071,Physician Assistants,132940.0,1.6,119460.0,0.6,77940.0,99880.0,121530.0,131740.0,164620.0,physician assistant,5,very high
+29-1081,Podiatrists,8840.0,6.0,158380.0,2.9,61350.0,96320.0,145840.0,208000.0,208000.0,podiatrist,5,very high
+29-1122,Occupational Therapists,127830.0,1.3,89470.0,0.8,60680.0,75710.0,85570.0,100490.0,123840.0,occupational therapist,4,high
+29-1123,Physical Therapists,225350.0,1.0,92920.0,0.4,61930.0,77750.0,95620.0,101920.0,127110.0,physical therapist,4,high
+29-1124,Radiation Therapists,16050.0,3.2,94000.0,1.0,61030.0,75490.0,82790.0,102060.0,128550.0,radiation therapist,4,high
+29-1125,Recreational Therapists,16980.0,2.5,53900.0,0.9,31710.0,37850.0,47940.0,61470.0,80610.0,recreational therapist,2,low
+29-1126,Respiratory Therapists,133410.0,0.7,68190.0,0.2,47380.0,59280.0,61830.0,77240.0,95540.0,respiratory therapist,3,medium
+29-1127,Speech-Language Pathologists,147470.0,1.5,85820.0,0.5,51310.0,61970.0,79060.0,100200.0,125560.0,speech-language pathologist,3,medium
+29-1128,Exercise Physiologists,6860.0,3.1,54030.0,1.1,36930.0,46120.0,47940.0,60780.0,76950.0,exercise physiologist,2,low
+29-1129,"Therapists, All Other",13490.0,5.3,65030.0,2.1,37010.0,46980.0,59500.0,77830.0,98490.0,therapist,3,medium
+29-1131,Veterinarians,77260.0,1.0,109920.0,0.7,60760.0,78920.0,100370.0,128410.0,165600.0,veterinarian,4,high
+29-1141,Registered Nurses,3047530.0,0.2,82750.0,0.2,59450.0,61790.0,77600.0,97580.0,120250.0,registered nurse,3,medium
+29-1151,Nurse Anesthetists,43950.0,4.7,202470.0,1.1,131840.0,164860.0,195610.0,208000.0,208000.0,nurse anesthetist,5,very high
+29-1161,Nurse Midwives,7750.0,5.7,114210.0,2.0,61500.0,96040.0,112830.0,130450.0,166170.0,nurse midwife,5,very high
+29-1171,Nurse Practitioners,234690.0,1.3,118040.0,0.4,79470.0,99540.0,120680.0,129680.0,163350.0,nurse practitioner,5,very high
+29-1181,Audiologists,13240.0,4.2,86050.0,2.1,58920.0,71390.0,78950.0,99340.0,120210.0,audiologist,3,medium
+29-1211,Anesthesiologists,31130.0,8.1,331190.0,2.0,117590.0,208000.0,208000.0,208000.0,208000.0,anesthesiologist,5,very high
+29-1212,Cardiologists,18610.0,12.7,353970.0,1.5,165610.0,208000.0,208000.0,208000.0,208000.0,cardiologist,5,very high
+29-1213,Dermatologists,9230.0,13.1,302740.0,4.3,100940.0,170020.0,208000.0,208000.0,208000.0,dermatologist,5,very high
+29-1214,Emergency Medicine Physicians,36180.0,8.9,310640.0,2.2,103310.0,208000.0,208000.0,208000.0,208000.0,emergency medicine physician,5,very high
+29-1215,Family Medicine Physicians,102930.0,3.3,235930.0,1.7,63580.0,143830.0,208000.0,208000.0,208000.0,family medicine physician,5,very high
+29-1216,General Internal Medicine Physicians,58260.0,3.4,242190.0,1.8,62850.0,122140.0,208000.0,208000.0,208000.0,general internal medicine physician,5,very high
+29-1217,Neurologists,7120.0,7.8,267660.0,2.4,78650.0,130920.0,208000.0,208000.0,208000.0,neurologist,5,very high
+29-1221,"Pediatricians, General",33620.0,7.1,198420.0,3.5,75670.0,129410.0,170480.0,208000.0,208000.0,pediatrician,5,very high
+29-1222,"Physicians, Pathologists",11010.0,9.2,267180.0,3.2,63340.0,136160.0,208000.0,208000.0,208000.0,"physicians, pathologist",5,very high
+29-1223,Psychiatrists,25520.0,3.5,249760.0,2.1,64400.0,128380.0,208000.0,208000.0,208000.0,psychiatrist,5,very high
+29-1224,Radiologists,29530.0,9.2,301720.0,2.9,78780.0,165610.0,208000.0,208000.0,208000.0,radiologist,5,very high
+29-1229,"Physicians, All Other",256670.0,1.6,231500.0,0.7,61260.0,96450.0,208000.0,208000.0,208000.0,physician,5,very high
+29-1243,Pediatric Surgeons,820.0,10.1,290310.0,1.7,99910.0,172240.0,208000.0,208000.0,208000.0,pediatric surgeon,5,very high
+29-1249,"Surgeons, All Other",29590.0,5.2,297800.0,2.6,78610.0,129070.0,208000.0,208000.0,208000.0,surgeon,5,very high
+29-1291,Acupuncturists,7250.0,12.7,71770.0,6.0,29580.0,38000.0,60570.0,98440.0,126440.0,acupuncturist,3,medium
+29-1292,Dental Hygienists,207190.0,2.1,81360.0,0.6,60100.0,73540.0,77810.0,98260.0,100200.0,dental hygienist,3,medium
+29-2032,Diagnostic Medical Sonographers,78640.0,1.7,80680.0,0.4,59640.0,62560.0,77740.0,95360.0,101650.0,diagnostic medical sonographer,3,medium
+29-2033,Nuclear Medicine Technologists,17140.0,1.8,84850.0,0.9,60550.0,74820.0,78760.0,98410.0,105530.0,nuclear medicine technologist,3,medium
+29-2035,Magnetic Resonance Imaging Technologists,38070.0,1.8,77820.0,0.4,59110.0,62090.0,77360.0,90050.0,100870.0,magnetic resonance imaging technologist,3,medium
+29-2036,Medical Dosimetrists,2400.0,4.6,124750.0,0.9,96040.0,103640.0,127270.0,132510.0,162640.0,medical dosimetrist,5,very high
+29-2042,Emergency Medical Technicians,161400.0,1.1,36690.0,0.4,23620.0,28920.0,35470.0,37660.0,47580.0,emergency medical technician,2,low
+29-2043,Paramedics,96510.0,1.7,49500.0,0.5,34420.0,37120.0,46770.0,58810.0,74200.0,paramedic,2,low
+29-2051,Dietetic Technicians,21610.0,2.7,34160.0,0.8,22790.0,28400.0,29520.0,37200.0,47120.0,dietetic technician,1,very low
+29-2052,Pharmacy Technicians,436630.0,0.7,37970.0,0.3,28740.0,29460.0,36740.0,45850.0,47580.0,pharmacy technician,2,low
+29-2053,Psychiatric Technicians,93410.0,2.4,38000.0,0.8,26980.0,29210.0,36570.0,45620.0,56380.0,psychiatric technician,2,low
+29-2055,Surgical Technologists,109060.0,1.1,53590.0,0.3,36930.0,46440.0,48530.0,60780.0,75940.0,surgical technologist,2,low
+29-2057,Ophthalmic Medical Technicians,65700.0,4.1,41120.0,1.4,28910.0,30950.0,37180.0,46700.0,58500.0,ophthalmic medical technician,2,low
+29-2072,Medical Records Specialists,180570.0,1.5,48310.0,0.4,29430.0,36930.0,46660.0,59120.0,74200.0,medical records specialist,2,low
+29-2081,"Opticians, Dispensing",73270.0,1.9,43060.0,1.2,28910.0,30310.0,37570.0,47660.0,60280.0,"opticians, dispensing",2,low
+29-2092,Hearing Aid Specialists,10790.0,6.0,59960.0,2.7,33040.0,39130.0,59500.0,75910.0,84150.0,hearing aid specialist,3,medium
+29-9091,Athletic Trainers,26070.0,2.5,54650.0,0.7,36960.0,46590.0,48420.0,60780.0,76180.0,athletic trainer,2,low
+29-9092,Genetic Counselors,2740.0,5.5,86640.0,1.1,49120.0,76300.0,80150.0,100200.0,121070.0,genetic counselor,4,high
+29-9093,Surgical Assistants,17250.0,5.6,59170.0,8.2,32680.0,37850.0,48320.0,75410.0,96870.0,surgical assistant,2,low
+31-1131,Nursing Assistants,1314830.0,0.5,33250.0,0.2,23880.0,28900.0,30310.0,37170.0,44240.0,nursing assistant,1,very low
+31-1132,Orderlies,45160.0,0.9,33440.0,0.2,23970.0,28560.0,29990.0,37380.0,46470.0,orderly,1,very low
+31-1133,Psychiatric Aides,39140.0,2.5,34640.0,0.6,23120.0,25560.0,30260.0,40960.0,48140.0,psychiatric aide,1,very low
+31-2011,Occupational Therapy Assistants,41980.0,2.6,63560.0,0.6,46810.0,50880.0,61730.0,76740.0,80210.0,occupational therapy assistant,3,medium
+31-2012,Occupational Therapy Aides,3370.0,7.8,39230.0,3.4,23860.0,28350.0,33560.0,46950.0,61960.0,occupational therapy aide,1,very low
+31-2021,Physical Therapist Assistants,93660.0,1.7,60740.0,0.7,37280.0,48670.0,61180.0,75870.0,80170.0,physical therapist assistant,3,medium
+31-2022,Physical Therapist Aides,42390.0,2.9,30370.0,1.0,22140.0,24240.0,29200.0,35320.0,37920.0,physical therapist aide,1,very low
+31-9011,Massage Therapists,81030.0,2.6,49260.0,1.2,24450.0,34770.0,46910.0,60510.0,77600.0,massage therapist,2,low
+31-9091,Dental Assistants,347170.0,1.2,42510.0,0.5,29580.0,37000.0,38660.0,47580.0,59540.0,dental assistant,2,low
+31-9092,Medical Assistants,727760.0,0.8,38190.0,0.3,29070.0,30200.0,37190.0,43490.0,48170.0,medical assistant,2,low
+31-9093,Medical Equipment Preparers,61170.0,1.1,42420.0,0.5,29490.0,35230.0,38220.0,48150.0,60300.0,medical equipment preparer,2,low
+31-9094,Medical Transcriptionists,55830.0,3.7,34220.0,0.9,22810.0,28220.0,30100.0,38220.0,48190.0,medical transcriptionist,1,very low
+31-9095,Pharmacy Aides,43560.0,3.7,34560.0,1.1,22840.0,27880.0,29930.0,37500.0,51060.0,pharmacy aide,1,very low
+31-9097,Phlebotomists,132750.0,1.4,38450.0,0.3,28990.0,30430.0,37380.0,45090.0,48490.0,phlebotomist,2,low
+31-9099,"Healthcare Support Workers, All Other",108410.0,1.6,40690.0,0.4,25810.0,29990.0,37740.0,47770.0,59250.0,healthcare support worker,2,low
+33-1011,First-Line Supervisors of Correctional Officers,54470.0,0.3,69750.0,0.2,40610.0,47680.0,62220.0,84760.0,105540.0,first-line supervisors of correctional officer,3,medium
+33-1091,First-Line Supervisors of Security Workers,55450.0,1.4,55080.0,0.7,31440.0,38290.0,50240.0,64010.0,81110.0,first-line supervisors of security worker,3,medium
+33-1099,"First-Line Supervisors of Protective Service Workers, All Other",23780.0,1.4,63910.0,0.6,37300.0,50020.0,61010.0,76880.0,98720.0,first-line supervisors of protective service worker,3,medium
+33-2011,Firefighters,317310.0,1.2,55290.0,0.6,29030.0,37140.0,50700.0,65980.0,81640.0,firefighter,3,medium
+33-3011,Bailiffs,16420.0,1.5,52340.0,0.8,27560.0,37420.0,48320.0,63160.0,78330.0,bailiff,2,low
+33-3041,Parking Enforcement Workers,7450.0,3.4,46050.0,0.9,29030.0,34550.0,46590.0,58850.0,65150.0,parking enforcement worker,2,low
+33-9011,Animal Control Workers,11600.0,1.7,42620.0,0.8,28690.0,31590.0,39160.0,49600.0,60450.0,animal control worker,2,low
+33-9032,Security Guards,1057100.0,0.4,35830.0,0.4,23250.0,28890.0,31470.0,39170.0,50040.0,security guard,1,very low
+33-9093,Transportation Security Screeners,48320.0,0.4,46380.0,0.2,39330.0,41560.0,45470.0,49360.0,55870.0,transportation security screener,2,low
+33-9094,School Bus Monitors,55310.0,2.0,30220.0,0.6,20600.0,24900.0,29100.0,34430.0,39200.0,school bus monitor,1,very low
+33-9099,"Protective Service Workers, All Other",100110.0,2.4,42160.0,0.7,28690.0,31190.0,38210.0,47760.0,61510.0,protective service worker,2,low
+35-2011,"Cooks, Fast Food",768130.0,2.2,25490.0,0.6,18050.0,21610.0,24180.0,29510.0,31420.0,"cooks, fast food",1,very low
+35-2013,"Cooks, Private Household",440.0,25.2,43260.0,12.3,29010.0,30160.0,42920.0,51260.0,54110.0,"cooks, private household",2,low
+35-2014,"Cooks, Restaurant",1193860.0,1.1,31630.0,0.6,22550.0,27810.0,30010.0,36480.0,39090.0,"cooks, restaurant",1,very low
+35-2015,"Cooks, Short Order",124800.0,6.2,28110.0,1.3,19050.0,22880.0,28560.0,31050.0,38060.0,"cooks, short order",1,very low
+35-2019,"Cooks, All Other",18170.0,9.3,33390.0,1.6,22310.0,27380.0,30720.0,37280.0,47270.0,cook,1,very low
+35-2021,Food Preparation Workers,783350.0,1.7,28810.0,0.5,19520.0,23520.0,28780.0,31340.0,38060.0,food preparation worker,1,very low
+35-3011,Bartenders,485330.0,1.4,30340.0,1.0,17870.0,20560.0,26350.0,34120.0,47710.0,bartender,1,very low
+35-3041,"Food Servers, Nonrestaurant",243030.0,1.6,29500.0,0.6,20940.0,23970.0,28730.0,31670.0,38460.0,"food servers, nonrestaurant",1,very low
+35-9021,Dishwashers,377040.0,1.6,27350.0,0.5,19200.0,22920.0,28130.0,30160.0,34870.0,dishwasher,1,very low
+37-2019,"Building Cleaning Workers, All Other",17350.0,7.2,38530.0,3.1,23130.0,28510.0,34350.0,45610.0,59250.0,building cleaning worker,1,very low
+37-2021,Pest Control Workers,85370.0,1.0,40640.0,0.8,28620.0,30520.0,37540.0,46700.0,58660.0,pest control worker,2,low
+37-3019,"Grounds Maintenance Workers, All Other",15770.0,7.7,39120.0,1.6,27720.0,30150.0,36540.0,45810.0,60820.0,grounds maintenance worker,2,low
+39-1013,First-Line Supervisors of Gambling Services Workers,19510.0,2.3,52590.0,0.8,29920.0,38960.0,49140.0,61640.0,75680.0,first-line supervisors of gambling services worker,2,low
+39-1022,First-Line Supervisors of Personal Service Workers,101030.0,1.5,45730.0,0.9,28700.0,33710.0,40390.0,50860.0,65540.0,first-line supervisors of personal service worker,2,low
+39-2011,Animal Trainers,15840.0,3.4,38230.0,2.8,23160.0,28110.0,31280.0,44630.0,58790.0,animal trainer,1,very low
+39-2021,Animal Caretakers,225680.0,1.4,29520.0,0.5,21380.0,23160.0,28600.0,31130.0,38750.0,animal caretaker,1,very low
+39-3011,Gambling Dealers,64700.0,1.7,28960.0,1.6,17740.0,18600.0,24960.0,29990.0,47810.0,gambling dealer,1,very low
+39-3019,"Gambling Service Workers, All Other",10820.0,5.0,31790.0,1.7,21340.0,23080.0,28990.0,35510.0,46260.0,gambling service worker,1,very low
+39-3021,Motion Picture Projectionists,1620.0,8.9,32970.0,2.6,22290.0,24960.0,29350.0,37450.0,47390.0,motion picture projectionist,1,very low
+39-3092,Costume Attendants,3380.0,11.6,54590.0,4.5,26950.0,31380.0,47850.0,76940.0,82710.0,costume attendant,2,low
+39-4011,Embalmers,4070.0,5.5,51210.0,2.1,29000.0,37380.0,47780.0,61200.0,78210.0,embalmer,2,low
+39-4012,Crematory Operators,2040.0,11.8,39660.0,1.5,28910.0,31690.0,37490.0,44270.0,50790.0,crematory operator,2,low
+39-4021,Funeral Attendants,32490.0,1.7,31630.0,1.1,22350.0,24490.0,29230.0,35840.0,45660.0,funeral attendant,1,very low
+39-5011,Barbers,12910.0,8.1,35700.0,3.2,22430.0,26300.0,29970.0,44730.0,53260.0,barber,1,very low
+39-5093,Shampooers,9560.0,11.2,25160.0,2.6,18720.0,22070.0,24440.0,28860.0,30420.0,shampooer,1,very low
+39-5094,Skincare Specialists,50580.0,9.1,41700.0,2.4,23100.0,29240.0,37300.0,47490.0,65680.0,skincare specialist,2,low
+39-6012,Concierges,33560.0,6.1,37520.0,2.2,25030.0,29660.0,35210.0,45070.0,57750.0,concierge,2,low
+39-9011,Childcare Workers,438520.0,1.6,27680.0,0.5,18540.0,22640.0,27490.0,30100.0,37430.0,childcare worker,1,very low
+39-9032,Recreation Workers,264020.0,1.0,32020.0,0.4,21730.0,24330.0,29680.0,36580.0,46660.0,recreation worker,1,very low
+39-9041,Residential Advisors,92500.0,1.9,34950.0,0.6,23260.0,28820.0,31220.0,38750.0,48530.0,residential advisor,1,very low
+41-1011,First-Line Supervisors of Retail Sales Workers,1143260.0,0.4,46890.0,0.3,29000.0,33520.0,39230.0,52070.0,73160.0,first-line supervisors of retail sales worker,2,low
+41-1012,First-Line Supervisors of Non-Retail Sales Workers,243920.0,0.9,92320.0,0.7,47510.0,61490.0,79680.0,107860.0,160120.0,first-line supervisors of non-retail sales worker,3,medium
+41-2011,Cashiers,3318020.0,0.5,26770.0,0.2,18580.0,22670.0,27260.0,29540.0,35230.0,cashier,1,very low
+41-2022,Parts Salespersons,265130.0,1.0,36920.0,0.5,22940.0,28530.0,34260.0,45340.0,58180.0,parts salesperson,1,very low
+41-2031,Retail Salespersons,3693490.0,0.3,31920.0,0.2,21840.0,23500.0,29120.0,35110.0,45460.0,retail salesperson,1,very low
+41-3011,Advertising Sales Agents,96660.0,2.8,66540.0,1.0,28700.0,37700.0,52340.0,79310.0,125370.0,advertising sales agent,3,medium
+41-3021,Insurance Sales Agents,422600.0,1.1,69340.0,1.2,29970.0,38210.0,49840.0,78840.0,126510.0,insurance sales agent,2,low
+41-3041,Travel Agents,37190.0,2.4,46580.0,1.4,28280.0,31200.0,43810.0,54840.0,74220.0,travel agent,2,low
+41-9021,Real Estate Brokers,48460.0,6.9,86490.0,4.5,30470.0,42920.0,62010.0,101000.0,176080.0,real estate broker,3,medium
+41-9022,Real Estate Sales Agents,175920.0,3.8,61480.0,1.8,28270.0,35880.0,48340.0,75940.0,102170.0,real estate sales agent,2,low
+41-9031,Sales Engineers,59550.0,2.9,118630.0,0.9,62300.0,79900.0,103710.0,155110.0,182850.0,sales engineer,4,high
+41-9041,Telemarketers,115130.0,3.2,30670.0,1.3,19470.0,23470.0,28910.0,34480.0,45190.0,telemarketer,1,very low
+43-2011,"Switchboard Operators, Including Answering Service",48190.0,1.8,34590.0,0.5,23120.0,28720.0,30150.0,37410.0,47330.0,"switchboard operators, including answering service",1,very low
+43-2021,Telephone Operators,3870.0,7.3,39370.0,2.6,23690.0,29300.0,37630.0,47830.0,60120.0,telephone operator,2,low
+43-2099,"Communications Equipment Operators, All Other",1340.0,3.6,49470.0,1.4,29420.0,37370.0,47000.0,60510.0,75410.0,communications equipment operator,2,low
+43-3041,Gambling Cage Workers,11140.0,2.6,30770.0,0.8,22660.0,26000.0,29360.0,35620.0,37890.0,gambling cage worker,1,very low
+43-3061,Procurement Clerks,61930.0,1.6,44930.0,0.5,30080.0,36890.0,45150.0,50450.0,60510.0,procurement clerk,2,low
+43-3071,Tellers,364210.0,1.0,34930.0,0.3,28120.0,29410.0,36310.0,37500.0,46320.0,teller,2,low
+43-3099,"Financial Clerks, All Other",30310.0,2.9,47830.0,0.9,30590.0,37040.0,46900.0,54860.0,63620.0,financial clerk,2,low
+43-4011,Brokerage Clerks,39980.0,3.6,57710.0,1.2,39290.0,47230.0,54000.0,62570.0,78290.0,brokerage clerk,3,medium
+43-4021,Correspondence Clerks,7060.0,6.2,41710.0,2.9,29420.0,36750.0,37920.0,46960.0,52310.0,correspondence clerk,2,low
+43-4051,Customer Service Representatives,2787070.0,0.5,39070.0,0.1,26340.0,29700.0,36920.0,46460.0,58640.0,customer service representative,2,low
+43-4061,"Eligibility Interviewers, Government Programs",151340.0,0.5,48570.0,0.1,31580.0,37250.0,47420.0,59760.0,63590.0,"eligibility interviewers, government program",2,low
+43-4071,File Clerks,85460.0,3.2,36820.0,0.7,23980.0,29120.0,36360.0,45760.0,49190.0,file clerk,2,low
+43-4121,"Library Assistants, Clerical",78470.0,2.1,32490.0,0.4,22270.0,23910.0,29450.0,37200.0,47000.0,"library assistants, clerical",1,very low
+43-4141,New Accounts Clerks,40500.0,3.5,41250.0,1.0,29600.0,36340.0,37840.0,46960.0,51750.0,new accounts clerk,2,low
+43-4151,Order Clerks,133850.0,2.4,41820.0,0.7,28730.0,30040.0,37920.0,47700.0,59620.0,order clerk,2,low
+43-5031,Public Safety Telecommunicators,97050.0,1.2,47030.0,0.4,29340.0,36890.0,46670.0,59360.0,63940.0,public safety telecommunicator,2,low
+43-5041,"Meter Readers, Utilities",24000.0,2.8,47430.0,0.8,28690.0,32790.0,45720.0,60020.0,75920.0,"meter readers, utility",2,low
+43-5051,Postal Service Clerks,79320.0,0.0,53210.0,0.0,38880.0,46070.0,52290.0,64210.0,65500.0,postal service clerk,3,medium
+43-5052,Postal Service Mail Carriers,335540.0,0.0,54370.0,0.0,39640.0,39640.0,52440.0,67230.0,68640.0,postal service mail carrier,3,medium
+43-9021,Data Entry Keyers,147170.0,1.7,35940.0,0.4,24510.0,29310.0,35630.0,39230.0,47700.0,data entry keyer,2,low
+43-9031,Desktop Publishers,7600.0,13.6,50930.0,6.9,27770.0,30880.0,46910.0,63760.0,79630.0,desktop publisher,2,low
+43-9061,"Office Clerks, General",2578180.0,0.4,38990.0,0.1,23500.0,29410.0,37030.0,46900.0,58870.0,office clerk,2,low
+43-9111,Statistical Assistants,6190.0,3.2,53420.0,1.5,34650.0,38320.0,48160.0,62170.0,79390.0,statistical assistant,2,low
+45-2011,Agricultural Inspectors,13630.0,2.7,47430.0,0.8,29990.0,35610.0,45140.0,56850.0,69450.0,agricultural inspector,2,low
+45-2021,Animal Breeders,950.0,12.2,43270.0,4.0,22680.0,29630.0,40090.0,58860.0,64010.0,animal breeder,2,low
+45-2091,Agricultural Equipment Operators,26180.0,3.3,36280.0,0.9,25490.0,29540.0,36360.0,40330.0,47540.0,agricultural equipment operator,2,low
+45-2099,"Agricultural Workers, All Other",6100.0,7.4,37190.0,2.5,21980.0,29060.0,32550.0,44220.0,59740.0,agricultural worker,1,very low
+45-4021,Fallers,4170.0,10.9,53760.0,5.0,28010.0,36560.0,47700.0,62200.0,90800.0,faller,2,low
+45-4022,Logging Equipment Operators,25510.0,2.2,43960.0,1.1,28810.0,35890.0,46400.0,48770.0,61070.0,logging equipment operator,2,low
+45-4029,"Logging Workers, All Other",3080.0,7.5,45430.0,2.0,28270.0,36190.0,46090.0,51400.0,62170.0,logging worker,2,low
+47-2011,Boilermakers,12920.0,5.7,69070.0,1.6,46040.0,56430.0,64290.0,79320.0,100240.0,boilermaker,3,medium
+47-2022,Stonemasons,9000.0,6.8,50170.0,2.0,30180.0,37790.0,47610.0,59380.0,75940.0,stonemason,2,low
+47-2031,Carpenters,668060.0,1.0,55190.0,0.5,31880.0,38240.0,48260.0,61980.0,80940.0,carpenter,2,low
+47-2041,Carpet Installers,19790.0,5.6,48710.0,2.0,29090.0,36310.0,46640.0,59770.0,75920.0,carpet installer,2,low
+47-2061,Construction Laborers,968760.0,1.1,44130.0,0.5,28820.0,30780.0,37770.0,48040.0,70310.0,construction laborer,2,low
+47-2072,Pile Driver Operators,3760.0,13.3,75950.0,3.0,38170.0,48950.0,76260.0,96360.0,113360.0,pile driver operator,3,medium
+47-2082,Tapers,14580.0,5.1,65140.0,1.8,37980.0,48040.0,61080.0,79080.0,100160.0,taper,3,medium
+47-2111,Electricians,650580.0,0.8,63310.0,0.5,37020.0,46900.0,60040.0,77350.0,99800.0,electrician,3,medium
+47-2121,Glaziers,52700.0,2.5,51950.0,1.1,30470.0,37630.0,47180.0,60150.0,79340.0,glazier,2,low
+47-2132,"Insulation Workers, Mechanical",28010.0,5.0,56260.0,2.2,35970.0,38540.0,48260.0,62010.0,92010.0,"insulation workers, mechanical",2,low
+47-2142,Paperhangers,2340.0,15.1,51560.0,5.2,29590.0,37670.0,47610.0,60420.0,75940.0,paperhanger,2,low
+47-2151,Pipelayers,33330.0,3.1,48510.0,1.6,30000.0,36910.0,45980.0,59240.0,75410.0,pipelayer,2,low
+47-2181,Roofers,129890.0,1.6,48890.0,0.7,29870.0,37190.0,47110.0,59480.0,73190.0,roofer,2,low
+47-2211,Sheet Metal Workers,122630.0,2.2,58760.0,0.9,34450.0,39200.0,53440.0,74920.0,95010.0,sheet metal worker,3,medium
+47-2231,Solar Photovoltaic Installers,16420.0,8.7,50710.0,3.2,36320.0,37990.0,47670.0,59010.0,72080.0,solar photovoltaic installer,2,low
+47-3012,Helpers--Carpenters,27540.0,4.3,37340.0,0.9,28080.0,29750.0,36690.0,43790.0,48030.0,assistant carpenter,2,low
+47-3013,Helpers--Electricians,72150.0,2.6,36720.0,0.6,27680.0,29630.0,36360.0,39350.0,47790.0,assistant electrician,2,low
+47-3016,Helpers--Roofers,6830.0,7.0,36000.0,1.7,25890.0,29650.0,36360.0,38550.0,47430.0,assistant roofer,2,low
+47-3019,"Helpers, Construction Trades, All Other",27300.0,3.3,37610.0,0.9,26620.0,29660.0,36690.0,43480.0,48490.0,"helpers, construction trade",2,low
+47-4031,Fence Erectors,24470.0,5.7,41140.0,1.6,28830.0,31920.0,37700.0,46550.0,58210.0,fence erector,2,low
+47-4041,Hazardous Materials Removal Workers,44240.0,3.3,49280.0,1.0,30110.0,37070.0,46300.0,59400.0,76390.0,hazardous materials removal worker,2,low
+47-4051,Highway Maintenance Workers,141150.0,1.2,44340.0,0.4,29130.0,36700.0,45880.0,48500.0,60970.0,highway maintenance worker,2,low
+47-5041,Continuous Mining Machine Operators,14740.0,3.9,57430.0,0.7,38050.0,47370.0,60300.0,61690.0,78060.0,continuous mining machine operator,3,medium
+47-5043,"Roof Bolters, Mining",1850.0,7.8,59170.0,1.5,46840.0,47610.0,59770.0,62000.0,75390.0,"roof bolters, mining",3,medium
+47-5049,"Underground Mining Machine Operators, All Other",3150.0,10.6,60290.0,2.1,41480.0,48940.0,61260.0,62890.0,79030.0,underground mining machine operator,3,medium
+47-5051,"Rock Splitters, Quarry",4450.0,10.1,41630.0,3.6,28830.0,30120.0,37700.0,47530.0,59730.0,"rock splitters, quarry",2,low
+47-5081,Helpers--Extraction Workers,5980.0,6.2,40860.0,1.2,29400.0,34600.0,37760.0,46740.0,52790.0,assistant extraction worker,2,low
+47-5099,"Extraction Workers, All Other",5380.0,7.7,50960.0,1.6,30900.0,37900.0,48140.0,59790.0,76390.0,extraction worker,2,low
+49-2091,Avionics Technicians,18910.0,2.8,69860.0,0.9,38700.0,56960.0,69280.0,80690.0,100860.0,avionics technician,3,medium
+49-3043,Rail Car Repairers,22800.0,1.9,60400.0,0.7,37430.0,47200.0,60250.0,77150.0,80840.0,rail car repairer,3,medium
+49-3052,Motorcycle Mechanics,15020.0,2.7,41970.0,1.0,27890.0,30320.0,38170.0,48060.0,60420.0,motorcycle mechanic,2,low
+49-3091,Bicycle Repairers,14760.0,5.1,34360.0,0.8,24960.0,29120.0,34690.0,37920.0,46210.0,bicycle repairer,1,very low
+49-3092,Recreational Vehicle Service Technicians,16030.0,3.0,44930.0,1.2,29080.0,36100.0,43560.0,49660.0,61270.0,recreational vehicle service technician,2,low
+49-9011,Mechanical Door Repairers,23300.0,4.7,45520.0,1.1,29780.0,36820.0,45060.0,51440.0,61400.0,mechanical door repairer,2,low
+49-9031,Home Appliance Repairers,28120.0,3.5,45340.0,1.1,28450.0,34920.0,44320.0,53890.0,63820.0,home appliance repairer,2,low
+49-9041,Industrial Machinery Mechanics,373090.0,0.7,58780.0,0.3,37370.0,47260.0,59840.0,67460.0,79270.0,industrial machinery mechanic,3,medium
+49-9043,"Maintenance Workers, Machinery",57660.0,1.5,53570.0,0.5,35010.0,40540.0,48900.0,61250.0,76110.0,"maintenance workers, machinery",2,low
+49-9044,Millwrights,39240.0,3.5,61260.0,1.1,37860.0,47540.0,60330.0,76110.0,81190.0,millwright,3,medium
+49-9062,Medical Equipment Repairers,53400.0,3.5,56420.0,1.3,31280.0,38250.0,49910.0,69920.0,81850.0,medical equipment repairer,2,low
+49-9081,Wind Turbine Service Technicians,10100.0,8.9,58580.0,1.4,46420.0,47040.0,56260.0,63930.0,77810.0,wind turbine service technician,3,medium
+49-9092,Commercial Divers,2670.0,13.7,82010.0,10.4,37130.0,47120.0,60360.0,115330.0,160110.0,commercial diver,3,medium
+49-9096,Riggers,17980.0,4.4,52100.0,1.6,30630.0,37820.0,48130.0,61090.0,76550.0,rigger,2,low
+51-3011,Bakers,181800.0,3.0,32300.0,0.6,22820.0,27660.0,29750.0,36930.0,45450.0,baker,1,very low
+51-3092,Food Batchmakers,155240.0,1.7,36190.0,0.5,23590.0,29160.0,35780.0,44170.0,47760.0,food batchmaker,2,low
+51-3099,"Food Processing Workers, All Other",46360.0,2.8,33600.0,0.5,23840.0,29210.0,31890.0,36990.0,42140.0,food processing worker,1,very low
+51-4041,Machinists,333220.0,0.9,49020.0,0.3,30220.0,37770.0,47730.0,60040.0,68250.0,machinist,2,low
+51-5112,Printing Press Operators,145290.0,1.2,41120.0,0.4,27890.0,30160.0,37770.0,47640.0,59830.0,printing press operator,2,low
+51-6031,Sewing Machine Operators,116220.0,1.6,30880.0,0.4,22290.0,26120.0,29690.0,36100.0,38420.0,sewing machine operator,1,very low
+51-6093,Upholsterers,28020.0,2.7,38220.0,0.7,23700.0,29750.0,37420.0,46210.0,52190.0,upholsterer,2,low
+51-7021,Furniture Finishers,16300.0,2.8,37310.0,0.8,26200.0,29610.0,36580.0,44520.0,48730.0,furniture finisher,2,low
+51-7031,"Model Makers, Wood",340.0,22.3,60040.0,4.6,37070.0,46910.0,60780.0,75940.0,79830.0,"model makers, wood",3,medium
+51-7032,"Patternmakers, Wood",210.0,17.8,51020.0,4.7,30070.0,37710.0,46920.0,62680.0,77280.0,"patternmakers, wood",2,low
+51-7099,"Woodworkers, All Other",7910.0,5.8,36080.0,1.2,23700.0,29120.0,35610.0,41550.0,49990.0,woodworker,2,low
+51-8011,Nuclear Power Reactor Operators,4820.0,1.1,111220.0,0.5,79720.0,98390.0,104260.0,126950.0,132960.0,nuclear power reactor operator,4,high
+51-8013,Power Plant Operators,28960.0,1.8,83740.0,0.6,48610.0,62890.0,80850.0,100340.0,110590.0,power plant operator,4,high
+51-8092,Gas Plant Operators,15110.0,3.7,76970.0,1.2,47470.0,61410.0,77850.0,96200.0,103420.0,gas plant operator,3,medium
+51-9081,Dental Laboratory Technicians,34150.0,2.6,47320.0,1.0,29600.0,36160.0,45770.0,57730.0,71740.0,dental laboratory technician,2,low
+51-9082,Medical Appliance Technicians,15300.0,6.5,46320.0,1.8,30010.0,35940.0,45280.0,49970.0,65000.0,medical appliance technician,2,low
+51-9083,Ophthalmic Laboratory Technicians,18930.0,4.8,38910.0,1.6,28080.0,30010.0,37270.0,46210.0,56190.0,ophthalmic laboratory technician,2,low
+51-9141,Semiconductor Processing Technicians,24020.0,2.2,45910.0,0.6,29830.0,36100.0,39870.0,55910.0,72260.0,semiconductor processing technician,2,low
+51-9161,Computer Numerically Controlled Tool Operators,157840.0,1.4,46240.0,0.3,30220.0,37510.0,46640.0,50630.0,61840.0,computer numerically controlled tool operator,2,low
+51-9162,Computer Numerically Controlled Tool Programmers,25800.0,1.9,62360.0,0.6,38290.0,48160.0,60780.0,76540.0,86940.0,computer numerically controlled tool programmer,3,medium
+51-9197,Tire Builders,17240.0,2.2,47840.0,0.6,30500.0,37630.0,47940.0,60110.0,60390.0,tire builder,2,low
+51-9198,Helpers--Production Workers,202860.0,1.3,32910.0,0.4,22830.0,28260.0,30000.0,37120.0,46230.0,assistant production worker,1,very low
+51-9199,"Production Workers, All Other",204500.0,1.6,36230.0,0.5,23700.0,28840.0,32930.0,39530.0,49980.0,production worker,1,very low
+53-2012,Commercial Pilots,42770.0,2.6,115080.0,1.6,50080.0,75370.0,99640.0,134110.0,205940.0,commercial pilot,4,high
+53-2021,Air Traffic Controllers,21230.0,0.5,127920.0,0.2,71880.0,90330.0,129750.0,163700.0,185990.0,air traffic controller,5,very high
+53-2022,Airfield Operations Specialists,12610.0,2.9,54360.0,0.9,30770.0,37990.0,47880.0,63350.0,81910.0,airfield operations specialist,2,low
+53-2031,Flight Attendants,96900.0,0.3,62280.0,0.2,37020.0,48780.0,61640.0,76920.0,81400.0,flight attendant,3,medium
+53-3033,Light Truck Drivers,1010040.0,0.7,42630.0,0.3,24380.0,30350.0,38280.0,48790.0,65500.0,light truck driver,2,low
+53-3051,"Bus Drivers, School",361420.0,1.2,38750.0,0.7,19860.0,29490.0,37910.0,47520.0,54190.0,"bus drivers, school",2,low
+53-3054,Taxi Drivers,13950.0,4.0,30050.0,1.6,21010.0,23950.0,29310.0,33620.0,38670.0,taxi driver,1,very low
+53-3099,"Motor Vehicle Operators, All Other",48690.0,3.3,36410.0,1.7,20470.0,24710.0,30600.0,45790.0,59640.0,motor vehicle operator,1,very low
+53-4011,Locomotive Engineers,38980.0,1.3,72940.0,1.0,48780.0,62410.0,79740.0,82050.0,84120.0,locomotive engineer,3,medium
+53-4099,"Rail Transportation Workers, All Other",1140.0,12.3,54140.0,3.4,34170.0,38400.0,47590.0,63530.0,77770.0,rail transportation worker,2,low
+53-5022,Motorboat Operators,2740.0,11.0,44410.0,2.8,28350.0,32620.0,38670.0,51020.0,66640.0,motorboat operator,2,low
+53-5031,Ship Engineers,7650.0,4.2,96910.0,2.2,49420.0,64330.0,82410.0,105910.0,139410.0,ship engineer,4,high
+53-6021,Parking Attendants,91160.0,3.6,29210.0,0.9,19970.0,23410.0,29240.0,31110.0,37800.0,parking attendant,1,very low
+53-6032,Aircraft Service Attendants,12170.0,6.7,38640.0,1.4,27920.0,29990.0,36390.0,44670.0,58790.0,aircraft service attendant,2,low
+53-6041,Traffic Technicians,7770.0,6.3,53210.0,2.0,36450.0,38500.0,48610.0,61920.0,79880.0,traffic technician,2,low
+53-6051,Transportation Inspectors,25070.0,2.0,77620.0,1.1,37030.0,50780.0,79770.0,98280.0,124200.0,transportation inspector,3,medium
+53-6061,Passenger Attendants,21240.0,7.1,34380.0,1.6,24930.0,29210.0,30470.0,38980.0,46820.0,passenger attendant,1,very low
+53-6099,"Transportation Workers, All Other",13750.0,4.7,39990.0,1.3,23250.0,29520.0,36880.0,48540.0,61450.0,transportation worker,2,low
+53-7031,Dredge Operators,1650.0,10.1,50530.0,2.8,35440.0,38250.0,46210.0,61740.0,76610.0,dredge operator,2,low
+53-7073,Wellhead Pumpers,16040.0,7.0,67170.0,1.7,38590.0,49790.0,63740.0,79520.0,94050.0,wellhead pumper,3,medium
+53-7199,"Material Moving Workers, All Other",22470.0,4.7,40190.0,1.8,28450.0,29960.0,36150.0,47380.0,60830.0,material moving worker,2,low
