@@ -86,9 +86,36 @@ Deepface's facial attribute analysis module which provides age, gender, facial e
 image. The module contained various parameters that could be adjusted for a given use case, we changed some of the module   
 parameters for gender detection. By default, the module provides a dictionary output, as shown below.  
   
-```  
-{  
- "region": {'x': 230, 'y': 120, 'w': 36, 'h': 45}, "age": 28.66, "dominant_gender": "Woman", "gender": { 'Woman': 99.99407529830933, 'Man': 0.005928758764639497, } "dominant_emotion": "neutral", "emotion": { 'sad': 37.65260875225067, 'angry': 0.15512987738475204, 'surprise': 0.0022171278033056296, 'fear': 1.2489334680140018, 'happy': 4.609785228967667, 'disgust': 9.698561953541684e-07, 'neutral': 56.33133053779602 } "dominant_race": "white", "race": { 'indian': 0.5480832420289516, 'asian': 0.7830780930817127, 'latino hispanic': 2.0677512511610985, 'black': 0.06337375962175429, 'middle eastern': 3.088453598320484, 'white': 93.44925880432129 } }```  
+```
+{
+			"region": {'x': 230, 'y': 120, 'w': 36, 'h': 45},
+			"age": 28.66,
+			"dominant_gender": "Woman",
+			"gender": {
+				'Woman': 99.99407529830933,
+				'Man': 0.005928758764639497,
+			}
+			"dominant_emotion": "neutral",
+			"emotion": {
+				'sad': 37.65260875225067,
+				'angry': 0.15512987738475204,
+				'surprise': 0.0022171278033056296,
+				'fear': 1.2489334680140018,
+				'happy': 4.609785228967667,
+				'disgust': 9.698561953541684e-07,
+				'neutral': 56.33133053779602
+			}
+			"dominant_race": "white",
+			"race": {
+				'indian': 0.5480832420289516,
+				'asian': 0.7830780930817127,
+				'latino hispanic': 2.0677512511610985,
+				'black': 0.06337375962175429,
+				'middle eastern': 3.088453598320484,
+				'white': 93.44925880432129
+			}
+		}
+``` 
   
 #### Parameters  
   
