@@ -1,4 +1,5 @@
-deepface
+#deepface>=0.0.76
+git+https://github.com/serengil/deepface@94e5c59
 vadersentiment
 textblob
 scikit-learn
@@ -8,4 +9,3 @@ numpy
 seaborn
 matplotlib
 jupyter
-build
