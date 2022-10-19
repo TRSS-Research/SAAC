@@ -55,27 +55,23 @@ Sampled traits from are  inserted into a string constructed as follows:
 
  While sampled occupations are inserted into a string constructed as follows:
 
->  {article} {trait}
+>  {article} {occupation}
 
 All generated samples contain a 'tag' column that contains the sampled trait and/or occupation.
 
-![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledTraits.PNG)
-<p><i>Example Sampled Traits</i> 
+![plot](data/readme_figures/prompt_generation_figures/ExampleSampledTraits.PNG)
+<p><i>Fig.1 - Example Sampled Traits </i> 
 
-![plot](data/prompt_generation/prompt_generation_figures/ExampleSampledOccupations.PNG)
-<p><i>Example Sampled Occupations</i>
+![plot](data/readme_figures/prompt_generation_figures/ExampleSampledOccupations.PNG)
+<p><i>Fig. 2 - Example Sampled Occupations </i> 
 
 ## Image Generation
-Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half focusing on trait descriptive adjectives and the other half focusing on occupational titles. All of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 results.
+Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half 
+focusing on trait descriptive adjectives and the other half focusing on occupational titles. 
+Each of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 image results.
 
 
 ## Image Processing and Analysis
-
-
-### Skin Color Extraction
-
-As part of the bias audit, we explored techniques to best extract accurate skin tone information
-
 
 ### Gender Detection
 As part of the bias audit, we tested and explored different models and techniques to best classify the gender of
@@ -144,24 +140,23 @@ cross-validation approach through using [CalibratedClassifierCV](https://scikit-
 ##### Results Comparison
 The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 6, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 3. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 6. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 2 & 5.
 
-![plot](data/images/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
-<p><i>Fig. 1</i> - Uncalibrated Model - Calibration Plot
+![plot](data/readme_figures/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)
+<p><i>Fig. 3 - Uncalibrated Model - Calibration Plot</i> 
 
-![plot](data/images/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
-<p><i>Fig. 2</i> - Uncalibrated Metrics
+![plot](data/readme_figures/model_calibration_figures/Fig2UncalibratedModelMetrics.png)
+<p><i>Fig. 4 - Uncalibrated Metrics </i> 
 
-![plot](data/images/model_calibration_figures/Fig3UncalibratedModelResults.png)
-<p><i>Fig. 3</i> - Uncalibrated Model Results
+![plot](data/readme_figures/model_calibration_figures/Fig3UncalibratedModelResults.png)
+<p><i>Fig. 5 - Uncalibrated Model Results </i> 
 
-![plot](data/images/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
-<p><i>Fig. 4</i> - Calibrated Model - Calibration Plot
+![plot](data/readme_figures/model_calibration_figures/Fig4CalibratedModelCalibrationPlot.png)
+<p><i>Fig. 6 - Calibrated Model - Calibration Plot </i> 
 
+![plot](data/readme_figures/model_calibration_figures/Fig5CalibratedMetrics.png)
+<p><i>Fig. 7 - Calibrated Metrics </i> 
 
-![plot](data/images/model_calibration_figures/Fig5CalibratedMetrics.png)
-<p><i>Fig. 5</i> - Calibrated Metrics
-
-![plot](data/images/model_calibration_figures/Fig6CalibratedModelResults.png)
-<p><i>Fig. 6</i> - Calibrated Model Results
+![plot](data/readme_figures/model_calibration_figures/Fig6CalibratedModelResults.png)
+<p><i>Fig. 8 - Calibrated Model Results </i> 
 
 #### Limitations & biases
 Some limitations and biases with Deepface include:
@@ -212,7 +207,9 @@ the best results.
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.
 
 ### Results of image evaluation workflow 
-Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:
+Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface 
+predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:
+
 | Column Name     | Value Description |
 | ----------- | ----------- |
 | image      | image name/path       |
@@ -223,7 +220,7 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 
 ## Evaluation of Results
 
-#### Perceived Lightness of Skin
+### Perceived Lightness of Skin
 A critical view on the bias present in image generation models is the representation of people of color as a function of
 the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people with darker skin are 
 represented similarly to people with lighter skin and investigated this outcome using prompts with occupations and traits.
@@ -235,39 +232,44 @@ two RGB triples.
 As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing 
 Luma (Luma-converted lightness is shown below the corresponding RGB color):
 
-![plot](data/evaluation_figures/skin_color_intensity_demonstration.png)
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_demonstration.png)
+<p><i>Fig. 9 - Skin Color Intensity Demonstration </i> 
 
-#### Lightness of Skin by Occupations
+### Lightness of Skin by Occupations
 We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation
 prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).
 
-![plot](data/evaluation_figures/skin_color_intensity_median_salary_violin.png)
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_median_salary_violin.png)
+<p><i>Fig. 10 - Skin Color Intensity Binned by Median Salary </i> 
 
-#### Lightness of Skin by Trait Sentiment
+### Lightness of Skin by Trait Sentiment
 We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant
 difference in mean skin lightness between groups (p=2.3e-6).
 
-![plot](data/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)
+<p><i>Fig. 11 - Skin Color Intensity Binned by TDA Sentiment Score</i> 
 
-#### Detected Gender
+### Detected Gender
 A separate aspect of bias that could be present in image generation models is different representation of genders, as a
 function of the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people of all genders
 would be represented similarly for any given prompt. Using a model that detects two genders (male and female), we classified
 face chips as one of those two genders to determine which prompts were biased towards specific genders.
 
-#### Detected Gender by Occupations
+### Detected Gender by Occupations
 We first looked at the gender of generated "people" to determine how males and females were represented, based on the
 median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual 
 salaries (median $48,260) than men (median $93,070) in our data.
 
-![plot](data/evaluation_figures/gender_median_salary.png)
+![plot](data/readme_figures/evaluation_figures/gender_median_salary.png)
+<p><i>Fig. 12 - Gender Distribution by Annual Median Salary </i> 
 
-#### Detected Gender by Trait Sentiment
+### Detected Gender by Trait Sentiment
 We also looked at the gender of generated "people" to determine how males and females were represented, based on the
 trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits 
 than men were, in our data.
 
-![plot](data/evaluation_figures/gender_tda_sentiment.png)
+![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)
+<p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>
 
 ## Future Work
 
