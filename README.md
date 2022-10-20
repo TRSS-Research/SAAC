@@ -13,17 +13,19 @@ While withholding model weights and architectures or providing only API-level ac
 First, we assess a simple descriptor's influence on generation (i.e. 'a good person') to anchor the human-centric understanding of the model: some descriptors rarely co-occur with person in text, while others' are sparsely represented in captioned images, with or without human subjects, since they are inherently abstract. With the object of a prompt help constant, how does the stylistic variation manifest--do descriptive modifiers distort the humanity of a subject in a substantive way; do they consistently center around a similar person?  
   
 In addressing similarity between people, we settle on two variables: gender markers and facial complexion. Facial complexion avoids similarity algorithms which themselves may be biased against particular groups; human face recognition depends on more generalizable algorithms than facial similarity. Coverage of a spectrum is also a more intuitive assessment than a range of similarities. We take a similar approach to gender features, training a classifier for each known end of the spectrum.  
- The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.  
+  
+The final area of analysis addresses a socioeconomic dimension, i.e. representation in certain occupations and a stratification of occupations based on median income.  
+
+*****  
+
 ## Prompt Generation     
 `facia --generate <number_occupational_prompts,number_adjectival_prompts>`  
   
 ### Data    
-
 #### Trait Descriptive Adjectives    
 The word bank of trait descriptive adjectives was obtained from [Harvard Dataverse's Trait Descriptive Adjective Data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/5T80PF&version=3.0)[^6].  
-
-##### *Filtering, Cleaning and Processing*    
-Words contained in the adjective column of the masterkeys.csv were extracted and deduplicated producing a word bank of 2,818 traits.   
+ ##### *Filtering, Cleaning and Processing*    
+ Words contained in the adjective column of the masterkeys.csv were extracted and deduplicated producing a word bank of 2,818 traits.   
 Vader Sentiment's[^7] sentiment intensity analyzer was used to output a compound score for each trait. Due to the fact that the majority of trait descriptive adjectives were of a neutral sentiment (0.0 compound) and because we wanted to ensure that  generated prompts accounted for a full range of sentiment values, we created sentiment categories based on the distribution of the compound score. Sentiment categories and trait counts per category are defined as follows  
   
 | Sentiment Category   | Number of Traits     | Sentiment Range              |  
@@ -39,9 +41,7 @@ The full workflow is viewable in one_time_external_data_processing_TDA.py
 #### Occupation Data    
 Occupation data was obtained as a [zip file](https://www.bls.gov/oes/special.requests/oesm21nat.zip) from the U.S. Bureau of Labor Statistics website for [May 2021 National, State, Metropolitan, and Nonmetropolitan Area Occupational Employment and Wage Estimates](https://www.bls.gov/oes/current/oes_nat.htm)     
 In order to capture occupational titles at their most granular level, the raw data was filtered to only detailed view occupations.      
-
-##### *Filtering, Cleaning and Processing* 
-Occupations were filtered to only those that contained annual wage data, removing 6 hourly wage occupations from the results.     
+ ##### *Filtering, Cleaning and Processing* Occupations were filtered to only those that contained annual wage data, removing 6 hourly wage occupations from the results.     
 Annual wage data containing a *'#'* was replaced with the minimum wage amount of 208000 as indicated in the BLS notes.  Annual wage occupations underwent further filtering to remove data for occupational titles that contained *'and', 'or', 'except'* and *'/'.* The remaining 410 occupational titles underwent basic cleaning and singularization.     
 In order to ensure that generated prompts accounted for the wide range of salary wages for occupations, we created wage categories based on the distribution of the annual median wage. Wage categories are defined as follows:   
   
@@ -73,12 +73,14 @@ All generated samples contain a 'tag' column that contains the sampled trait and
 ![plot](data/readme_figures/prompt_generation_figures/ExampleSampledOccupations.PNG)  
 <p><i>Fig. 2 - Example Sampled Occupations </i>   
 
+*****  
 
 ## Image Generation  
 Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half   
 focusing on trait descriptive adjectives and the other half focusing on occupational titles.   
 Each of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 image results.  
 
+*****  
   
 ## Image Processing and Analysis  
   
@@ -172,6 +174,8 @@ Some limitations and biases with Deepface include:
 - The model was trained on a labeled dataset of ~4 million faces belonging to over 4,000 individuals. Due to the training data being solely comprised of photorealistic images, there are limitations in how the model predicts the gender of images that are more abstract in nature.  
 - Results are skewed towards one gender. We found that generally Deepface had a tendency to mislabel women as men (an issue that is addressed using calibration).
 
+*****  
+  
 ### Skin Color Extraction  
 In addition to our work with gender detection, we explored techniques to best extract accurate skin tone information  
 from images of faces. The main difficulty is distinguishing the set of skin pixels that should  
@@ -185,12 +189,14 @@ To generate the skin tone measure, we followed the methodology below proposed by
 2. Skin pixel identification  
 3. Skin tone estimation  
   
-#### Face detection   
+#### Face detection  
+  
 For face detection, we used the same MTCNN face detector[^3] applied in the gender detection.  
 Note that although MTCNN produces a tight bounding box, the resulting face chip contains many  
 non-skin pixels, complicating the task of pixel identification.  
   
-#### Skin Pixel Identification    
+#### Skin Pixel Identification  
+  
 To isolate areas of skin, the face chips is converted to the CIELAB color space and then the pixels  
 are sorted by the luminance component L. Skin areas are identified by isolating the pixels in some  
 bounded percentile range of L, generally 0.5 to 0.9. The upper bound exclude specularities on the face  
@@ -199,7 +205,8 @@ while the lower bound removes dark areas such as hair, nostrils, mouth and shado
 We also experimented with constraints on pixel values in the RGB color space as suggested by Kolkur et al.[^5]  
 Further masking pixels with the constraint that R > G and R > B produced more realistic skin tones.  
   
-#### Skin Tone Estimation   
+#### Skin Tone Estimation  
+  
 Once the skin pixels have been identified, the color extractor summarizes the pixel values to produce a single  
 representative RGB value for skin tone. We experimented with the measures below, with the mode producing  
 the best results.  
@@ -207,6 +214,7 @@ the best results.
 - Mean value - return the separate means of the RBG components of all skin pixels.  
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.  
 
+*****  
 
 ### Results of image evaluation workflow   
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:  
@@ -219,9 +227,10 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 | gender.Woman   | probability that the image is a woman        |  
 | gender.Man   | probability that the image is a man|  
 
+*****   
 
-## Evaluation of Results 
-	
+## Evaluation of Results  
+  
 ### Perceived Lightness of Skin  
 A critical view on the bias present in image generation models is the representation of people of color as a function of  
 the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people with darker skin are   
@@ -273,12 +282,15 @@ than men were, in our data.
 ![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)  
 <p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>  
 
+*****  
 
 ## Future Work  
   
 During processing of our data, we removed images with no face or faces that the Deepface model could not distinguish as either male or female. We classified these as 'no face' and 'unknown' respectively. It would be interesting in the future to analyze any trends in the prompts that produced these images. Reproducing our work with other image generation models such as Google's [Imagen](https://imagen.research.google/) or OpenAI's [DALL-E](https://openai.com/dall-e-2/) could provide insight on which prompts produce faceless images across the different models. Finally, while we focused on gender and perceived skin tone here, it may be worth analyzing trends in age or emotion in the future as well.  
   
-    
+  
+*****  
+  
 [^1]: Serengil, Sefik & Ozpinar, Alper. (2020). LightFace: A Hybrid Deep Face Recognition Framework. 10.1109/ASYU50717.2020.9259802.  
   
 [^2]: Pizer, Stephen & Amburn, E. & Austin, John & Cromartie, Robert & Geselowitz, Ari & Greer, Thomas & ter Haar Romeny, Bart & Zimmerman, John & Zuiderveld, Karel. (1987). Adaptive Histogram Equalization and Its Variations. Computer Vision, Graphics, and Image Processing. 39. 355-368. 10.1016/S0734-189X(87)80186-X.   
