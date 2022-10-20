@@ -41,7 +41,8 @@ def generate_prompts(output_dir: str = None,
                      prompt_wrapper: Optional[Callable] = mj_prompt,
                      occupation_filename:Optional[str]=None,
                      trait_filename:Optional[str]=None,
-                     force:bool=False
+                     force:bool=False,
+                     save_path = None
                      ) -> pd.DataFrame:
     if output_dir is None:
         pathlib.Path(os.path.join(PROMPT_GENERATION_DATA_DIR,'processed')).mkdir(parents=True, exist_ok=True)
@@ -59,7 +60,10 @@ def generate_prompts(output_dir: str = None,
     prompts_dfv = score_sentiment(prompts_df, 'prompt', verbose=True)
     prompts_dfv['prompt'] = prompts_dfv['prompt'].apply(prompt_wrapper)
     pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
-    prompts_dfv.to_csv(os.path.join(output_dir, 'generated_prompts.csv'), index=False)
+    if save_path is None:
+        save_path = os.path.join(output_dir, 'generated_prompts.csv')
+    print('Saving to',save_path)
+    prompts_dfv.to_csv(save_path, index=False)
     return prompts_dfv
 
 
