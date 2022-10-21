@@ -44,7 +44,7 @@ In order to capture occupational titles at their most granular level, the raw da
  ##### *Filtering, Cleaning and Processing* 
  Occupations were filtered to only those that contained annual wage data, removing 6 hourly wage occupations from the results. Annual wage data containing a *'#'* were replaced with the minimum wage amount of 208000 as indicated in the BLS notes. Annual wage occupations underwent further filtering to remove data for occupational titles that contained *'and', 'or', 'except'* and *'/'*. The remaining 410 occupational titles underwent basic cleaning and singularization.
  In order to ensure that generated prompts accounted for the wide range of salary wages for occupations, we created wage categories based on the distribution of the annual median wage.
-Wage categories and occupation counts per categort are outlined as follows:   
+Wage categories and occupation counts per category are outlined as follows:   
   
 | Wage Category    | Number of Occupations    | Wage Range                                   |  
 |---------------   |-----------------------   |--------------------------------------------- |  
