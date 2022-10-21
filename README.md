@@ -23,10 +23,10 @@ The final area of analysis addresses a socioeconomic dimension, i.e. representat
   
 ### Data    
 #### Trait Descriptive Adjectives    
-The word bank of trait descriptive adjectives was obtained from [Harvard Dataverse's Trait Descriptive Adjective Data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/5T80PF&version=3.0)[^6].  
+The word bank of trait descriptive adjectives (TDA) was obtained from [Harvard Dataverse's Trait Descriptive Adjective Data](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/5T80PF&version=3.0)[^6].  
  ##### *Filtering, Cleaning and Processing*    
- Words contained in the adjective column of the masterkeys.csv were extracted and deduplicated producing a word bank of 2,818 traits.   
-Vader Sentiment's[^7] sentiment intensity analyzer was used to output a compound score for each trait. Due to the fact that the majority of trait descriptive adjectives were of a neutral sentiment (0.0 compound) and because we wanted to ensure that  generated prompts accounted for a full range of sentiment values, we created sentiment categories based on the distribution of the compound score. Sentiment categories and trait counts per category are defined as follows  
+ Words contained in the adjective column of the masterkeys.csv were extracted and deduplicated producing a word bank of 2,818 traits. Vader Sentiment's[^7] sentiment intensity analyzer was used to output a compound score for each trait. Due to the fact that the majority of trait descriptive adjectives were of a neutral sentiment (0.0 compound) and because we wanted to ensure that generated prompts accounted for a full range of sentiment scores, we created sentiment categories based on the distribution of the compound score. 
+Sentiment categories and trait counts per category are defined as follows  
   
 | Sentiment Category   | Number of Traits     | Sentiment Range              |  
 |--------------------  |------------------    |---------------------------   |  
@@ -39,11 +39,12 @@ Vader Sentiment's[^7] sentiment intensity analyzer was used to output a compound
 The full workflow is viewable in one_time_external_data_processing_TDA.py  
   
 #### Occupation Data    
-Occupation data was obtained as a [zip file](https://www.bls.gov/oes/special.requests/oesm21nat.zip) from the U.S. Bureau of Labor Statistics website for [May 2021 National, State, Metropolitan, and Nonmetropolitan Area Occupational Employment and Wage Estimates](https://www.bls.gov/oes/current/oes_nat.htm)     
+Occupation data was obtained as a [zip file](https://www.bls.gov/oes/special.requests/oesm21nat.zip) from the U.S. Bureau of Labor Statistics website for [May 2021 National, State, Metropolitan, and Nonmetropolitan Area Occupational Employment and Wage Estimates](https://www.bls.gov/oes/current/oes_nat.htm).     
 In order to capture occupational titles at their most granular level, the raw data was filtered to only detailed view occupations.      
- ##### *Filtering, Cleaning and Processing* Occupations were filtered to only those that contained annual wage data, removing 6 hourly wage occupations from the results.     
-Annual wage data containing a *'#'* was replaced with the minimum wage amount of 208000 as indicated in the BLS notes.  Annual wage occupations underwent further filtering to remove data for occupational titles that contained *'and', 'or', 'except'* and *'/'.* The remaining 410 occupational titles underwent basic cleaning and singularization.     
-In order to ensure that generated prompts accounted for the wide range of salary wages for occupations, we created wage categories based on the distribution of the annual median wage. Wage categories are defined as follows:   
+ ##### *Filtering, Cleaning and Processing* 
+ Occupations were filtered to only those that contained annual wage data, removing 6 hourly wage occupations from the results. Annual wage data containing a *'#'* were replaced with the minimum wage amount of 208000 as indicated in the BLS notes. Annual wage occupations underwent further filtering to remove data for occupational titles that contained *'and', 'or', 'except'* and *'/'*. The remaining 410 occupational titles underwent basic cleaning and singularization.
+ In order to ensure that generated prompts accounted for the wide range of salary wages for occupations, we created wage categories based on the distribution of the annual median wage.
+Wage categories and occupation counts per categort are outlined as follows:   
   
 | Wage Category    | Number of Occupations    | Wage Range                                   |  
 |---------------   |-----------------------   |--------------------------------------------- |  
@@ -56,8 +57,9 @@ In order to ensure that generated prompts accounted for the wide range of salary
 The full workflow is viewable in one_time_external_data_processing_Occupations.py  
   
 ### Automated Sampling and Generation  
-Our approach to prompt generation focused on developing an automated generator that samples equally across all sentiment and wage categories for Trait Descriptive Adjectives and Occupations respectively.   
-Sampled traits from are  inserted into a string constructed as follows:  
+Our approach to prompt generation focused on developing an automated generator that samples equally across all sentiment and wage categories for trait descriptive adjectives and occupations respectively.   
+
+Sampled traits are inserted into a string constructed as follows:  
   
 > {article} {trait} person  
   
@@ -76,23 +78,17 @@ All generated samples contain a 'tag' column that contains the sampled trait and
 *****  
 
 ## Image Generation  
-Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half   
-focusing on trait descriptive adjectives and the other half focusing on occupational titles.   
-Each of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 image results.  
+Images were generated from the *generated_mj_prompts.csv* which contained 120 prompts, with half focusing on trait descriptive adjectives and the other half focusing on occupational titles.  Each of the 120 prompts were run through Midjourney 6 times by members of the team to generate a sample of 720 2X2 grid image files, producing a total sample of 2,880 image results.  
 
 *****  
   
 ## Image Processing and Analysis  
   
 ### Gender Detection  
-As part of the bias audit, we tested and explored different models and techniques to best classify the gender of  
-labeled images. We settled upon using Deepface[^1] for gender detection - more specifically Deepface's facial attribute  
-analysis module.  
+As part of the bias audit, we tested and explored different models and techniques to best classify the gender of labeled images. We settled upon using Deepface[^1] for gender detection- more specifically Deepface's facial attribute analysis module.  
   
 #### Facial Attribute Analysis Module  
-Deepface's facial attribute analysis module which provides age, gender, facial expression and race predictions for a given  
-image. The module contained various parameters that could be adjusted for a given use case, we changed some of the module   
-parameters for gender detection. By default, the module provides a dictionary output, as shown below.  
+Deepface's facial attribute analysis module which provides age, gender, facial expression and race predictions for a given image. The module contained various parameters that could be adjusted for a given use case, we changed some of the module parameters for gender detection. By default, the module provides a dictionary output, as shown below.  
   
 ```
 {
@@ -128,28 +124,24 @@ parameters for gender detection. By default, the module provides a dictionary ou
 #### Parameters  
   
 ##### Actions  
-By default, the module will generate an output for the following actions: age, gender, facial expression, and race.  
-For our use case, we used the gender action and omitted the use of the age, facial expression, and race actions. In doing so,  
-the output of the module would only produce the probability in which a face is a woman or a man and the dominant gender of the face.  
+By default, the module will generate an output for the following actions: age, gender, facial expression, and race. For our use case, we used the gender action and omitted the use of the age, facial expression, and race actions. In doing so, the output of the module would only produce the probability in which a face is a woman or a man and the dominant gender of the face.  
   
 ##### Models  
-The model used for gender prediction was trained by the author of Deepface on the [VGG-Face](https://www.robots.ox.ac.uk/~vgg/software/vgg_face/)   
-structure. Pre-trained weights for the model are saved and called upon whenever any gender predictions are made. The module  
-allows for users to provide their own pre-trained models; however, we decided to use the default gender model weights trained by and provided by the author.  
+The model used for gender prediction was trained by the author of Deepface on the [VGG-Face](https://www.robots.ox.ac.uk/~vgg/software/vgg_face/) structure. Pre-trained weights for the model are saved and called upon whenever any gender predictions are made. The module allows for users to provide their own pre-trained models; however, we decided to use the default gender model weights trained and provided by the author.  
   
 ##### Face detection  
-The module uses a face detector prior to identifying gender - the face detector draws a tight bound around the face of the image entity.   
-The default face detector for the module is opencv. Other face detection options include Retinaface, MTCNN, SSD or Dlib. After examining all possible face detection options, we used the MTCNN face detector. MTCNN was chosen over opencv and other face detection options because it generally had a accuracy ~1-2% greater than that of all other options.  
+The module uses a face detector prior to identifying gender- the face detector draws a tight bound around the face of the image entity. The default face detector for the module is opencv. Other face detection options include Retinaface, MTCNN, SSD or Dlib. After examining all possible face detection options, we used the MTCNN face detector. MTCNN was chosen over opencv and other face detection options because it generally had an accuracy ~1-2% greater than that of all other options.  
   
 #### Calibration  
   
 ##### Process  
-Upon initial examination, the Deepface predictions seemed to skew towards mislabeling women as men as shown in Figure 1. As such,  
-we explored ways to mitigate this bias through calibrating the gender detection classifier. For calibration, we pursued a  
-cross-validation approach through using [CalibratedClassifierCV](https://scikit-learn.org/stable/modules/calibration.html).  
+Upon initial examination, the Deepface predictions seemed to skew towards mislabeling women as men as shown in Figure 1. As such, we explored ways to mitigate this bias through calibrating the gender detection classifier. For calibration, we pursued a cross-validation approach through using [CalibratedClassifierCV](https://scikit-learn.org/stable/modules/calibration.html).  
   
 ##### Results Comparison  
-The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. As shown in Figure 8, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled - as shown in Figure 5. Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled - as shown in Figure 8. Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 4 & 7.  
+The calibration of the gender classifier evidently mitigated the bias that we were seeing with the uncalibrated model. 
+As shown in Figure 8, the calibration plot no longer skews towards one particular class. With the uncalibrated model, 148 of the images of women were mislabeled, whereas only 5 of the images of men were mislabeled- as shown in Figure 5.
+Post-calibration, only 14 of the images of the women were mislabeled, whereas 20 of the images of men were mislabeled- as shown in Figure 8. 
+Calibrating the model lessened the overwhelming mislabeling of women as men. Calibration of the gender detection model also produced an increase in accuracy by 6% as the accuracy went from 82% to 88% as shown in Figure 4 & 7.  
   
 ![plot](data/readme_figures/model_calibration_figures/Fig1UncalibratedModel-CalibrationPlot.png)  
 <p><i>Fig. 3 - Uncalibrated Model - Calibration Plot</i>   
@@ -169,7 +161,7 @@ The calibration of the gender classifier evidently mitigated the bias that we we
 ![plot](data/readme_figures/model_calibration_figures/Fig6CalibratedModelResults.png)  
 <p><i>Fig. 8 - Calibrated Model Results </i>   
   
-#### Limitations & biases  
+#### Limitations & Biases  
 Some limitations and biases with Deepface include:  
 - The model was trained on a labeled dataset of ~4 million faces belonging to over 4,000 individuals. Due to the training data being solely comprised of photorealistic images, there are limitations in how the model predicts the gender of images that are more abstract in nature.  
 - Results are skewed towards one gender. We found that generally Deepface had a tendency to mislabel women as men (an issue that is addressed using calibration).
@@ -177,39 +169,24 @@ Some limitations and biases with Deepface include:
 *****  
   
 ### Skin Color Extraction  
-In addition to our work with gender detection, we explored techniques to best extract accurate skin tone information  
-from images of faces. The main difficulty is distinguishing the set of skin pixels that should  
-contribute to an overall measure of skin tone. The problem was made more difficult by lack of explicit  
-control over color balance or lighting in the generated images. Applying Contrast Limited Adaptive  
-Histogram Equalization (CLAHE)[^2] to the input images mitigated the variations in lighting caused  
-by the choice of text prompts.  
+In addition to our work with gender detection, we explored techniques to best extract accurate skin tone information from images of faces. The main difficulty is distinguishing the set of skin pixels that should contribute to an overall measure of skin tone. The problem was made more difficult by lack of explicit control over color balance or lighting in the generated images. Applying Contrast Limited Adaptive Histogram Equalization (CLAHE)[^2] to the input images mitigated the variations in lighting caused by the choice of text prompts.  
   
 To generate the skin tone measure, we followed the methodology below proposed by Harville et al.[^4]  
 1. Face detection  
 2. Skin pixel identification  
 3. Skin tone estimation  
-  
+
 #### Face detection  
-  
 For face detection, we used the same MTCNN face detector[^3] applied in the gender detection.  
 Note that although MTCNN produces a tight bounding box, the resulting face chip contains many  
 non-skin pixels, complicating the task of pixel identification.  
   
 #### Skin Pixel Identification  
-  
-To isolate areas of skin, the face chips is converted to the CIELAB color space and then the pixels  
-are sorted by the luminance component L. Skin areas are identified by isolating the pixels in some  
-bounded percentile range of L, generally 0.5 to 0.9. The upper bound exclude specularities on the face  
-while the lower bound removes dark areas such as hair, nostrils, mouth and shadows.  
-  
-We also experimented with constraints on pixel values in the RGB color space as suggested by Kolkur et al.[^5]  
-Further masking pixels with the constraint that R > G and R > B produced more realistic skin tones.  
+To isolate areas of skin, the face chips is converted to the CIELAB color space and then the pixels are sorted by the luminance component L. Skin areas are identified by isolating the pixels in some bounded percentile range of L, generally 0.5 to 0.9. The upper bound exclude specularities on the face while the lower bound removes dark areas such as hair, nostrils, mouth and shadows.  
+We also experimented with constraints on pixel values in the RGB color space as suggested by Kolkur et al.[^5] Further masking pixels with the constraint that R > G and R > B produced more realistic skin tones.  
   
 #### Skin Tone Estimation  
-  
-Once the skin pixels have been identified, the color extractor summarizes the pixel values to produce a single  
-representative RGB value for skin tone. We experimented with the measures below, with the mode producing  
-the best results.  
+Once the skin pixels have been identified, the color extractor summarizes the pixel values to produce a single representative RGB value for skin tone. We experimented with the measures below, with the mode producing the best results.  
   
 - Mean value - return the separate means of the RBG components of all skin pixels.  
 - Mode value - return the most frequent RGB skin pixel value as identified by a multi-dimension histogram.  
@@ -232,52 +209,38 @@ Upon going through the image evaluation workflow, the resulting output CSVs incl
 ## Evaluation of Results  
   
 ### Perceived Lightness of Skin  
-A critical view on the bias present in image generation models is the representation of people of color as a function of  
-the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people with darker skin are   
-represented similarly to people with lighter skin and investigated this outcome using prompts with occupations and traits.  
+A critical view on the bias present in image generation models is the representation of people of color as a function of the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people with darker skin are represented similarly to people with lighter skin and investigated this outcome using prompts with occupations and traits.  
   
-To compare the lightness of RGB skin colors, we used RGB Luma as a proxy for how we might visually perceive that lightness.  
-The Luma is a weighted linear combination of the RGB values[^8]. This singular value allows a lightness comparison between   
-two RGB triples.  
-  
-As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing   
-Luma (Luma-converted lightness is shown below the corresponding RGB color):  
+To compare the lightness of RGB skin colors, we used RGB Luma as a proxy for how we might visually perceive that lightness. The Luma is a weighted linear combination of the RGB values[^8]. This singular value allows a lightness comparison between two RGB triples.  
+
+As a demonstration, here are all the skin color determinations from our prompt results, sorted in order of increasing Luma (Luma-converted lightness is shown below the corresponding RGB color):  
   
 ![plot](data/readme_figures/evaluation_figures/skin_color_intensity_demonstration.png)  
 <p><i>Fig. 9 - Skin Color Intensity Demonstration </i>   
   
 ### Lightness of Skin by Occupations  
-We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation  
-prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).  
+We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).  
   
 ![plot](data/readme_figures/evaluation_figures/skin_color_intensity_median_salary_violin.png)  
 <p><i>Fig. 10 - Skin Color Intensity Binned by Median Salary </i>   
   
-### Lightness of Skin by Trait Sentiment  
-We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant  
-difference in mean skin lightness between groups (p=2.3e-6).  
+### Lightness of Skin by Trait Sentiment
+We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant difference in mean skin lightness between groups (p=2.3e-6).  
   
 ![plot](data/readme_figures/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)  
 <p><i>Fig. 11 - Skin Color Intensity Binned by TDA Sentiment Score</i>   
   
 ### Detected Gender  
-A separate aspect of bias that could be present in image generation models is different representation of genders, as a  
-function of the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people of all genders  
-would be represented similarly for any given prompt. Using a model that detects two genders (male and female), we classified  
-face chips as one of those two genders to determine which prompts were biased towards specific genders.  
+A separate aspect of bias that could be present in image generation models is different representation of genders, as a function of the sentiment of the prompt, or of occupations within the prompt. We would hope to see that people of all genders would be represented similarly for any given prompt. Using a model that detects two genders (male and female), we classified face chips as one of those two genders to determine which prompts were biased towards specific genders.  
   
 ### Detected Gender by Occupations  
-We first looked at the gender of generated "people" to determine how males and females were represented, based on the  
-median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual   
-salaries (median $48,260) than men (median $93,070) in our data.  
+We first looked at the gender of generated "people" to determine how males and females were represented, based on the median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual salaries (median $48,260) than men (median $93,070) in our data.  
   
 ![plot](data/readme_figures/evaluation_figures/gender_median_salary.png)  
 <p><i>Fig. 12 - Gender Distribution by Annual Median Salary </i>   
   
 ### Detected Gender by Trait Sentiment  
-We also looked at the gender of generated "people" to determine how males and females were represented, based on the  
-trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits   
-than men were, in our data.  
+We also looked at the gender of generated "people" to determine how males and females were represented, based on the trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits than men were, in our data.  
   
 ![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)  
 <p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>  
