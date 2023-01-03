@@ -1,7 +1,6 @@
-**PLEASE NOTE: The [main branch](https://github.com/TRSS-Research/SAAC/tree/main) is the development of the facia command line tool. 
-Documentation for installing and using facia can be found [here](https://github.com/TRSS-Research/SAAC/tree/main/saac)**
+**PLEASE NOTE: The [main branch](https://github.com/TRSS-Research/SAAC/tree/main) is focused on the development of the FACIA command line tool, which enables users to perform audits on image generation models of their choice. Documentation for installing and using FACIA can be found [here](https://github.com/TRSS-Research/SAAC/tree/main/saac).**
  
-**The [evaluation_structure branch](https://github.com/TRSS-Research/SAAC/tree/evaluation_structure) preserves the data and project structure as it was during the initial evaluation.** 
+**The [evaluation_structure branch](https://github.com/TRSS-Research/SAAC/tree/evaluation_structure) preserves the data and project structure as it was during the initial audit of MidJourney .** 
 
 *****  
 
