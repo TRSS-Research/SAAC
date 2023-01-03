@@ -43,9 +43,8 @@ options:
 ```
 ### `facia --generate`
 ```
--g [path], --generate [path]
-                        Generates adjectival and occupational prompts saving
-                        generated_prompts.csv to specified directory
+  -g [path], --generate [path]
+                        Generates adjectival and occupational prompts saving to the specified filename (defaults to generated_prompts.csv).
 ```
 `facia --generate <path to output|default: ./prompt_generation/data/processed>` will save a generated_prompts.csv to the specified directory
 ```
@@ -68,19 +67,24 @@ The data sourcing the sample is located in ./prompt_generation/data/raw/OEWS21_O
                      Applies DeepFace image equalization, face detection,
                      and gender prediction to files in the specified
                      directory
+--analysis_output [path]  CSV filepath to output results of image analysis
+
 ```
 `facia -a <path|default: ./image_analysis/data/mj_raw>` will run the MTCNN-backed deepface library on images in the specified directory.
 Image filenames are expected to contain the prompt with spaces replaced as underscores, e.g. ('a good person' -> 'a_good_person_photorealistic')
-Output of analysis is saved by default to ./image_analysis/data/
+Output of analysis is saved by default to ./image_analysis/data/, but can be specified via --analysis_output
 ### `facia --evaluate`
 ```
   -e [path], --evaluate [path]
                         Assesses facial generation, color composition, and
                         gender tendencies for occupational and adjectival
                         distributions
+  --analysis_file [path]
+                        Specifies the csv containing face detection, gender detection, and skin color tuples per imagefile.
+
 ```
 `facia -e <directory|default:./evaluation/data/processed>` performs statistical testing on the image analysis paired with prompts, expecting an Occupation_Results.csv and TDA_Results.csv.
-These data are processed from the analysis csv, which can be specified with `--analysis_file`
+These data are processed from the analysis csv, which can be specified with `--analysis_file`. This input file is the corresponding output from analysis --analysis_output
 
 ## Interpretation
 Interpretation of the statistical tests are worded so that a PASS implies the data cannot reject an assumption that stratified prompts differ on a protected characteristic. A FAIL implies a likely difference in the protected, detected variable based on the sample. 

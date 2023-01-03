@@ -8,6 +8,7 @@ from scipy.stats import ranksums,f_oneway,binomtest
 from .eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
 
 def evaluate_by_occupation(occupation_results=None,force=True):
+	# TODO: result file?
 	if occupation_results is None:
 		occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
 	if not os.path.exists(occupation_results) or force:
@@ -71,6 +72,7 @@ def evaluate_gender_by_occupation(occ_res):
 
 
 def evaluate_by_adjectives(adjective_results=None,force=True):
+	# TODO: results file?
 	if adjective_results is None:
 		adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
 	if not os.path.exists(adjective_results) or force:
@@ -182,7 +184,7 @@ def evaluate_skin_by_occupation(occ_res):
 
 
 def evaluate(processed_filedir=None,force=False):
-
+	# TODO: results files?
 	adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
 	occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
 	if processed_filedir is not None:

@@ -8,12 +8,13 @@ from .one_time_external_data_processing_TDA import preprocess_adjectives
 import warnings
 
 warnings.filterwarnings('once')
-
 PROMPT_GENERATION_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
+
+
+# TODO: install path OK here, source files are packaged with (setup.py package_data)
 raw_occupation_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'raw','OEWS21_OccupationsDetailedView.csv')
-interim_occupation_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'interim','AnnualOccupations_TitleBank.csv')
 raw_adjective_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'raw','TraitDescriptiveAdjectives.csv')
-interim_adjective_file = os.path.join(PROMPT_GENERATION_DATA_DIR,'interim','TDA_Bank.csv')
+
 def score_sentiment(df,
                     column_name: str,
                     verbose: bool = False):
@@ -39,11 +40,12 @@ def score_sentiment(df,
 def sample_traits(nsamples: int = 12,
                   trait_filepath: str = None
                   ):
+    # TODO: os filepath?
     if trait_filepath is None:
         trait_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'TDA_Bank.csv')
-        if not os.path.exists(trait_filepath) or not os.path.getsize(trait_filepath)>0:
-            pathlib.Path(os.path.join(PROMPT_GENERATION_DATA_DIR,'interim')).mkdir(parents=True, exist_ok=True)
-            preprocess_adjectives(interim_adjective_file=interim_adjective_file,raw_adjective_file=raw_adjective_file,score_sentiment_func=score_sentiment)
+    if not os.path.exists(trait_filepath) or not os.path.getsize(trait_filepath)>0:
+        pathlib.Path(os.path.join(PROMPT_GENERATION_DATA_DIR,'interim')).mkdir(parents=True, exist_ok=True)
+        preprocess_adjectives(raw_adjective_file=raw_adjective_file,output_filename=trait_filepath,score_sentiment_func=score_sentiment)
 
     tda_bank = pd.read_csv(trait_filepath)
 
@@ -67,11 +69,13 @@ def sample_traits(nsamples: int = 12,
 def sample_occupations(nsamples: int = 12,
                        occupation_filepath: str = None
                        ):
+    # TODO: install path default OK, setup.py package_data
     if occupation_filepath is None:
         occupation_filepath = os.path.join(PROMPT_GENERATION_DATA_DIR, 'interim', 'AnnualOccupations_TitleBank.csv')
+    # TODO: intermediate path?
     if not os.path.exists(occupation_filepath) or not os.path.getsize(occupation_filepath) > 0:
         pathlib.Path(os.path.join(PROMPT_GENERATION_DATA_DIR,'interim')).mkdir(parents=True, exist_ok=True)
-        preprocess_occupations(raw_occupation_file=raw_occupation_file,interim_occupation_file=interim_occupation_file)
+        preprocess_occupations(raw_occupation_file=raw_occupation_file,output_filename=occupation_filepath)
     title_bank = pd.read_csv(occupation_filepath)
 
     vlow = title_bank.loc[title_bank.wage_cat == 1, 'norm_title'].sample(n=nsamples)
