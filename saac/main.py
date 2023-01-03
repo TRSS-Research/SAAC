@@ -40,7 +40,7 @@ def main():
 	# calling functions depending on type of argument
 	if args.generate is not None:
 		num_adj,num_occ = args.num_adj,args.num_occ
-		generate_prompts(sampledims=(num_adj,num_occ),force=args.force)
+		generate_prompts(sampledims=(num_adj,num_occ),force=args.force,save_path=args.generate)
 	if args.analysis is not None:
 		print('Processing ',args.analysis)
 
