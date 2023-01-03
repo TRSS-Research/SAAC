@@ -6,7 +6,7 @@ warnings.filterwarnings('ignore')
 
 
 
-def preprocess_adjectives(raw_adjective_file,interim_adjective_file,score_sentiment_func):
+def preprocess_adjectives(raw_adjective_file,output_filename,score_sentiment_func):
     tda = pd.read_csv(raw_adjective_file, usecols=['word'])
     print('{} -- Total trait descriptive adjectives'.format(len(tda)))
 
@@ -47,7 +47,7 @@ def preprocess_adjectives(raw_adjective_file,interim_adjective_file,score_sentim
     }
     tdav['sentiment_val'] = tdav['sentiment_cat'].map(sent_dict)
 
-    tdav.to_csv(interim_adjective_file, index=False)
+    tdav.to_csv(output_filename, index=False)
 
 if __name__=='__main__':
     preprocess_adjectives()

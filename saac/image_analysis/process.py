@@ -12,6 +12,7 @@ from tqdm import tqdm
 from saac.models import CalibratedGenderModel, SkinColorExtractor, SkinColorMeanExtractor, SkinColorModeExtractor
 from saac.utils import quadrant_bboxes, crop_bbox
 import os
+# TODO: cwd path?
 ANALYSIS_DIR = os.path.dirname(os.path.abspath(__file__))
 class ImageEqualizer:
 
@@ -185,7 +186,7 @@ class MidJourneyProcessor:
         return results
 
 
-def process_multiple(raw_root,force=False):
+def process_multiple(raw_root,force=False, output_file=None):
     df_default_models = {
         'age': DeepFace.build_model('Age'),
         'gender': DeepFace.build_model('Gender'),
@@ -194,6 +195,7 @@ def process_multiple(raw_root,force=False):
         'detector': deepface.detectors.FaceDetector.build_model('mtcnn')
         }
 
+    # TODO: install dir
     calibrated_model_path = Path(os.path.join(ANALYSIS_DIR,'models','gender_model','gender_model_default_calibrated.joblib'))
     calibrated_clf = joblib.load(calibrated_model_path)
 
@@ -251,17 +253,16 @@ def process_multiple(raw_root,force=False):
         ]
 
     results_df = results_df.reindex(columns=lead_cols + [col for col in results_df.columns if col not in lead_cols])
-    if force:
-        for f in os.listdir(os.path.join(ANALYSIS_DIR,'data')):
-            fpath = os.path.join(ANALYSIS_DIR,'data',f)
-            if os.path.isfile(fpath) and os.path.splitext(fpath)[-1]=='.csv':
-                os.remove()
-    results_df.to_csv(Path(os.path.join(ANALYSIS_DIR,'data',f'{os.path.basename(raw_root)}_processed.csv')), index=False)
+
+
+    if output_file is None:
+        output_file = Path(os.path.join(ANALYSIS_DIR, 'data', f'{os.path.basename(raw_root)}_processed.csv'))
+    results_df.to_csv(output_file, index=False)
     return results_df
 
-def process_images(raw_images_dir: str = './data/mj_raw',force=False):
+def process_images(raw_images_dir: str = './data/mj_raw',force=False,output_file = None):
     raw_root = Path(raw_images_dir)
-    return process_multiple(raw_root=raw_root,force=force)
+    return process_multiple(raw_root=raw_root,force=force, output_file=output_file)
 
 
 if __name__ == '__main__':
