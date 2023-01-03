@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 
-def preprocess_occupations(raw_occupation_file,interim_occupation_file):
+def preprocess_occupations(raw_occupation_file,output_filename):
     '''
     *  = indicates that a wage estimate is not available
     #  = indicates a wage equal to or greater than $100.00 per hour or $208,000 per year
@@ -136,7 +136,7 @@ def preprocess_occupations(raw_occupation_file,interim_occupation_file):
     }
     jta_norm['wage_val'] = jta_norm['wage_cat'].map(wage_dict)
 
-    jta_norm.to_csv(interim_occupation_file, index=False)
+    jta_norm.to_csv(output_filename, index=False)
 
 if __name__=='__main__':
     preprocess_occupations()

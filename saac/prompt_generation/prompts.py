@@ -36,17 +36,13 @@ def stable_diffusion_prompt(text,
     return text + f", photorealistic" if photorealistic else ''
 
 
-def generate_prompts(output_dir: str = None,
-                     sampledims: tuple[int, int] = (60, 60),
+def generate_prompts(sampledims: tuple[int, int] = (60, 60),
                      prompt_wrapper: Optional[Callable] = mj_prompt,
                      occupation_filename:Optional[str]=None,
                      trait_filename:Optional[str]=None,
                      force:bool=False,
                      save_path = None
                      ) -> pd.DataFrame:
-    if output_dir is None:
-        pathlib.Path(os.path.join(PROMPT_GENERATION_DATA_DIR,'processed')).mkdir(parents=True, exist_ok=True)
-        output_dir = os.path.join(PROMPT_GENERATION_DATA_DIR, 'processed')
     trait_n, occ_n = sampledims
 
     if occupation_filename is None or len(occupation_filename) < 1:
@@ -59,9 +55,8 @@ def generate_prompts(output_dir: str = None,
     prompts_df = pd.concat([trait_samples, occ_samples])
     prompts_dfv = score_sentiment(prompts_df, 'prompt', verbose=True)
     prompts_dfv['prompt'] = prompts_dfv['prompt'].apply(prompt_wrapper)
-    pathlib.Path(output_dir).mkdir(parents=True, exist_ok=True)
     if save_path is None:
-        save_path = os.path.join(output_dir, 'generated_prompts.csv')
+        save_path = os.path.join('.', 'generated_prompts.csv')
     print('Saving to',save_path)
     prompts_dfv.to_csv(save_path, index=False)
     return prompts_dfv
