@@ -50,16 +50,19 @@ Midjourney has a file name limit of 100 characters,which cuts off a number of th
 In order to merge the results with the generated prompt data
 We will parse and extract the base prompt from the image_file column
 '''
-def load_image_analysis_results():
-    eval_data_path = os.path.join(EVAL_DATA_DIRECTORY,'raw')
-    if len(os.listdir(eval_data_path))<1:
-        analysis_file = [n  for n in os.listdir(os.path.join(ANALYSIS_DIR,'data')) if os.path.splitext(n)[-1]=='.csv']
-        print(analysis_file)
-        if len(analysis_file)>0:
-            pathlib.Path(eval_data_path).mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(src=os.path.join(ANALYSIS_DIR,'data',analysis_file[0]),dst=eval_data_path)
+def load_image_analysis_results(analysis_file=None):
+    if analysis_file is None:
+        eval_data_path = os.path.join(EVAL_DATA_DIRECTORY,'raw')
+        if len(os.listdir(eval_data_path))<1:
+            analysis_file = [n  for n in os.listdir(os.path.join(ANALYSIS_DIR,'data')) if os.path.splitext(n)[-1]=='.csv']
+            print(analysis_file)
+            if len(analysis_file)>0:
+                pathlib.Path(eval_data_path).mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(src=os.path.join(ANALYSIS_DIR,'data',analysis_file[0]),dst=eval_data_path)
 
-    files = glob.glob(os.path.join(eval_data_path, '*.csv'))
+        files = glob.glob(os.path.join(eval_data_path, '*.csv'))
+    else:
+        files = [analysis_file]
     colnames = ['prompt','image','quadrant','bbox','skin color','gender.Woman','gender.Man']
     results = pd.concat([pd.read_csv(fp,header=0, names=colnames)\
                      .assign(model =os.path.basename(fp).split('_')[0]) for fp in files],sort=False)
@@ -128,11 +131,11 @@ def get_tda_results(res_prompts):
     tda_results = res_prompts.merge(tda_data,right_on=['tda'],left_on=['tag'],how='inner')
     return tda_results
 
-def process_analysis(savepath=None):
+def process_analysis(analysis_path=None,savepath=None):
     if savepath is None or not os.path.isdir(savepath):
         savepath = os.path.join(EVAL_DATA_DIRECTORY,'processed')
         pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
-    image_analysis = load_image_analysis_results()
+    image_analysis = load_image_analysis_results(analysis_path)
     # print(image_analysis)
     # prompt,image,quadrant,bbox,skin color,gender.Woman,gender.Man
     prompts = load_prompts()
