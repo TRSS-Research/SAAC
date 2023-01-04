@@ -1,11 +1,11 @@
 import argparse
-import os.path
+import os
 
 from saac.image_analysis.process import process_images
 from saac.prompt_generation.prompts import generate_prompts
 from saac.evaluation import evaluate,eval_utils
-# TODO: cwd?
 MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def main():
 	# create parser object
 	parser = argparse.ArgumentParser(description="A tool for assessing the facial outputs of text-to-image AI with respect to coloring, adjectival influence, and occupational income distribution")
@@ -19,7 +19,7 @@ def main():
 	parser.add_argument("--num_occ", type=int, nargs="?", const=60,default=60, help="Number of occupations to sample high/med/low salaries for prompt_generation")
 	parser.add_argument("-a", "--analysis", type=str, nargs="?",
 						metavar="path",
-						const=os.path.join(MAIN_DIR,'image_analysis','data','mj_raw'),
+						const=os.path.join(MAIN_DIR, 'image_analysis', 'data', 'mj_raw'),
 						help="Applies DeepFace image equalization, face detection, and gender prediction to files in the specified directory")
 	parser.add_argument("--analysis_output", type=str, nargs="?", metavar="path",
 						const=os.path.join(os.getcwd(), 'processed.csv'),
@@ -30,7 +30,7 @@ def main():
 						help="Assesses facial generation, color composition, and gender tendencies for occupational and adjectival distributions. "
 							 "Expects a directory containing an Occupation_Results.csv and TDA_Results.csv or requires input of --analysis_file")
 	parser.add_argument("--analysis_file",type=str,nargs="?",metavar="path",
-						const=os.path.join(MAIN_DIR, 'image_analysis', 'data', 'processed.csv'),
+						const=os.path.join(MAIN_DIR, 'saac', 'image_analysis', 'data', 'processed.csv'),
 						help="Specifies the csv containing face detection, gender detection, and skin color tuples per imagefile."
 						)
 	parser.add_argument("-f",'--force',type=bool,default=False,nargs="?",const=True,
