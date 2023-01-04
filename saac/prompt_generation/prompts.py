@@ -56,7 +56,7 @@ def generate_prompts(sampledims: tuple[int, int] = (60, 60),
     prompts_dfv = score_sentiment(prompts_df, 'prompt', verbose=True)
     prompts_dfv['prompt'] = prompts_dfv['prompt'].apply(prompt_wrapper)
     if save_path is None:
-        save_path = os.path.join('.', 'generated_prompts.csv')
+        save_path = os.path.join(os.getcwd(), 'generated_prompts.csv')
     print('Saving to',save_path)
     prompts_dfv.to_csv(save_path, index=False)
     return prompts_dfv

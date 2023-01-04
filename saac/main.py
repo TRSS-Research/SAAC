@@ -13,7 +13,7 @@ def main():
 	# defining arguments for parser object
 	parser.add_argument("-g", "--generate", type=str, nargs="?",
 						metavar = "path",
-						const = os.path.join(MAIN_DIR, 'prompt_generation', 'data', 'mj_raw','generated_prompts.csv'),
+						const = os.path.join(os.getcwd(),'generated_prompts.csv'),
 						help="Generates adjectival and occupational prompts saving to the specified filename (defaults to generated_prompts.csv).")
 	parser.add_argument("--num_adj",type=int, nargs="?", const=60,default=60, help="number of adjectives to sample positive, negative, and neutral for prompt generation")
 	parser.add_argument("--num_occ", type=int, nargs="?", const=60,default=60, help="Number of occupations to sample high/med/low salaries for prompt_generation")
@@ -22,7 +22,7 @@ def main():
 						const=os.path.join(MAIN_DIR,'image_analysis','data','mj_raw'),
 						help="Applies DeepFace image equalization, face detection, and gender prediction to files in the specified directory")
 	parser.add_argument("--analysis_output", type=str, nargs="?", metavar="path",
-						const=os.path.join(MAIN_DIR, 'image_analysis', 'data', 'processed.csv'),
+						const=os.path.join(os.getcwd(), 'processed.csv'),
 						help="CSV filepath to output results of image analysis")
 	parser.add_argument("-e", "--evaluate", type=str, nargs="?",
 						metavar="path",
