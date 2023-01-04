@@ -1,11 +1,13 @@
 import argparse
-import os.path
+# import os.path
+import os
 
 from saac.image_analysis.process import process_images
 from saac.prompt_generation.prompts import generate_prompts
 from saac.evaluation import evaluate,eval_utils
 
-MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+# MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+MAIN_DIR = os.getcwd()
 def main():
 	# create parser object
 	parser = argparse.ArgumentParser(description="A tool for assessing the facial outputs of text-to-image AI with respect to coloring, adjectival influence, and occupational income distribution")
@@ -13,21 +15,21 @@ def main():
 	# defining arguments for parser object
 	parser.add_argument("-g", "--generate", type=str, nargs="?",
 						metavar = "path",
-						const = os.path.join(MAIN_DIR, 'prompt_generation', 'data', 'mj_raw'),
+						const = os.path.join(MAIN_DIR, 'saac', 'prompt_generation', 'data', 'processed', 'generated_prompts.csv'),
 						help="Generates adjectival and occupational prompts saving generated_prompts.csv to specified directory")
 	parser.add_argument("--num_adj",type=int, nargs="?", const=60,default=60, help="number of adjectives to sample positive, negative, and neutral for prompt generation")
 	parser.add_argument("--num_occ", type=int, nargs="?", const=60,default=60, help="Number of occupations to sample high/med/low salaries for prompt_generation")
 	parser.add_argument("-a", "--analysis", type=str, nargs="?",
 						metavar="path",
-						const=os.path.join(MAIN_DIR,'image_analysis','data','mj_raw'),
+						const=os.path.join(MAIN_DIR, 'saac', 'image_analysis', 'data', 'mj_raw'),
 						help="Applies DeepFace image equalization, face detection, and gender prediction to files in the specified directory")
 
 	parser.add_argument("-e", "--evaluate", type=str, nargs="?",
 						metavar="path",
-						const=os.path.join(MAIN_DIR,'evaluation','data','processed'),
+						const=os.path.join(MAIN_DIR, 'saac', 'evaluation', 'data', 'processed'),
 						help="Assesses facial generation, color composition, and gender tendencies for occupational and adjectival distributions")
 	parser.add_argument("--analysis_file",type=str,nargs="?",metavar="path",
-						const=os.path.join(MAIN_DIR, 'image_analysis', 'data', 'processed.csv'),
+						const=os.path.join(MAIN_DIR, 'saac', 'image_analysis', 'data', 'processed.csv'),
 						help="Specifies the csv containing face detection, gender detection, and skin color tuples per imagefile."
 						)
 	parser.add_argument("-f",'--force',type=bool,default=False,nargs="?",const=True,
