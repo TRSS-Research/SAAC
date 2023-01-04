@@ -6,6 +6,8 @@ import deepface.detectors.FaceDetector
 import joblib
 import numpy as np
 from deepface import DeepFace
+import tensorflow as tf
+tf.keras.backend.set_image_data_format('channels_last')
 import pandas as pd
 from tqdm import tqdm
 
