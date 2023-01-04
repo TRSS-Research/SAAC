@@ -5,6 +5,7 @@ from saac.image_analysis.process import process_images
 from saac.prompt_generation.prompts import generate_prompts
 from saac.evaluation import evaluate,eval_utils
 MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def main():
 	# create parser object
 	parser = argparse.ArgumentParser(description="A tool for assessing the facial outputs of text-to-image AI with respect to coloring, adjectival influence, and occupational income distribution")
@@ -29,7 +30,7 @@ def main():
 						help="Assesses facial generation, color composition, and gender tendencies for occupational and adjectival distributions. "
 							 "Expects a directory containing an Occupation_Results.csv and TDA_Results.csv or requires input of --analysis_file")
 	parser.add_argument("--analysis_file",type=str,nargs="?",metavar="path",
-						const=os.path.join(MAIN_DIR, 'image_analysis', 'data', 'processed.csv'),
+						const=os.path.join(MAIN_DIR, 'saac', 'image_analysis', 'data', 'processed.csv'),
 						help="Specifies the csv containing face detection, gender detection, and skin color tuples per imagefile."
 						)
 	parser.add_argument("-f",'--force',type=bool,default=False,nargs="?",const=True,
