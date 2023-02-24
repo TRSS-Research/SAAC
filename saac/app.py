@@ -209,7 +209,7 @@ if __name__=='__main__':
                                 title="How different models fare in gender and skin color representation across a variety of prompts",
                                  description="The training set, vocabulary, pre and post processing of generative AI tools doesn't treat everyone equally. "
                                              "Within a 95% margin of statistical error, the following tests expose bias in gender and skin color.",
-                                 article="To learn more about this process, <a href=\"http://github.com/trss/facia.git\"/> Visit the repo</a>"
+                                 article="To learn more about this process, <a href=\"http://github.com/TRSS-Research/SAAC.git\"/> Visit the repo</a>"
                                  )
 
     gr.TabbedInterface(
