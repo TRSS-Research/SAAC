@@ -9,7 +9,9 @@ import glob
 import re
 from saac.prompt_generation.prompt_utils import PROMPT_GENERATION_DATA_DIR
 from saac.image_analysis.process import ANALYSIS_DIR
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set(style='darkgrid', palette ='colorblind', color_codes=True)
 EVAL_DATA_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
 
 def load_occupation_data(occupation_file=None):
@@ -149,7 +151,49 @@ def process_analysis(analysis_path=None,savepath=None):
     pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
     tda.to_csv(os.path.join(savepath,'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath,'Occupation_Results.csv'), index=False)
+    return tda,occ
+#TODO add functions to cmdline tool
+def generate_countplot(df, x_col, hue_col, title='', xlabel='', ylabel='', legend_title='',fname='countplot.png'):
+    """    Generates a seaborn countplot using one column in the dataframe for x and one column for the hue.
+            Args:        dataframe (pandas.DataFrame): The dataframe to use for generating the countplot.
+                    x_col (str): The name of the column to use for the x-axis of the countplot.
+                    hue_col (str): The name of the column to use for the hue of the countplot.
+                    title: The title of the plot (default: empty string)
+                    xlabel: The label for the x-axis (default: empty string)
+                    ylabel: The label for the y-axis (default: empty string)
+                    legend_title: The title for the legend (default: empty string)
+                                                                         """
 
+    fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+    ax = sns.countplot(x=x_col, hue=hue_col, data=df)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    legend = ax.legend(title=legend_title)
+    legend.set_bbox_to_anchor((1, 1))
+    # plt.show()
+    plt.tight_layout()
+    plt.close()
+    # plt.savefig(fname)
+    return fig
+def generate_histplot(df, x_col, hue_col, kde=True, multiple='dodge',shrink= 0.8, title='', xlabel='', ylabel='', legend_title=''):
+    fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+    ax = sns.histplot(data=df, x=x_col, hue=hue_col, multiple=multiple, shrink= shrink, kde= kde)
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    plt.show()
+    plt.tight_layout()
+    plt.close()
+    return fig
 if __name__ == '__main__':
     warnings.filterwarnings('once')
-    process_analysis()
+    tda_res,occ_res = process_analysis()
+    generate_countplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',
+                       title='Gender Count by Trait Sentiment',
+                       xlabel='Trait Sentiment',
+                       ylabel='Count',
+                       legend_title='Gender')
+    generate_histplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',title = 'Gender Distribution by Trait Sentiment',
+ xlabel = 'Trait Sentiment',
+ ylabel = 'Count',)

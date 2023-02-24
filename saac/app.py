@@ -11,9 +11,11 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import collections
 import numpy as np
+import pandas as pd
 import io
 from prompt_generation.prompts import generate_prompts,generate_occupations,generate_traits
 from prompt_generation.prompt_utils import score_prompt
+from evaluation.eval_utils import generate_countplot,process_analysis,generate_histplot
 from datasets import load_dataset
 from diffusers import DiffusionPipeline, PNDMScheduler
 
@@ -147,10 +149,37 @@ def computeJobBias(job):
 def computeLookBias(look):
     title, results = computeLook(tokenizer, text_encoder, look)
     return computePlot(title, results)
+def trait_graph(trait,hist=True):
+    tda_res, occ_result = process_analysis()
+    fig = None
+    if not hist:
+        fig = generate_countplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',
+                       title='Gender Count by Trait Sentiment',
+                       xlabel='Trait Sentiment',
+                       ylabel='Count',
+                       legend_title='Gender')
+    else:
+        df = tda_res
+        df['tda_sentiment_val'] = pd.Categorical(df['tda_sentiment_val'],
+                                             ['very negative', 'negative', 'neutral', 'positive', 'very positive'])
+        fig = generate_histplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',
+                      title='Gender Distribution by Trait Sentiment',
+                      xlabel='Trait Sentiment',
+                      ylabel='Count', )
+
+    return fig2img(fig)
+def occ_graph(occ):
+    tda_res, occ_result = process_analysis()
+    fig = generate_histplot(occ_result, 'a_median', 'gender_detected_val',
+                   title='Gender Distribution by Median Annual Salary',
+                   xlabel= 'Median Annual Salary',
+                   ylabel= 'Count',)
+    return fig2img(fig)
+
 if __name__=='__main__':
     disclaimerString = ""
 
-    jobInterface = gr.Interface(fn=computeJobBias,
+    jobInterface = gr.Interface(fn=occ_graph,
                                  inputs=[gr.Dropdown(JOBS, label="occupation")],
                                  outputs='image',
                                  description="Referencing a specific profession comes loaded with associations of gender and ethnicity."
@@ -159,7 +188,7 @@ if __name__=='__main__':
                                  article = "To view how mentioning a particular occupation affects the gender and skin colors in faces of text to image generators, select a job."
                                            " Promotional materials, advertising, and even criminal sketches which do not explicitly specify a gender or ethnicity term will tend towards the displayed distributions.")
 
-    affectInterface = gr.Interface(fn=computeLookBias,
+    affectInterface = gr.Interface(fn=trait_graph,
                                    inputs=[gr.Dropdown(LOOKS, label="trait")],
                                    outputs='image',
                                    description="Certain adjectives can reinforce harmful stereotypes associated with gender roles and ethnic backgrounds."
@@ -176,7 +205,7 @@ if __name__=='__main__':
                                       article = "Try modifying a trait or occupational prompt to produce a result in the minority representation!")
 
 
-    toolInterface = gr.Interface(fn=computeLookBias,inputs=[gr.Dropdown(STABLE_MODELS,label="text-to-image model")],outputs='image',
+    toolInterface = gr.Interface(fn=lambda t: trait_graph(t,hist=False),inputs=[gr.Dropdown(STABLE_MODELS,label="text-to-image model")],outputs='image',
                                 title="How different models fare in gender and skin color representation across a variety of prompts",
                                  description="The training set, vocabulary, pre and post processing of generative AI tools doesn't treat everyone equally. "
                                              "Within a 95% margin of statistical error, the following tests expose bias in gender and skin color.",
