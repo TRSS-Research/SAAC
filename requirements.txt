@@ -11,3 +11,6 @@ seaborn
 matplotlib
 jupyter
 build
+gradio
+diffusers
+transformers

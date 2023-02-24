@@ -9,6 +9,7 @@ from deepface import DeepFace
 import tensorflow as tf
 tf.keras.backend.set_image_data_format('channels_last')
 import pandas as pd
+pd.set_option('display.max_columns', None)
 from tqdm import tqdm
 
 from saac.models import CalibratedGenderModel, SkinColorExtractor, SkinColorMeanExtractor, SkinColorModeExtractor
@@ -187,37 +188,47 @@ class MidJourneyProcessor:
             results.append(predictions)
         return results
 
+def process_single(imgpath, prompt=None):
+    image = cv.imread(imgpath)
+    filename = os.path.split(imgpath)[-1]
+    if prompt is None:
+        prompt = ' '.join(filename.split('_')[1:-1])
+
+    return process_image(image, prompt)
+
+
+def process_image(image, prompt):
+    df_default_models, kwargs = setup_models()
+    # list of (aligned_face, region)
+    faces_regions = deepface.detectors.FaceDetector.detect_faces(detector_backend='mtcnn',
+                                                                 face_detector=df_default_models['detector'],
+                                                                 img=image)
+    faces_regions = faces_regions if isinstance(faces_regions, list) else [faces_regions]
+    predictions = MidJourneyProcessor.batch_predictions(faces_regions,
+                                                        **kwargs
+                                                        )
+    print(predictions)
+    if predictions is None:
+        print('None', faces_regions[1])
+    else:
+        for idx, pred in enumerate(predictions):
+            # print(pred)
+            pred['image'] = prompt.replace(' ','_')
+            pred['quadrant'] = idx
+            pred['prompt'] = prompt
+    results_df = pd.json_normalize(predictions)
+    lead_cols = [
+        'prompt',
+        'image',
+        'quadrant',
+        'bbox'
+        ]
+    results_df = results_df.reindex(columns=lead_cols + [col for col in results_df.columns if col not in lead_cols])
+    return results_df
+
 
 def process_multiple(raw_root,force=False, output_file=None):
-    df_default_models = {
-        'age': DeepFace.build_model('Age'),
-        'gender': DeepFace.build_model('Gender'),
-        'emotion': DeepFace.build_model('Emotion'),
-        'race': DeepFace.build_model('Race'),
-        'detector': deepface.detectors.FaceDetector.build_model('mtcnn')
-        }
-
-    # TODO: install dir
-    calibrated_model_path = Path(os.path.join(ANALYSIS_DIR,'models','gender_model','gender_model_default_calibrated.joblib'))
-    calibrated_clf = joblib.load(calibrated_model_path)
-
-    calibrated_gender_model = CalibratedGenderModel(
-        gender_model=df_default_models['gender'],
-        calibrator=calibrated_clf
-        )
-
-    # gender_model = df_default_models['gender']
-    gender_model = calibrated_gender_model
-
-    color_extractor = SkinColorMeanExtractor()
-
-    kwargs = {
-        'equalizer': True,
-        'actions': ('gender', 'skin'),
-        'models': {'gender': gender_model},
-        'extractor': color_extractor,
-
-        }
+    df_default_models, kwargs = setup_models()
 
     def prompt_extract(path: str) -> str:
         return ' '.join(path.split('_')[1:-1])
@@ -262,10 +273,41 @@ def process_multiple(raw_root,force=False, output_file=None):
     results_df.to_csv(output_file, index=False)
     return results_df
 
+
+def setup_models():
+    df_default_models = {
+        'age': DeepFace.build_model('Age'),
+        'gender': DeepFace.build_model('Gender'),
+        'emotion': DeepFace.build_model('Emotion'),
+        'race': DeepFace.build_model('Race'),
+        'detector': deepface.detectors.FaceDetector.build_model('mtcnn')
+        }
+    # TODO: install dir
+    calibrated_model_path = Path(
+        os.path.join(ANALYSIS_DIR, 'models', 'gender_model', 'gender_model_default_calibrated.joblib'))
+    calibrated_clf = joblib.load(calibrated_model_path)
+    calibrated_gender_model = CalibratedGenderModel(
+        gender_model=df_default_models['gender'],
+        calibrator=calibrated_clf
+        )
+    # gender_model = df_default_models['gender']
+    gender_model = calibrated_gender_model
+    color_extractor = SkinColorMeanExtractor()
+    kwargs = {
+        'equalizer': True,
+        'actions': ('gender', 'skin'),
+        'models': {'gender': gender_model},
+        'extractor': color_extractor,
+
+        }
+    return df_default_models, kwargs
+
+
 def process_images(raw_images_dir: str = './data/mj_raw',force=False,output_file = None):
     raw_root = Path(raw_images_dir)
     return process_multiple(raw_root=raw_root,force=force, output_file=output_file)
 
 
 if __name__ == '__main__':
-    process_images()
+    res = process_single('C:\\Users\\zseid\\PycharmProjects\\aiethics\\saac\\saac\\image_analysis\\data\\mj_raw\\alocasia_a_abrupt_person_photorealistic_e2a54c8d-bf74-4993-a69f-16846f962592.png')
+    print(res,type(res))
