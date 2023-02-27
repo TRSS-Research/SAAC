@@ -7,12 +7,16 @@ import pathlib
 import warnings
 import glob
 import re
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from saac.prompt_generation.prompt_utils import PROMPT_GENERATION_DATA_DIR
 from saac.image_analysis.process import ANALYSIS_DIR
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(style='darkgrid', palette ='colorblind', color_codes=True)
 EVAL_DATA_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)),'data')
+
 
 def load_occupation_data(occupation_file=None):
     if occupation_file is None or not os.path.exists(occupation_file):
@@ -47,27 +51,33 @@ def rgb_sorter(rgb_tuples):
     # return sorted(rgb_tuples, key=lambda x: sum(x), reverse=False)
     return sorted(rgb_tuples, key=lambda x: rgb_intensity(x), reverse=False)
 
+
 '''
 Midjourney has a file name limit of 100 characters,which cuts off a number of the submitted prompts in the file name
 In order to merge the results with the generated prompt data
 We will parse and extract the base prompt from the image_file column
 '''
+
+
 def load_image_analysis_results(analysis_file=None):
     if analysis_file is None:
-        eval_data_path = os.path.join(EVAL_DATA_DIRECTORY,'raw')
-        if len(os.listdir(eval_data_path))<1:
-            analysis_file = [n  for n in os.listdir(os.path.join(ANALYSIS_DIR,'data')) if os.path.splitext(n)[-1]=='.csv']
+        eval_data_path = os.path.join(EVAL_DATA_DIRECTORY, 'raw')
+        if len(os.listdir(eval_data_path)) < 1:
+            analysis_file = [n for n in os.listdir(os.path.join(ANALYSIS_DIR, 'data')) if
+                             os.path.splitext(n)[-1] == '.csv']
             print(analysis_file)
-            if len(analysis_file)>0:
+            if len(analysis_file) > 0:
                 pathlib.Path(eval_data_path).mkdir(parents=True, exist_ok=True)
-                shutil.copyfile(src=os.path.join(ANALYSIS_DIR,'data',analysis_file[0]),dst=eval_data_path)
+                shutil.copyfile(src=os.path.join(ANALYSIS_DIR, 'data', analysis_file[0]), dst=eval_data_path)
 
         files = glob.glob(os.path.join(eval_data_path, '*.csv'))
     else:
         files = [analysis_file]
+
     colnames = ['prompt','image','quadrant','bbox','skincolor','gender.Woman','gender.Man']
     results = pd.concat([pd.read_csv(fp,header=0, names=colnames)\
                      .assign(model =os.path.basename(fp).split('_')[0]) for fp in files],sort=False)
+
     # base_prompt= []
     # for row in results['']:
     #     try:
@@ -75,67 +85,75 @@ def load_image_analysis_results(analysis_file=None):
     #     except:
     #         base_prompt.append('')
     # results['prompt'] = base_prompt
-    results['prompt'] = results['prompt'].apply(lambda x: 'a '+x+" photorealistic" if x[0]!='a' and 'photorealistic' not in x else x)
+    results['prompt'] = results['prompt'].apply(
+        lambda x: 'a ' + x + " photorealistic" if x[0] != 'a' and 'photorealistic' not in x else x)
     # results['prompt'] = results['prompt'].astype(str).str.strip().str.rstrip()
-    #Normalizing gender categories
+    # Normalizing gender categories
     results['gender.Woman'] = results['gender.Woman'].apply(lambda x: x / 100.)
     results['gender.Man'] = results['gender.Man'].apply(lambda x: x / 100.)
+
     #Mapping gender detection values to single column
     noface= (results['skincolor'].isnull()).values
     unknown=  ((results['gender.Woman']<=.50) & (results['gender.Man']<=.50)).values
     woman= ((results['gender.Woman']>=.50) & (results['gender.Man']<.50)).values
     man= ((results['gender.Man']>=.50) & (results['gender.Woman']<.50)).values
 
+
     results['gender_detected_cat'] = 0
-    results['gender_detected_cat'][noface]=1
-    results['gender_detected_cat'][unknown]=2
-    results['gender_detected_cat'][woman]=3
-    results['gender_detected_cat'][man]=4
-    gender_dict=  {
-                 1: 'no face',
-                 2: 'unknown',
-                 3: 'woman',
-                 4: 'man'
-                    }
+    results['gender_detected_cat'][noface] = 1
+    results['gender_detected_cat'][unknown] = 2
+    results['gender_detected_cat'][woman] = 3
+    results['gender_detected_cat'][man] = 4
+    gender_dict = {
+        1: 'no face',
+        2: 'unknown',
+        3: 'woman',
+        4: 'man'
+    }
     results['gender_detected_val'] = results['gender_detected_cat'].map(gender_dict)
     #Extracting RGB intensity from skincolor
     results['rgb_intensity'] = results['skincolor'].apply(lambda x:rgb_intensity(eval(x)) if not pd.isna(x) else None)
     return results
-#%%
+
+
+# %%
 def load_prompts():
-    prompt_data_path = os.path.join(PROMPT_GENERATION_DATA_DIR,'processed')
+    prompt_data_path = os.path.join(PROMPT_GENERATION_DATA_DIR, 'processed')
     files = glob.glob(os.path.join(prompt_data_path, '*.csv'))
     cols = [0, 1, 5]
-    colnames = ['prompt','tag','compound']
-    prompts = pd.concat([pd.read_csv(fp,header=0,usecols= cols, names=colnames)for fp in files],sort=False)
-    base_prompt =[]
+    colnames = ['prompt', 'tag', 'compound']
+    prompts = pd.concat([pd.read_csv(fp, header=0, usecols=cols, names=colnames) for fp in files], sort=False)
+    base_prompt = []
     for line in prompts['prompt']:
-        if '/imagine prompt:' in line: # "/imagine prompt:a pitiless person, photorealistic --s 625"
-            line = line.replace('/imagine prompt:','')
-            line = line.replace(', photorealistic --s 625',' photorealistic')
-            line = line.replace(',',' ')
-            line = re.sub(' +',' ',line).strip().rstrip()
+        if '/imagine prompt:' in line:  # "/imagine prompt:a pitiless person, photorealistic --s 625"
+            line = line.replace('/imagine prompt:', '')
+            line = line.replace(', photorealistic --s 625', ' photorealistic')
+            line = line.replace(',', ' ')
+            line = re.sub(' +', ' ', line).strip().rstrip()
             base_prompt.append(line)
-        else: # "a passionless person, photorealistic"
+        else:  # "a passionless person, photorealistic"
             line = line.replace(',', ' ')
             line = re.sub(' +', ' ', line).strip().rstrip()
             base_prompt.append(line)
     prompts['prompt'] = base_prompt
     return prompts
 
+
 def get_occupation_results(res_prompts):
     occupations = load_occupation_data()
-    occ_results = res_prompts.merge(occupations,right_on=['norm_title'],left_on=['tag'],how='inner')
+    occ_results = res_prompts.merge(occupations, right_on=['norm_title'], left_on=['tag'], how='inner')
     return occ_results
+
 
 def get_tda_results(res_prompts):
     tda_data = load_tda_data()
-    tda_results = res_prompts.merge(tda_data,right_on=['tda'],left_on=['tag'],how='inner')
+    tda_results = res_prompts.merge(tda_data, right_on=['tda'], left_on=['tag'], how='inner')
     return tda_results
 
-def process_analysis(analysis_path=None,savepath=None):
+
+def process_analysis(analysis_path=None, savepath=None):
     if savepath is None or not os.path.isdir(savepath):
-        savepath = os.path.join(EVAL_DATA_DIRECTORY,'processed')
+        savepath = os.path.join(EVAL_DATA_DIRECTORY, 'processed')
         pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
     image_analysis = load_image_analysis_results(analysis_path)
     # print(image_analysis)
@@ -149,6 +167,7 @@ def process_analysis(analysis_path=None,savepath=None):
     # print(tda)
     # print(occ)
     pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
+
     tda.to_csv(os.path.join(savepath,'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath,'Occupation_Results.csv'), index=False)
     return tda,occ
@@ -176,6 +195,7 @@ def generate_countplot(df, x_col, hue_col, title='', xlabel='', ylabel='', legen
     # plt.close()
     # plt.savefig(fname)
     return fig
+
 def generate_histplot(df, x_col, hue_col, hue_order=None, kde=True, multiple='dodge',shrink= 0.8, title='', xlabel='', ylabel=''):
     fig, ax = plt.subplots(1, 1, figsize=(10, 6))
     ax = sns.histplot(data=df, x=x_col, hue=hue_col, hue_order=hue_order, multiple=multiple, shrink=shrink, kde=kde)
@@ -187,11 +207,41 @@ def generate_histplot(df, x_col, hue_col, hue_order=None, kde=True, multiple='do
     # plt.close()
     return fig
 
-def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_val=None, y_label=None, x_label=None, title=None):
+
+def generate_displot(df, x_col, hue_col, kind="kde", title=None):
+    sns.set(style='darkgrid', palette='colorblind', color_codes=True)
+    plt.figure(figsize=(10, 6))
+    sns.displot(data=df, x=x_col, hue=hue_col, kind=kind).set(title=title)
+
+
+def rgb_histogram(df, x_col, rgb_col, n_bins=None, x_label=None, y_label=None, title=None):
+    # Mostly just a visual test of intensity sorting per sentiment bin
+    fig, ax1 = plt.subplots(1, 1)
+    df = df.dropna(subset=[rgb_col])
+    df_count, df_division = np.histogram(df[x_col], bins=n_bins)
+
+    for idx in range(1, len(df_division)):
+        if idx + 1 == len(df_division):
+            mask = (df[x_col] >= df_division[idx - 1]) & (df[x_col] <= df_division[idx])
+        else:
+            mask = (df[x_col] >= df_division[idx - 1]) & (df[x_col] < df_division[idx])
+
+        sorted_rgb = rgb_sorter(df[mask][rgb_col].apply(eval))
+
+        for y, c in enumerate(sorted_rgb):
+            plt.plot(df_division[idx - 1: idx + 1], y * np.ones(2), color=np.array(c) / 255)
+
+    ax1.set_xlabel(x_label)
+    ax1.set_ylabel(y_label)
+    ax1.set_title(title)
+
+def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_val=None, y_label=None, x_label=None,
+                     title=None):
     sns.set_style("whitegrid")
-    fig, ax1 = plt.subplots(1, 1,figsize=(10,6))
+    fig, ax1 = plt.subplots(1, 1)
     df = df.dropna(subset=[rgb_col])
     val_count, val_division = np.histogram(df[x_col], bins=n_bins)
+
     all_rgb_intensities = []
     for idx in range(1, len(val_division)):
         if idx + 1 == len(val_division):
@@ -210,6 +260,7 @@ def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_va
                                points=points_val)
         hex_str = str(hex(int(np.median(rgb_intensities))))[2:]
         hex_color = f"#{hex_str}{hex_str}{hex_str}"
+
         for pc in parts['bodies']:
             pc.set_facecolor(hex_color)
             pc.set_edgecolor(hex_color)
