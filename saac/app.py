@@ -15,7 +15,7 @@ import pandas as pd
 import io
 from prompt_generation.prompts import generate_prompts,generate_occupations,generate_traits
 from prompt_generation.prompt_utils import score_prompt
-from evaluation.eval_utils import generate_countplot,process_analysis,generate_histplot
+from evaluation.eval_utils import generate_countplot, lumia_violinplot, process_analysis, generate_histplot
 from datasets import load_dataset
 from diffusers import DiffusionPipeline, PNDMScheduler
 
@@ -167,21 +167,38 @@ def trait_graph(trait,hist=True):
                       xlabel='Trait Sentiment',
                       ylabel='Count', )
 
-    return fig2img(fig)
+    fig2 = lumia_violinplot(df = tda_res,
+    x_col = 'tda_compound',
+    rgb_col = 'skincolor',
+    n_bins = 21,
+    widths_val = 0.05,
+    points_val = 100,
+    x_label = 'TDA Sentiment',
+    y_label = 'Skincolor Intensity',
+    title = 'Skin Color Intensity, Binned by TDA Sentiment',)
+    return fig2img(fig),fig2img(fig2)
 def occ_graph(occ):
     tda_res, occ_result = process_analysis()
     fig = generate_histplot(occ_result, 'a_median', 'gender_detected_val',
                    title='Gender Distribution by Median Annual Salary',
                    xlabel= 'Median Annual Salary',
                    ylabel= 'Count',)
-    return fig2img(fig)
+    fig2 = lumia_violinplot(df=occ_result, x_col='a_median',
+                     rgb_col='skincolor',
+                     n_bins=21,
+                     widths_val=7500.0,
+                     points_val=100,
+                     x_label='Median Salary',
+                     y_label='Skincolor Intensity',
+                     title='Skin Color Intensity, Binned by Median Salary')
+    return fig2img(fig),fig2img(fig2)
 
 if __name__=='__main__':
     disclaimerString = ""
 
     jobInterface = gr.Interface(fn=occ_graph,
                                  inputs=[gr.Dropdown(JOBS, label="occupation")],
-                                 outputs='image',
+                                 outputs=['image','image'],
                                  description="Referencing a specific profession comes loaded with associations of gender and ethnicity."
                                              " Text to image models provide an opportunity to explicitly specify an underrepresented group, but first we must understand our default behavior.",
                                 title="How occupation affects txt2img gender and skin color representation",
@@ -190,7 +207,7 @@ if __name__=='__main__':
 
     affectInterface = gr.Interface(fn=trait_graph,
                                    inputs=[gr.Dropdown(LOOKS, label="trait")],
-                                   outputs='image',
+                                   outputs=['image','image'],
                                    description="Certain adjectives can reinforce harmful stereotypes associated with gender roles and ethnic backgrounds."
                                                "Text to image models provide an opportunity to understand how prompting a particular human expression could be triggering,"
                                                " or why an uncommon combination might provide important examples to minorities without default representation.",
