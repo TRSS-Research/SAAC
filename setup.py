@@ -22,7 +22,10 @@ setuptools.setup(
     package_data={
         'saac':['./image_analysis/models/gender_model/gender_model_default_calibrated.joblib',
                 './prompt_generation/data/raw/TraitDescriptiveAdjectives.csv',
-                './prompt_generation/data/raw/OEWS21_OccupationsDetailedView.csv']
+                './prompt_generation/data/raw/OEWS21_OccupationsDetailedView.csv',
+                './evaluation/data/raw/stable_diffusion_raw_processed.csv',
+                './evaluation/data/raw/midjourney_deepface_calibrated_equalized_mode.csv'
+                ]
     },
     packages=setuptools.find_packages(),
     entry_points ={
