@@ -211,8 +211,9 @@ def generate_histplot(df, x_col, hue_col, hue_order=None, kde=True, multiple='do
 
 def generate_displot(df, x_col, hue_col, kind="kde", title=None):
     sns.set(style='darkgrid', palette='colorblind', color_codes=True)
-    plt.figure(figsize=(10, 6))
-    sns.displot(data=df, x=x_col, hue=hue_col, kind=kind).set(title=title)
+    fig = plt.figure(figsize=(10, 6))
+    fig = sns.displot(data=df, x=x_col, hue=hue_col, kind=kind).set(title=title)
+    return fig
 
 
 def rgb_histogram(df, x_col, rgb_col, n_bins=None, x_label=None, y_label=None, title=None):
@@ -235,6 +236,7 @@ def rgb_histogram(df, x_col, rgb_col, n_bins=None, x_label=None, y_label=None, t
     ax1.set_xlabel(x_label)
     ax1.set_ylabel(y_label)
     ax1.set_title(title)
+    return fig
 
 
 def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_val=None, y_label=None, x_label=None,
