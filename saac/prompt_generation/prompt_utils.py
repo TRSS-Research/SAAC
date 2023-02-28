@@ -3,8 +3,8 @@ import pathlib
 
 import pandas as pd
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from .one_time_external_data_processing_Occupations import preprocess_occupations
-from .one_time_external_data_processing_TDA import preprocess_adjectives
+from saac.prompt_generation.one_time_external_data_processing_Occupations import preprocess_occupations
+from saac.prompt_generation.one_time_external_data_processing_TDA import preprocess_adjectives
 import warnings
 
 warnings.filterwarnings('once')
@@ -36,6 +36,11 @@ def score_sentiment(df,
 
     return df_vader
 
+def score_prompt(prompttext):
+    sid = SentimentIntensityAnalyzer()
+    ret = sid.polarity_scores(prompttext)
+    print(prompttext,ret)
+    return ret
 
 def sample_traits(nsamples: int = 12,
                   trait_filepath: str = None
@@ -131,3 +136,7 @@ def generate_occupations(nsamples=12,filepath=None):
     df = pd.DataFrame(list(zip(lst_outputs, tags)), columns=['prompt', 'tag'])
 
     return df
+
+if __name__=='__main__':
+    score_prompt("a good doctor")
+    score_prompt("a doctor")

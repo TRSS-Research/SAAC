@@ -1,17 +1,17 @@
 import os
 import shutil
-
 import numpy as np
 import pandas as pd
 import pathlib
 import warnings
 import glob
 import re
+from saac.prompt_generation.prompt_utils import PROMPT_GENERATION_DATA_DIR
+from saac.image_analysis.process import ANALYSIS_DIR
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from saac.prompt_generation.prompt_utils import PROMPT_GENERATION_DATA_DIR
-from saac.image_analysis.process import ANALYSIS_DIR
+sns.set(style='darkgrid', palette='colorblind', color_codes=True)
 
 EVAL_DATA_DIRECTORY = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 
@@ -71,9 +71,11 @@ def load_image_analysis_results(analysis_file=None):
         files = glob.glob(os.path.join(eval_data_path, '*.csv'))
     else:
         files = [analysis_file]
-    colnames = ['prompt', 'image', 'quadrant', 'bbox', 'skin color', 'gender.Woman', 'gender.Man']
+
+    colnames = ['prompt', 'image', 'quadrant', 'bbox', 'skincolor', 'gender.Woman', 'gender.Man']
     results = pd.concat([pd.read_csv(fp, header=0, names=colnames) \
                         .assign(model=os.path.basename(fp).split('_')[0]) for fp in files], sort=False)
+
     # base_prompt= []
     # for row in results['']:
     #     try:
@@ -87,8 +89,9 @@ def load_image_analysis_results(analysis_file=None):
     # Normalizing gender categories
     results['gender.Woman'] = results['gender.Woman'].apply(lambda x: x / 100.)
     results['gender.Man'] = results['gender.Man'].apply(lambda x: x / 100.)
+
     # Mapping gender detection values to single column
-    noface = (results['skin color'].isnull()).values
+    noface = (results['skincolor'].isnull()).values
     unknown = ((results['gender.Woman'] <= .50) & (results['gender.Man'] <= .50)).values
     woman = ((results['gender.Woman'] >= .50) & (results['gender.Man'] < .50)).values
     man = ((results['gender.Man'] >= .50) & (results['gender.Woman'] < .50)).values
@@ -105,8 +108,8 @@ def load_image_analysis_results(analysis_file=None):
         4: 'man'
     }
     results['gender_detected_val'] = results['gender_detected_cat'].map(gender_dict)
-    # Extracting RGB intensity from skin color
-    results['rgb_intensity'] = results['skin color'].apply(lambda x: rgb_intensity(eval(x)) if not pd.isna(x) else None)
+    # Extracting RGB intensity from skincolor
+    results['rgb_intensity'] = results['skincolor'].apply(lambda x: rgb_intensity(eval(x)) if not pd.isna(x) else None)
     return results
 
 
@@ -151,7 +154,7 @@ def process_analysis(analysis_path=None, savepath=None):
         pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
     image_analysis = load_image_analysis_results(analysis_path)
     # print(image_analysis)
-    # prompt,image,quadrant,bbox,skin color,gender.Woman,gender.Man
+    # prompt,image,quadrant,bbox,skincolor,gender.Woman,gender.Man
     prompts = load_prompts()
     # print(prompts)
     # prompt,tag,neg,neu,pos,compound
@@ -161,48 +164,56 @@ def process_analysis(analysis_path=None, savepath=None):
     # print(tda)
     # print(occ)
     pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
+
     tda.to_csv(os.path.join(savepath, 'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath, 'Occupation_Results.csv'), index=False)
+    return tda, occ
 
 
-def generate_countplot(df, x_col, hue_col, title='', xlabel='', ylabel='', legend_title=''):
-    """
-    Generates a seaborn countplot using one column in the dataframe for x and one column for the hue.
-    Args:
-        dataframe (pandas.DataFrame): The dataframe to use for generating the countplot.
-        x_col (str): The name of the column to use for the x-axis of the countplot.
-        hue_col (str): The name of the column to use for the hue of the countplot.
-        title: The title of the plot (default: empty string)
-        xlabel: The label for the x-axis (default: empty string)
-        ylabel: The label for the y-axis (default: empty string)
-        legend_title: The title for the legend (default: empty string)
-    """
-    sns.set(style='darkgrid', palette='colorblind', color_codes=True)
-    plt.figure(figsize=(10, 6))
+# TODO add functions to cmdline tool
+def generate_countplot(df, x_col, hue_col, title='', xlabel='', ylabel='', legend_title='', fname='countplot.png'):
+    """    Generates a seaborn countplot using one column in the dataframe for x and one column for the hue.
+            Args:        dataframe (pandas.DataFrame): The dataframe to use for generating the countplot.
+                    x_col (str): The name of the column to use for the x-axis of the countplot.
+                    hue_col (str): The name of the column to use for the hue of the countplot.
+                    title: The title of the plot (default: empty string)
+                    xlabel: The label for the x-axis (default: empty string)
+                    ylabel: The label for the y-axis (default: empty string)
+                    legend_title: The title for the legend (default: empty string)
+                                                                         """
+
+    fig, ax = plt.subplots(1, 1, figsize=(10, 6))
     ax = sns.countplot(x=x_col, hue=hue_col, data=df)
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     legend = ax.legend(title=legend_title)
     legend.set_bbox_to_anchor((1, 1))
-    plt.show()
+    # plt.show()
+    # plt.tight_layout()
+    # plt.close()
+    # plt.savefig(fname)
+    return fig
 
 
 def generate_histplot(df, x_col, hue_col, hue_order=None, kde=True, multiple='dodge', shrink=0.8, title='', xlabel='',
                       ylabel=''):
-    sns.set(style='darkgrid', palette='colorblind', color_codes=True)
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(1, 1, figsize=(10, 6))
     ax = sns.histplot(data=df, x=x_col, hue=hue_col, hue_order=hue_order, multiple=multiple, shrink=shrink, kde=kde)
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    plt.show()
+    # plt.show()
+    # plt.tight_layout()
+    # plt.close()
+    return fig
 
 
 def generate_displot(df, x_col, hue_col, kind="kde", title=None):
     sns.set(style='darkgrid', palette='colorblind', color_codes=True)
-    plt.figure(figsize=(10, 6))
-    sns.displot(data=df, x=x_col, hue=hue_col, kind=kind).set(title=title)
+    fig = plt.figure(figsize=(10, 6))
+    fig = sns.displot(data=df, x=x_col, hue=hue_col, kind=kind).set(title=title)
+    return fig
 
 
 def rgb_histogram(df, x_col, rgb_col, n_bins=None, x_label=None, y_label=None, title=None):
@@ -225,6 +236,7 @@ def rgb_histogram(df, x_col, rgb_col, n_bins=None, x_label=None, y_label=None, t
     ax1.set_xlabel(x_label)
     ax1.set_ylabel(y_label)
     ax1.set_title(title)
+    return fig
 
 
 def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_val=None, y_label=None, x_label=None,
@@ -235,25 +247,21 @@ def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_va
     val_count, val_division = np.histogram(df[x_col], bins=n_bins)
 
     all_rgb_intensities = []
-
     for idx in range(1, len(val_division)):
         if idx + 1 == len(val_division):
             mask = (df[x_col] >= val_division[idx - 1]) & (df[x_col] <= val_division[idx])
         else:
             mask = (df[x_col] >= val_division[idx - 1]) & (df[x_col] < val_division[idx])
-
         if sum(mask) <= 0:
             continue
-
         rgb_intensities = df[mask][rgb_col].apply(eval).apply(rgb_intensity)
         all_rgb_intensities.append(list(rgb_intensities.values))
-
         parts = ax1.violinplot(rgb_intensities, positions=[np.mean(val_division[idx - 1:idx + 1])],
+                               # showmedians=True,
                                showmeans=True,
                                showextrema=False,
                                widths=widths_val,
                                points=points_val)
-
         hex_str = str(hex(int(np.median(rgb_intensities))))[2:]
         hex_color = f"#{hex_str}{hex_str}{hex_str}"
 
@@ -263,12 +271,89 @@ def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_va
             pc.set_alpha(1)
         parts['cmeans'].set_facecolor(hex_color)
         parts['cmeans'].set_edgecolor('black')
-
     ax1.set_xlabel(x_label)
     ax1.set_ylabel(y_label)
     ax1.set_title(title)
+    # plt.show()
+    # plt.tight_layout()
+    # plt.close()
+    return fig
 
 
 if __name__ == '__main__':
     warnings.filterwarnings('once')
-    process_analysis()
+    tda_res, occ_res = process_analysis()
+    # Countplot for TDA/Gender
+    # generate_countplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',
+    #                    title='Gender Count by TDA Sentiment Value',
+    #                    xlabel='TDA Sentiment Value',
+    #                    ylabel='Count',
+    #                    legend_title='Gender Detected')
+
+    # Histplot for TDA/Gender
+    generate_histplot(tda_res, 'tda_compound', 'gender_detected_val',
+                      hue_order=['woman', 'man'],
+                      title='Gender Count Distribution by TDA Sentiment',
+                      xlabel='TDA Sentiment',
+                      ylabel='Count', )
+    # Displot for TDA/Gender
+    generate_displot(tda_res,
+                     'tda_compound',
+                     'gender_detected_val',
+                     kind='kde',
+                     title='Gender Density Distribution by TDA Sentiment')
+
+    # RGB Histogram for TDA/Gender
+    rgb_histogram(tda_res, 'tda_compound',
+                  'skin color',
+                  n_bins=21,
+                  x_label='TDA Sentiment',
+                  y_label='Count',
+                  title='Visual Examples of Skin Color Intensity, Binned by TDA Sentiment')
+
+    ##Violinplot for TDA/Gender
+    lumia_violinplot(df=tda_res,
+                     x_col='tda_compound',
+                     rgb_col='skin color',
+                     n_bins=21,
+                     widths_val=0.05,
+                     points_val=100,
+                     x_label='TDA Sentiment',
+                     y_label='Skin Color Intensity',
+                     title='Skin Color Intensity, Binned by TDA Sentiment')
+
+    # Histplot for Occupation/Gender
+    generate_histplot(df=occ_res,
+                      x_col='a_median',
+                      hue_col='gender_detected_val',
+                      hue_order=['woman', 'man'],
+                      title='Gender Count Distribution by Annual Median Salary',
+                      xlabel='Annual Median Salary',
+                      ylabel='Count'
+                      )
+    # Displot for Occupations/Gender
+    generate_displot(df=occ_res,
+                     x_col='a_median',
+                     hue_col='gender_detected_val',
+                     kind='kde',
+                     title='Gender Density Distribution by Annual Median Salary')
+
+    # RGB Histogram for Occupations/Gender
+    rgb_histogram(df=occ_res,
+                  x_col='a_median',
+                  rgb_col='skin color',
+                  n_bins=21,
+                  x_label='Annual Median Salary',
+                  y_label='Face Count',
+                  title='Visual Examples of Skin Color Intensity, Binned by Annual Median Salary')
+
+    # Violinplot Occupations/Gender
+    lumia_violinplot(df=occ_res,
+                     x_col='a_median',
+                     rgb_col='skin color',
+                     n_bins=21,
+                     widths_val=7500.0,
+                     points_val=100,
+                     x_label='Annual Median Salary',
+                     y_label='Skin Color Intensity',
+                     title='Skin Color Intensity, Binned by Annual Median Salary')
