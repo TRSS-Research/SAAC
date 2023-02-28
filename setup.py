@@ -24,7 +24,8 @@ setuptools.setup(
                 './prompt_generation/data/raw/TraitDescriptiveAdjectives.csv',
                 './prompt_generation/data/raw/OEWS21_OccupationsDetailedView.csv',
                 './evaluation/data/raw/stable_diffusion_raw_processed.csv',
-                './evaluation/data/raw/midjourney_deepface_calibrated_equalized_mode.csv'
+                './evaluation/data/raw/midjourney_deepface_calibrated_equalized_mode.csv',
+                './prompt_generation/data/processed/generated_mj_prompts.csv'
                 ]
     },
     packages=setuptools.find_packages(),
