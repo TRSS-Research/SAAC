@@ -72,7 +72,7 @@ def load_image_analysis_results(analysis_file=None):
     else:
         files = [analysis_file]
 
-    colnames = ['prompt', 'image', 'quadrant', 'bbox', 'skincolor', 'gender.Woman', 'gender.Man']
+    colnames = ['prompt', 'image', 'quadrant', 'bbox', 'skin color', 'gender.Woman', 'gender.Man']
     results = pd.concat([pd.read_csv(fp, header=0, names=colnames) \
                         .assign(model=os.path.basename(fp).split('_')[0]) for fp in files], sort=False)
 
@@ -91,7 +91,7 @@ def load_image_analysis_results(analysis_file=None):
     results['gender.Man'] = results['gender.Man'].apply(lambda x: x / 100.)
 
     # Mapping gender detection values to single column
-    noface = (results['skincolor'].isnull()).values
+    noface = (results['skin color'].isnull()).values
     unknown = ((results['gender.Woman'] <= .50) & (results['gender.Man'] <= .50)).values
     woman = ((results['gender.Woman'] >= .50) & (results['gender.Man'] < .50)).values
     man = ((results['gender.Man'] >= .50) & (results['gender.Woman'] < .50)).values
@@ -109,7 +109,7 @@ def load_image_analysis_results(analysis_file=None):
     }
     results['gender_detected_val'] = results['gender_detected_cat'].map(gender_dict)
     # Extracting RGB intensity from skincolor
-    results['rgb_intensity'] = results['skincolor'].apply(lambda x: rgb_intensity(eval(x)) if not pd.isna(x) else None)
+    results['rgb_intensity'] = results['skin color'].apply(lambda x: rgb_intensity(eval(x)) if not pd.isna(x) else None)
     return results
 
 
