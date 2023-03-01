@@ -196,7 +196,9 @@ def process_single(imgpath, prompt=None):
 
     return process_image(image, prompt)
 
-
+def process_image_pil(pil_img,prompt):
+    cv_img = cv.cvtColor(np.array(pil_img),cv.COLOR_RGB2BGR)
+    return process_image(cv_img,prompt)
 def process_image(image, prompt):
     df_default_models, kwargs = setup_models()
     # list of (aligned_face, region)
