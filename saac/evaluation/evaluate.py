@@ -5,16 +5,18 @@ import pandas as pd
 import numpy as np
 from saac.statistics import ks2sample_test
 from scipy.stats import ranksums,f_oneway,binomtest
-from .eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
+from saac.evaluation.eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
 
-def evaluate_by_occupation(occupation_results=None,force=True):
+def evaluate_by_occupation(occupation_results=None,occupation_df=None,force=True):
 	# TODO: result file?
-	if occupation_results is None:
-		occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
-	if not os.path.exists(occupation_results) or force:
-		pathlib.Path(os.path.join(EVAL_DATA_DIRECTORY,'processed')).mkdir(parents=True, exist_ok=True)
-		process_analysis(os.path.dirname(occupation_results))
-	occ_res_all = pd.read_csv(occupation_results).sort_values('a_median')
+	if occupation_df is None:
+		if occupation_results is None:
+			occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
+		if not os.path.exists(occupation_results) or force:
+			pathlib.Path(os.path.join(EVAL_DATA_DIRECTORY,'processed')).mkdir(parents=True, exist_ok=True)
+			process_analysis(os.path.dirname(occupation_results))
+		occupation_df = pd.read_csv(occupation_results)
+	occ_res_all = occupation_df.sort_values('a_median')
 	# print(f'Total rows: {len(occ_res_all)}')
 	# print('Counts of sampled wage categories for median annual wage for all possible gender detected values ')
 
@@ -71,13 +73,15 @@ def evaluate_gender_by_occupation(occ_res):
 	return p>0.05
 
 
-def evaluate_by_adjectives(adjective_results=None,force=True):
+def evaluate_by_adjectives(adjective_results=None,adjective_df=None,force=True):
 	# TODO: results file?
-	if adjective_results is None:
-		adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
-	if not os.path.exists(adjective_results) or force:
-		process_analysis(os.path.dirname(adjective_results))
-	tda_res_all = pd.read_csv(adjective_results)
+	if adjective_df is None:
+		if adjective_results is None:
+			adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
+		if not os.path.exists(adjective_results) or force:
+			process_analysis(os.path.dirname(adjective_results))
+		adjective_df = pd.read_csv(adjective_results)
+	tda_res_all = adjective_df
 	# print(f'Total rows: {len(tda_res_all)}')
 
 	sentcheck = tda_res_all[tda_res_all['tda_compound'] == tda_res_all['compound']]
@@ -194,7 +198,7 @@ def evaluate(processed_filedir=None,force=False):
 		os.remove(adjective_results)
 		os.remove(occupation_results)
 
-	evaluate_by_adjectives(adjective_results,force=force)
+	print(evaluate_by_adjectives(adjective_results,force=force))
 	evaluate_by_occupation(occupation_results,force=force)
 
 if __name__=='__main__':

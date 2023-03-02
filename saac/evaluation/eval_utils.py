@@ -148,7 +148,7 @@ def get_tda_results(res_prompts):
     return tda_results
 
 
-def process_analysis(analysis_path=None, savepath=None):
+def process_analysis(analysis_path=None, savepath=None,filtered=False):
     if savepath is None or not os.path.isdir(savepath):
         savepath = os.path.join(EVAL_DATA_DIRECTORY, 'processed')
         pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
@@ -164,6 +164,22 @@ def process_analysis(analysis_path=None, savepath=None):
     # print(tda)
     # print(occ)
     pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
+
+
+    if filtered:
+        sentiment_order = ['very negative', 'negative', 'neutral', 'positive', 'very positive']
+        gender_order = ['man', 'woman', 'unknown', 'no face']
+        var = pd.crosstab(tda['gender_detected_val'], tda['tda_sentiment_val']).reindex(gender_order)[
+            sentiment_order]
+        tda = tda[~tda['gender_detected_val'].isin(['unknown', 'no face'])]
+        wage_order = ['very low', 'low', 'medium', 'high',
+                      'very high']  # Presetting order of values for easier interpretation
+        gender_order = ['man', 'woman', 'unknown', 'no face']
+        pd.crosstab(occ['gender_detected_val'], occ['wage_val']).reindex(gender_order)[wage_order]
+        # For the case of this evaluation we will not be including images where a face could not be detected
+        # or where the gender could not be determined
+
+        occ = occ[~occ['gender_detected_val'].isin(['unknown', 'no face'])]
 
     tda.to_csv(os.path.join(savepath, 'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath, 'Occupation_Results.csv'), index=False)
@@ -282,7 +298,7 @@ def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_va
 
 if __name__ == '__main__':
     warnings.filterwarnings('once')
-    tda_res, occ_res = process_analysis()
+    tda_res, occ_res = process_analysis(filtered=True)
     # Countplot for TDA/Gender
     # generate_countplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',
     #                    title='Gender Count by TDA Sentiment Value',
