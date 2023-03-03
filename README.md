@@ -221,13 +221,13 @@ As a demonstration, here are all the skin color determinations from our prompt r
 ### Lightness of Skin by Occupations  
 We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).  
   
-![plot](data/readme_figures/evaluation_figures/skin_color_intensity_median_salary_violin.PNG)  
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_median_salary_violin.png)  
 <p><i>Fig. 10 - Skin Color Intensity Binned by Median Salary </i>   
   
 ### Lightness of Skin by Trait Sentiment
 We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant difference in mean skin lightness between groups (p=2.3e-6).  
   
-![plot](data/readme_figures/evaluation_figures/skin_color_intensity_tda_sentiment_violin.PNG)  
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)  
 <p><i>Fig. 11 - Skin Color Intensity Binned by TDA Sentiment Score</i>   
   
 ### Detected Gender  
@@ -236,13 +236,13 @@ A separate aspect of bias that could be present in image generation models is di
 ### Detected Gender by Occupations  
 We first looked at the gender of generated "people" to determine how males and females were represented, based on the median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual salaries (median $48,260) than men (median $93,070) in our data.  
   
-![plot](data/readme_figures/evaluation_figures/gender_median_salary.PNG)  
+![plot](data/readme_figures/evaluation_figures/gender_median_salary.png)  
 <p><i>Fig. 12 - Gender Distribution by Annual Median Salary </i>   
   
 ### Detected Gender by Trait Sentiment  
 We also looked at the gender of generated "people" to determine how males and females were represented, based on the trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits than men were, in our data.  
   
-![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.PNG)
+![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)
 <p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>  
 
 *****  
