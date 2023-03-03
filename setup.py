@@ -28,7 +28,8 @@ setuptools.setup(
                 './evaluation/data/raw/stable_diffusion_raw_processed.csv',
                 './evaluation/data/raw/sd2_analysis.csv',
                 './evaluation/data/raw/midjourney_deepface_calibrated_equalized_mode.csv',
-                './prompt_generation/data/processed/generated_mj_prompts.csv'
+                './prompt_generation/data/processed/generated_mj_prompts.csv',
+                './prompt_generation/data/processed/sd2_generated_prompts.csv'
                 ]
     },
     packages=setuptools.find_packages(),
