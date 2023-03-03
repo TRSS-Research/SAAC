@@ -28,13 +28,13 @@ The word bank of trait descriptive adjectives (TDA) was obtained from [Harvard D
  Words contained in the adjective column of the masterkeys.csv were extracted and deduplicated producing a word bank of 2,818 traits. Vader Sentiment's[^7] sentiment intensity analyzer was used to output a compound score for each trait. Due to the fact that the majority of trait descriptive adjectives were of a neutral sentiment (0.0 compound) and because we wanted to ensure that generated prompts accounted for a full range of sentiment scores, we created sentiment categories based on the distribution of the compound score. 
 Sentiment categories and trait counts per category are defined as follows  
   
-| Sentiment Category   | Number of Traits     | Sentiment Range              |  
-|--------------------  |------------------    |---------------------------   |  
-| Very Negative        | 164                  | compound < -0.4              |  
-| Negative             | 190                  | compound < 0.0 &  >= -0.4    |  
-| Neutral              | 2157                 | compound == 0.0              |  
-| Positive             | 120                  | compound > 0.0 &  <= .4      |  
-| Very Positive        | 187                  | compound > .4                |  
+| Sentiment Category   | Number of Traits     | Sentiment Range              |
+|--------------------  |------------------    |---------------------------   |
+| Very Negative        | 164                  | compound < -0.4              |
+| Negative             | 190                  | compound < 0.0 &  >= -0.4    |
+| Neutral              | 2157                 | compound == 0.0              |
+| Positive             | 120                  | compound > 0.0 &  <= .4      |
+| Very Positive        | 187                  | compound > .4                |
   
 The full workflow is viewable in one_time_external_data_processing_TDA.py  
   
@@ -46,13 +46,13 @@ In order to capture occupational titles at their most granular level, the raw da
  In order to ensure that generated prompts accounted for the wide range of salary wages for occupations, we created wage categories based on the distribution of the annual median wage.
 Wage categories and occupation counts per category are outlined as follows:   
   
-| Wage Category    | Number of Occupations    | Wage Range                                   |  
-|---------------   |-----------------------   |--------------------------------------------- |  
-| Very Low         | 50                       | Annual Median Wage <= 35000.0                |  
-| Low              | 133                      | Annual Median Wage > 35000.0  &  <= 50000.0  |  
-| Middle           | 114                      | Annual Median Wage > 50000.0  &  <= 80000.0  |  
-| High             | 61                       | Annual Median Wage > 80000.0 & <= 105000.0   |  
-| Very High        | 52                       | Annual Median Wage > 105000.0                |  
+| Wage Category    | Number of Occupations    | Wage Range                                   |
+|---------------   |-----------------------   |--------------------------------------------- |
+| Very Low         | 50                       | Annual Median Wage <= 35000.0                | 
+| Low              | 133                      | Annual Median Wage > 35000.0  &  <= 50000.0  |
+| Middle           | 114                      | Annual Median Wage > 50000.0  &  <= 80000.0  |
+| High             | 61                       | Annual Median Wage > 80000.0 & <= 105000.0   |
+| Very High        | 52                       | Annual Median Wage > 105000.0                |
   
 The full workflow is viewable in one_time_external_data_processing_Occupations.py  
   
@@ -196,13 +196,13 @@ Once the skin pixels have been identified, the color extractor summarizes the pi
 ### Results of image evaluation workflow   
 Upon going through the image evaluation workflow, the resulting output CSVs include a CSV with uncalibrated Deepface predictions and a CSV with calibrated Deepface predictions. Each CSV contains information about the following:  
 
-| Column Name     | Value Description |  
-| ----------- | ----------- |  
-| image      | image name/path       |  
-| label   | 0 indicating that the image is of a woman, 1 indicating that the image is of a man        |  
-| bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |  
-| gender.Woman   | probability that the image is a woman        |  
-| gender.Man   | probability that the image is a man|  
+| Column Name     | Value Description |
+| ----------- | ----------- |
+| image      | image name/path       |
+| label   | 0 indicating that the image is of a woman, 1 indicating that the image is of a man        |
+| bbox   | contains the bounding box coordinates of the face detection (Ex: {'x': 230, 'y': 120, 'w': 36, 'h': 45})        |
+| gender.Woman   | probability that the image is a woman        |
+| gender.Man   | probability that the image is a man|
 
 *****   
 
@@ -221,13 +221,13 @@ As a demonstration, here are all the skin color determinations from our prompt r
 ### Lightness of Skin by Occupations  
 We compared the Luma skin lightness proxy values to the median annual salary of professions supplied in the image generation prompts and found that there was a significant difference in mean skin lightness between groups (p=9.7e-9).  
   
-![plot](data/readme_figures/evaluation_figures/skin_color_intensity_median_salary_violin.png)  
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_median_salary_violin.PNG)  
 <p><i>Fig. 10 - Skin Color Intensity Binned by Median Salary </i>   
   
 ### Lightness of Skin by Trait Sentiment
 We also compared the Luma skin lightness to the trait sentiments of our prompts and found that again, there was a significant difference in mean skin lightness between groups (p=2.3e-6).  
   
-![plot](data/readme_figures/evaluation_figures/skin_color_intensity_tda_sentiment_violin.png)  
+![plot](data/readme_figures/evaluation_figures/skin_color_intensity_tda_sentiment_violin.PNG)  
 <p><i>Fig. 11 - Skin Color Intensity Binned by TDA Sentiment Score</i>   
   
 ### Detected Gender  
@@ -236,13 +236,13 @@ A separate aspect of bias that could be present in image generation models is di
 ### Detected Gender by Occupations  
 We first looked at the gender of generated "people" to determine how males and females were represented, based on the median annual salary and found that women were much more likely (p=1.7e-27) to represent occupations with lower median annual salaries (median $48,260) than men (median $93,070) in our data.  
   
-![plot](data/readme_figures/evaluation_figures/gender_median_salary.png)  
+![plot](data/readme_figures/evaluation_figures/gender_median_salary.PNG)  
 <p><i>Fig. 12 - Gender Distribution by Annual Median Salary </i>   
   
 ### Detected Gender by Trait Sentiment  
 We also looked at the gender of generated "people" to determine how males and females were represented, based on the trait sentiment within the prompt and found that women were much more likely (p=5.9e-11) to represent positive traits than men were, in our data.  
   
-![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.png)  
+![plot](data/readme_figures/evaluation_figures/gender_tda_sentiment.PNG)
 <p><i>Fig. 13 - Gender Distribution by TDA Sentiment Score </i>  
 
 *****  
