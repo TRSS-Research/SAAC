@@ -1,0 +1,121 @@
+prompt,tag,neg,neu,pos,compound
+/imagine prompt:a resentful person photorealistic --s 625,resentful,0.608,0.392,0.0,-0.4767
+/imagine prompt:a sad person photorealistic --s 625,sad,0.608,0.392,0.0,-0.4767
+/imagine prompt:an unethical person photorealistic --s 625,unethical,0.623,0.377,0.0,-0.5106
+/imagine prompt:a harassing person photorealistic --s 625,harassing,0.636,0.364,0.0,-0.5423
+/imagine prompt:an obscene person photorealistic --s 625,obscene,0.655,0.345,0.0,-0.5859
+/imagine prompt:an unintelligent person photorealistic --s 625,unintelligent,0.6,0.4,0.0,-0.4588
+/imagine prompt:an irritated person photorealistic --s 625,irritated,0.6,0.4,0.0,-0.4588
+/imagine prompt:an idiotic person photorealistic --s 625,idiotic,0.643,0.357,0.0,-0.5574
+/imagine prompt:a tragic person photorealistic --s 625,tragic,0.6,0.4,0.0,-0.4588
+/imagine prompt:a destructive person photorealistic --s 625,destructive,0.667,0.333,0.0,-0.6124
+/imagine prompt:a wicked person photorealistic --s 625,wicked,0.63,0.37,0.0,-0.5267
+/imagine prompt:an agitated person photorealistic --s 625,agitated,0.6,0.4,0.0,-0.4588
+/imagine prompt:a dodgy person photorealistic --s 625,dodgy,0.487,0.513,0.0,-0.2263
+/imagine prompt:a stingy person photorealistic --s 625,stingy,0.565,0.435,0.0,-0.3818
+/imagine prompt:an indecisive person photorealistic --s 625,indecisive,0.5,0.5,0.0,-0.25
+/imagine prompt:an uneasy person photorealistic --s 625,uneasy,0.565,0.435,0.0,-0.3818
+/imagine prompt:a humiliating person photorealistic --s 625,humiliating,0.524,0.476,0.0,-0.296
+/imagine prompt:a noisy person photorealistic --s 625,noisy,0.459,0.541,0.0,-0.1779
+/imagine prompt:a ferocious person photorealistic --s 625,ferocious,0.412,0.588,0.0,-0.1027
+/imagine prompt:a hysterical person photorealistic --s 625,hysterical,0.355,0.645,0.0,-0.0258
+/imagine prompt:a jumpy person photorealistic --s 625,jumpy,0.5,0.5,0.0,-0.25
+/imagine prompt:a pesky person photorealistic --s 625,pesky,0.524,0.476,0.0,-0.296
+/imagine prompt:a sappy person photorealistic --s 625,sappy,0.5,0.5,0.0,-0.25
+/imagine prompt:a thorny person photorealistic --s 625,thorny,0.512,0.488,0.0,-0.2732
+/imagine prompt:a perceptive person photorealistic --s 625,perceptive,0.0,1.0,0.0,0.0
+/imagine prompt:a vigorless person photorealistic --s 625,vigorless,0.0,1.0,0.0,0.0
+/imagine prompt:a brazen person photorealistic --s 625,brazen,0.0,1.0,0.0,0.0
+/imagine prompt:a spiritual person photorealistic --s 625,spiritual,0.0,1.0,0.0,0.0
+/imagine prompt:a matriarchal person photorealistic --s 625,matriarchal,0.0,1.0,0.0,0.0
+/imagine prompt:a philosophizing person photorealistic --s 625,philosophizing,0.0,1.0,0.0,0.0
+/imagine prompt:a well-adjusted person photorealistic --s 625,well-adjusted,0.0,1.0,0.0,0.0
+/imagine prompt:an overcautious person photorealistic --s 625,overcautious,0.0,1.0,0.0,0.0
+/imagine prompt:a levelheaded person photorealistic --s 625,levelheaded,0.0,1.0,0.0,0.0
+/imagine prompt:an indelicate person photorealistic --s 625,indelicate,0.0,1.0,0.0,0.0
+/imagine prompt:an analytical person photorealistic --s 625,analytical,0.0,1.0,0.0,0.0
+/imagine prompt:an unsolemn person photorealistic --s 625,unsolemn,0.0,1.0,0.0,0.0
+/imagine prompt:a curious person photorealistic --s 625,curious,0.0,0.465,0.535,0.3182
+/imagine prompt:a poised person photorealistic --s 625,poised,0.0,0.5,0.5,0.25
+/imagine prompt:a fervent person photorealistic --s 625,fervent,0.0,0.488,0.512,0.2732
+/imagine prompt:a keen person photorealistic --s 625,keen,0.0,0.444,0.556,0.3612
+/imagine prompt:an alert person photorealistic --s 625,alert,0.0,0.476,0.524,0.296
+/imagine prompt:a dynamic person photorealistic --s 625,dynamic,0.0,0.435,0.565,0.3818
+/imagine prompt:an amusing person photorealistic --s 625,amusing,0.0,0.435,0.565,0.3818
+/imagine prompt:a surprised person photorealistic --s 625,surprised,0.0,0.513,0.487,0.2263
+/imagine prompt:a flattering person photorealistic --s 625,flattering,0.0,0.465,0.535,0.3182
+/imagine prompt:a flexible person photorealistic --s 625,flexible,0.0,0.513,0.487,0.2263
+/imagine prompt:an innocent person photorealistic --s 625,innocent,0.0,0.455,0.545,0.34
+/imagine prompt:a lenient person photorealistic --s 625,lenient,0.0,0.488,0.512,0.2732
+/imagine prompt:a sprightly person photorealistic --s 625,sprightly,0.0,0.4,0.6,0.4588
+/imagine prompt:a fantastical person photorealistic --s 625,fantastical,0.0,0.4,0.6,0.4588
+/imagine prompt:an agreeable person photorealistic --s 625,agreeable,0.0,0.417,0.583,0.4215
+/imagine prompt:a considerate person photorealistic --s 625,considerate,0.0,0.408,0.592,0.4404
+/imagine prompt:a mature person photorealistic --s 625,mature,0.0,0.417,0.583,0.4215
+/imagine prompt:a privileged person photorealistic --s 625,privileged,0.0,0.408,0.592,0.4404
+/imagine prompt:a brave person photorealistic --s 625,brave,0.0,0.37,0.63,0.5267
+/imagine prompt:a neat person photorealistic --s 625,neat,0.0,0.4,0.6,0.4588
+/imagine prompt:a relaxed person photorealistic --s 625,relaxed,0.0,0.385,0.615,0.4939
+/imagine prompt:a fearless person photorealistic --s 625,fearless,0.0,0.408,0.592,0.4404
+/imagine prompt:a virtuous person photorealistic --s 625,virtuous,0.0,0.37,0.63,0.5267
+/imagine prompt:an idealistic person photorealistic --s 625,idealistic,0.0,0.417,0.583,0.4215
+/imagine prompt:a psychiatric aide photorealistic --s 625,psychiatric aide,0.0,1.0,0.0,0.0
+/imagine prompt:a building cleaning worker photorealistic --s 625,building cleaning worker,0.0,1.0,0.0,0.0
+/imagine prompt:a funeral attendant photorealistic --s 625,funeral attendant,0.556,0.444,0.0,-0.3612
+/imagine prompt:a taxi driver photorealistic --s 625,taxi driver,0.0,1.0,0.0,0.0
+/imagine prompt:a dietetic technician photorealistic --s 625,dietetic technician,0.0,1.0,0.0,0.0
+/imagine prompt:a barber photorealistic --s 625,barber,0.0,1.0,0.0,0.0
+/imagine prompt:a production worker photorealistic --s 625,production worker,0.0,1.0,0.0,0.0
+"/imagine prompt:a cooks, short order photorealistic --s 625","cooks, short order",0.0,1.0,0.0,0.0
+/imagine prompt:a residential advisor photorealistic --s 625,residential advisor,0.0,1.0,0.0,0.0
+/imagine prompt:a cook photorealistic --s 625,cook,0.0,1.0,0.0,0.0
+/imagine prompt:a dishwasher photorealistic --s 625,dishwasher,0.0,1.0,0.0,0.0
+/imagine prompt:a parking attendant photorealistic --s 625,parking attendant,0.0,1.0,0.0,0.0
+/imagine prompt:a medical equipment preparer photorealistic --s 625,medical equipment preparer,0.0,1.0,0.0,0.0
+/imagine prompt:a pest control worker photorealistic --s 625,pest control worker,0.0,1.0,0.0,0.0
+/imagine prompt:a highway maintenance worker photorealistic --s 625,highway maintenance worker,0.0,1.0,0.0,0.0
+/imagine prompt:a pipelayer photorealistic --s 625,pipelayer,0.0,1.0,0.0,0.0
+/imagine prompt:a paramedic photorealistic --s 625,paramedic,0.0,1.0,0.0,0.0
+/imagine prompt:a roofer photorealistic --s 625,roofer,0.0,1.0,0.0,0.0
+/imagine prompt:an extraction worker photorealistic --s 625,extraction worker,0.0,1.0,0.0,0.0
+/imagine prompt:a dental laboratory technician photorealistic --s 625,dental laboratory technician,0.0,1.0,0.0,0.0
+/imagine prompt:a paperhanger photorealistic --s 625,paperhanger,0.0,1.0,0.0,0.0
+/imagine prompt:a tutor photorealistic --s 625,tutor,0.0,1.0,0.0,0.0
+/imagine prompt:an agricultural equipment operator photorealistic --s 625,agricultural equipment operator,0.0,1.0,0.0,0.0
+/imagine prompt:a medical equipment repairer photorealistic --s 625,medical equipment repairer,0.0,1.0,0.0,0.0
+/imagine prompt:a postal service mail carrier photorealistic --s 625,postal service mail carrier,0.0,1.0,0.0,0.0
+/imagine prompt:an interior designer photorealistic --s 625,interior designer,0.0,1.0,0.0,0.0
+/imagine prompt:a first-line supervisors of security worker photorealistic --s 625,first-line supervisors of security worker,0.0,0.676,0.324,0.34
+/imagine prompt:a computer network support specialist photorealistic --s 625,computer network support specialist,0.0,0.597,0.403,0.4019
+/imagine prompt:a funeral home manager photorealistic --s 625,funeral home manager,0.455,0.545,0.0,-0.3612
+/imagine prompt:a human resources specialist photorealistic --s 625,human resources specialist,0.0,1.0,0.0,0.0
+/imagine prompt:an advertising sales agent photorealistic --s 625,advertising sales agent,0.0,1.0,0.0,0.0
+/imagine prompt:a sound engineering technician photorealistic --s 625,sound engineering technician,0.0,1.0,0.0,0.0
+/imagine prompt:an acupuncturist photorealistic --s 625,acupuncturist,0.0,1.0,0.0,0.0
+/imagine prompt:a loan officer photorealistic --s 625,loan officer,0.0,1.0,0.0,0.0
+/imagine prompt:a first-line supervisors of non-retail sales worker photorealistic --s 625,first-line supervisors of non-retail sales worker,0.0,1.0,0.0,0.0
+/imagine prompt:a forester photorealistic --s 625,forester,0.0,1.0,0.0,0.0
+/imagine prompt:a financial examiner photorealistic --s 625,financial examiner,0.0,1.0,0.0,0.0
+/imagine prompt:a ship engineer photorealistic --s 625,ship engineer,0.0,1.0,0.0,0.0
+/imagine prompt:a materials engineer photorealistic --s 625,materials engineer,0.0,1.0,0.0,0.0
+"/imagine prompt:an agricultural sciences teachers, postsecondary photorealistic --s 625","agricultural sciences teachers, postsecondary",0.0,1.0,0.0,0.0
+/imagine prompt:an administrative services manager photorealistic --s 625,administrative services manager,0.0,1.0,0.0,0.0
+/imagine prompt:a facilities manager photorealistic --s 625,facilities manager,0.0,1.0,0.0,0.0
+/imagine prompt:a geographer photorealistic --s 625,geographer,0.0,1.0,0.0,0.0
+/imagine prompt:a computer programmer photorealistic --s 625,computer programmer,0.0,1.0,0.0,0.0
+/imagine prompt:a construction manager photorealistic --s 625,construction manager,0.0,1.0,0.0,0.0
+/imagine prompt:a physical scientist photorealistic --s 625,physical scientist,0.0,1.0,0.0,0.0
+/imagine prompt:a personal financial advisor photorealistic --s 625,personal financial advisor,0.0,1.0,0.0,0.0
+/imagine prompt:an agricultural engineer photorealistic --s 625,agricultural engineer,0.0,1.0,0.0,0.0
+/imagine prompt:a natural sciences manager photorealistic --s 625,natural sciences manager,0.0,0.545,0.455,0.3612
+/imagine prompt:a public relations manager photorealistic --s 625,public relations manager,0.0,1.0,0.0,0.0
+/imagine prompt:a chief executive photorealistic --s 625,chief executive,0.0,1.0,0.0,0.0
+/imagine prompt:a purchasing manager photorealistic --s 625,purchasing manager,0.0,1.0,0.0,0.0
+/imagine prompt:a medical dosimetrist photorealistic --s 625,medical dosimetrist,0.0,1.0,0.0,0.0
+/imagine prompt:a financial manager photorealistic --s 625,financial manager,0.0,1.0,0.0,0.0
+/imagine prompt:an industrial-organizational psychologist photorealistic --s 625,industrial-organizational psychologist,0.0,1.0,0.0,0.0
+/imagine prompt:a nurse practitioner photorealistic --s 625,nurse practitioner,0.0,1.0,0.0,0.0
+/imagine prompt:a general internal medicine physician photorealistic --s 625,general internal medicine physician,0.0,1.0,0.0,0.0
+/imagine prompt:a physician assistant photorealistic --s 625,physician assistant,0.0,1.0,0.0,0.0
+/imagine prompt:a database architect photorealistic --s 625,database architect,0.0,1.0,0.0,0.0
+"/imagine prompt:a physicians, pathologist photorealistic --s 625","physicians, pathologist",0.0,1.0,0.0,0.0
