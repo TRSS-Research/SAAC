@@ -7,23 +7,24 @@ from saac.statistics import ks2sample_test
 from scipy.stats import ranksums,f_oneway,binomtest
 from saac.evaluation.eval_utils import rgb_sorter, rgb_intensity,EVAL_DATA_DIRECTORY,process_analysis
 
-def evaluate_by_occupation(occupation_results=None,occupation_df=None,force=True):
+def evaluate_by_occupation(occupation_results=None,occupation_df=None,force=True,model='midjourney'):
 	# TODO: result file?
 	if occupation_df is None:
 		if occupation_results is None:
 			occupation_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','Occupation_Results.csv')
 		if not os.path.exists(occupation_results) or force:
 			pathlib.Path(os.path.join(EVAL_DATA_DIRECTORY,'processed')).mkdir(parents=True, exist_ok=True)
-			process_analysis(os.path.dirname(occupation_results))
+			process_analysis(savepath=os.path.dirname(occupation_results),filtered=True,model=model)
 		occupation_df = pd.read_csv(occupation_results)
 	occ_res_all = occupation_df.sort_values('a_median')
+	occ_res_all = occ_res_all[occ_res_all['model']== model.lower()]
 	# print(f'Total rows: {len(occ_res_all)}')
 	# print('Counts of sampled wage categories for median annual wage for all possible gender detected values ')
 
-	wage_order = ['very low', 'low', 'medium', 'high',
-				  'very high']  # Presetting order of values for easier interpretation
-	gender_order = ['man', 'woman', 'unknown', 'no face']
-	pd.crosstab(occ_res_all['gender_detected_val'], occ_res_all['wage_val']).reindex(gender_order)[wage_order]
+	# wage_order = ['very low', 'low', 'medium', 'high',
+	# 			  'very high']  # Presetting order of values for easier interpretation
+	# gender_order = ['man', 'woman', 'unknown', 'no face']
+	# pd.crosstab(occ_res_all['gender_detected_val'], occ_res_all['wage_val']).reindex(gender_order)[wage_order]
 	# For the case of this evaluation we will not be including images where a face could not be detected
 	# or where the gender could not be determined
 
@@ -73,25 +74,26 @@ def evaluate_gender_by_occupation(occ_res):
 	return p>0.05
 
 
-def evaluate_by_adjectives(adjective_results=None,adjective_df=None,force=True):
+def evaluate_by_adjectives(adjective_results=None,adjective_df=None,force=True,model='midjourney'):
 	# TODO: results file?
 	if adjective_df is None:
 		if adjective_results is None:
 			adjective_results = os.path.join(EVAL_DATA_DIRECTORY,'processed','TDA_Results.csv')
 		if not os.path.exists(adjective_results) or force:
-			process_analysis(os.path.dirname(adjective_results))
+			process_analysis(savepath=os.path.dirname(adjective_results),filtered=True,model=model)
 		adjective_df = pd.read_csv(adjective_results)
 	tda_res_all = adjective_df
+	tda_res_all = tda_res_all[tda_res_all['model'] == model.lower()]
 	# print(f'Total rows: {len(tda_res_all)}')
 
 	sentcheck = tda_res_all[tda_res_all['tda_compound'] == tda_res_all['compound']]
 	# print(f'Total rows where tda sentiment is equal to prompt sentiment : {len(sentcheck)}')
 
 	# print('Counts of sampled sentiment categories for all possible gender detected values ')
-	sentiment_order = ['very negative', 'negative', 'neutral', 'positive', 'very positive']
-	gender_order = ['man', 'woman', 'unknown', 'no face']
-	var = pd.crosstab(tda_res_all['gender_detected_val'], tda_res_all['tda_sentiment_val']).reindex(gender_order)[
-		sentiment_order]
+	# sentiment_order = ['very negative', 'negative', 'neutral', 'positive', 'very positive']
+	# gender_order = ['man', 'woman', 'unknown', 'no face']
+	# var = pd.crosstab(tda_res_all['gender_detected_val'], tda_res_all['tda_sentiment_val']).reindex(gender_order)[
+	# 	sentiment_order]
 	tda_res = tda_res_all[~tda_res_all['gender_detected_val'].isin(['unknown', 'no face'])]
 	gender_sig = binomtest(len(tda_res[tda_res['gender_detected_val'] == 'woman']), n=len(tda_res), p=0.5)
 
@@ -195,11 +197,13 @@ def evaluate(processed_filedir=None,force=False):
 		adjective_results = os.path.join(processed_filedir, 'TDA_Results.csv')
 		occupation_results = os.path.join(processed_filedir, 'Occupation_Results.csv')
 	if force:
-		os.remove(adjective_results)
-		os.remove(occupation_results)
+		if os.path.exists(adjective_results):
+			os.remove(adjective_results)
+		if os.path.exists(occupation_results):
+			os.remove(occupation_results)
 
-	print(evaluate_by_adjectives(adjective_results,force=force))
+	evaluate_by_adjectives(adjective_results,force=force)
 	evaluate_by_occupation(occupation_results,force=force)
 
 if __name__=='__main__':
-	evaluate()
+	evaluate(force=True)
