@@ -26,6 +26,7 @@ setuptools.setup(
                 './prompt_generation/data/interim/AnnualOccupations_TitleBank.csv',
                 './prompt_generation/data/interim/TDA_Bank.csv',
                 './evaluation/data/raw/stable_diffusion_raw_processed.csv',
+                './evaluation/data/raw/sd2_analysis.csv'
                 './evaluation/data/raw/midjourney_deepface_calibrated_equalized_mode.csv',
                 './prompt_generation/data/processed/generated_mj_prompts.csv'
                 ]

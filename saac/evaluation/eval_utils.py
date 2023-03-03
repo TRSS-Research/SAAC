@@ -73,8 +73,7 @@ def load_image_analysis_results(analysis_file=None):
         files = [analysis_file]
 
     colnames = ['prompt', 'image', 'quadrant', 'bbox', 'skin color', 'gender.Woman', 'gender.Man']
-    results = pd.concat([pd.read_csv(fp, header=0, names=colnames) \
-                        .assign(model=os.path.basename(fp).split('_')[0]) for fp in files], sort=False)
+    results = pd.concat([pd.read_csv(fp, header=0, names=colnames).assign(model=os.path.basename(fp).split('_')[0]) for fp in files], sort=False)
 
     # base_prompt= []
     # for row in results['']:
@@ -85,6 +84,7 @@ def load_image_analysis_results(analysis_file=None):
     # results['prompt'] = base_prompt
     results['prompt'] = results['prompt'].apply(
         lambda x: 'a ' + x + " photorealistic" if x[0] != 'a' and 'photorealistic' not in x else x)
+    results = clean_prompts(results)
     # results['prompt'] = results['prompt'].astype(str).str.strip().str.rstrip()
     # Normalizing gender categories
     results['gender.Woman'] = results['gender.Woman'].apply(lambda x: x / 100.)
@@ -120,21 +120,32 @@ def load_prompts():
     cols = [0, 1, 5]
     colnames = ['prompt', 'tag', 'compound']
     prompts = pd.concat([pd.read_csv(fp, header=0, usecols=cols, names=colnames) for fp in files], sort=False)
+    prompts = clean_prompts(prompts)
+    return prompts
+def clean_prompts(prompts):
     base_prompt = []
     for line in prompts['prompt']:
         if '/imagine prompt:' in line:  # "/imagine prompt:a pitiless person, photorealistic --s 625"
             line = line.replace('/imagine prompt:', '')
             line = line.replace(', photorealistic --s 625', ' photorealistic')
+            line = line.replace(' photorealistic --s 625', ' photorealistic')
             line = line.replace(',', ' ')
             line = re.sub(' +', ' ', line).strip().rstrip()
+            words = line.split(' ')
+            if words[len(words)-1]!='photorealistic':
+                words[len(words)-1] = 'photorealistic'
+            line = " ".join(words)
             base_prompt.append(line)
         else:  # "a passionless person, photorealistic"
             line = line.replace(',', ' ')
             line = re.sub(' +', ' ', line).strip().rstrip()
+            words = line.split(' ')
+            if words[len(words) - 1] != 'photorealistic':
+                words[len(words) - 1] = 'photorealistic'
+            line = " ".join(words)
             base_prompt.append(line)
     prompts['prompt'] = base_prompt
     return prompts
-
 
 def get_occupation_results(res_prompts):
     occupations = load_occupation_data()
@@ -148,7 +159,7 @@ def get_tda_results(res_prompts):
     return tda_results
 
 
-def process_analysis(analysis_path=None, savepath=None,filtered=False):
+def process_analysis(analysis_path=None, savepath=None,filtered=False,model='midjourney'):
     if savepath is None or not os.path.isdir(savepath):
         savepath = os.path.join(EVAL_DATA_DIRECTORY, 'processed')
         pathlib.Path(savepath).mkdir(parents=True, exist_ok=True)
@@ -167,19 +178,30 @@ def process_analysis(analysis_path=None, savepath=None,filtered=False):
 
 
     if filtered:
+        sentiment_set = {'very negative', 'negative', 'neutral', 'positive', 'very positive'}.intersection(set(tda['tda_sentiment_val']))
+        gender_set = {'man', 'woman', 'unknown', 'no face'}.intersection(set(tda['gender_detected_val']))
         sentiment_order = ['very negative', 'negative', 'neutral', 'positive', 'very positive']
         gender_order = ['man', 'woman', 'unknown', 'no face']
+        sentiment_order = [s for s in sentiment_order if s in sentiment_set]
+        gender_order = [g for g in gender_order if g in gender_set]
         var = pd.crosstab(tda['gender_detected_val'], tda['tda_sentiment_val']).reindex(gender_order)[
             sentiment_order]
         tda = tda[~tda['gender_detected_val'].isin(['unknown', 'no face'])]
+
+        wage_set = {'very low', 'low', 'medium', 'high', 'very high'}.intersection(set(occ['wage_val']))  # Presetting order of values for easier interpretation
+        gender_set = {'man', 'woman', 'unknown', 'no face'}.intersection(set(occ['gender_detected_val']))
         wage_order = ['very low', 'low', 'medium', 'high',
                       'very high']  # Presetting order of values for easier interpretation
         gender_order = ['man', 'woman', 'unknown', 'no face']
+        wage_order = [w for w in wage_order if w in wage_set]
+        gender_order = [g for g in gender_order if g in gender_set]
         pd.crosstab(occ['gender_detected_val'], occ['wage_val']).reindex(gender_order)[wage_order]
         # For the case of this evaluation we will not be including images where a face could not be detected
         # or where the gender could not be determined
 
         occ = occ[~occ['gender_detected_val'].isin(['unknown', 'no face'])]
+        tda = tda[tda['model']==model.lower()]
+        occ = occ[occ['model']==model.lower()]
 
     tda.to_csv(os.path.join(savepath, 'TDA_Results.csv'), index=False)
     occ.to_csv(os.path.join(savepath, 'Occupation_Results.csv'), index=False)
@@ -298,7 +320,12 @@ def lumia_violinplot(df, x_col, rgb_col, n_bins=None, points_val=None, widths_va
 
 if __name__ == '__main__':
     warnings.filterwarnings('once')
-    tda_res, occ_res = process_analysis(filtered=True)
+    # print(load_prompts())
+    for model in ['sd2','stable','midjourney']:
+        tda_res_unf, occ_res_unf = process_analysis(filtered=False,model=model)
+        tda_res, occ_res = process_analysis(filtered=True,model=model)
+        print(f'{model} tda',len(tda_res.index),len(tda_res_unf.index))
+        print(f'{model} occ',len(occ_res.index),len(occ_res_unf.index))
     # Countplot for TDA/Gender
     # generate_countplot(tda_res, 'tda_sentiment_val', 'gender_detected_val',
     #                    title='Gender Count by TDA Sentiment Value',
@@ -307,69 +334,69 @@ if __name__ == '__main__':
     #                    legend_title='Gender Detected')
 
     # Histplot for TDA/Gender
-    generate_histplot(tda_res, 'tda_compound', 'gender_detected_val',
-                      hue_order=['woman', 'man'],
-                      title='Gender Count Distribution by TDA Sentiment',
-                      xlabel='TDA Sentiment',
-                      ylabel='Count', )
-    # Displot for TDA/Gender
-    generate_displot(tda_res,
-                     'tda_compound',
-                     'gender_detected_val',
-                     kind='kde',
-                     title='Gender Density Distribution by TDA Sentiment')
-
-    # RGB Histogram for TDA/Gender
-    rgb_histogram(tda_res, 'tda_compound',
-                  'skin color',
-                  n_bins=21,
-                  x_label='TDA Sentiment',
-                  y_label='Count',
-                  title='Visual Examples of Skin Color Intensity, Binned by TDA Sentiment')
-
-    ##Violinplot for TDA/Gender
-    lumia_violinplot(df=tda_res,
-                     x_col='tda_compound',
-                     rgb_col='skin color',
-                     n_bins=21,
-                     widths_val=0.05,
-                     points_val=100,
-                     x_label='TDA Sentiment',
-                     y_label='Skin Color Intensity',
-                     title='Skin Color Intensity, Binned by TDA Sentiment')
-
-    # Histplot for Occupation/Gender
-    generate_histplot(df=occ_res,
-                      x_col='a_median',
-                      hue_col='gender_detected_val',
-                      hue_order=['woman', 'man'],
-                      title='Gender Count Distribution by Annual Median Salary',
-                      xlabel='Annual Median Salary',
-                      ylabel='Count'
-                      )
-    # Displot for Occupations/Gender
-    generate_displot(df=occ_res,
-                     x_col='a_median',
-                     hue_col='gender_detected_val',
-                     kind='kde',
-                     title='Gender Density Distribution by Annual Median Salary')
-
-    # RGB Histogram for Occupations/Gender
-    rgb_histogram(df=occ_res,
-                  x_col='a_median',
-                  rgb_col='skin color',
-                  n_bins=21,
-                  x_label='Annual Median Salary',
-                  y_label='Face Count',
-                  title='Visual Examples of Skin Color Intensity, Binned by Annual Median Salary')
-
-    # Violinplot Occupations/Gender
-    lumia_violinplot(df=occ_res,
-                     x_col='a_median',
-                     rgb_col='skin color',
-                     n_bins=21,
-                     widths_val=7500.0,
-                     points_val=100,
-                     x_label='Annual Median Salary',
-                     y_label='Skin Color Intensity',
-                     title='Skin Color Intensity, Binned by Annual Median Salary')
+    # generate_histplot(tda_res, 'tda_compound', 'gender_detected_val',
+    #                   hue_order=['woman', 'man'],
+    #                   title='Gender Count Distribution by TDA Sentiment',
+    #                   xlabel='TDA Sentiment',
+    #                   ylabel='Count', )
+    # # Displot for TDA/Gender
+    # generate_displot(tda_res,
+    #                  'tda_compound',
+    #                  'gender_detected_val',
+    #                  kind='kde',
+    #                  title='Gender Density Distribution by TDA Sentiment')
+    #
+    # # RGB Histogram for TDA/Gender
+    # rgb_histogram(tda_res, 'tda_compound',
+    #               'skin color',
+    #               n_bins=21,
+    #               x_label='TDA Sentiment',
+    #               y_label='Count',
+    #               title='Visual Examples of Skin Color Intensity, Binned by TDA Sentiment')
+    #
+    # ##Violinplot for TDA/Gender
+    # lumia_violinplot(df=tda_res,
+    #                  x_col='tda_compound',
+    #                  rgb_col='skin color',
+    #                  n_bins=21,
+    #                  widths_val=0.05,
+    #                  points_val=100,
+    #                  x_label='TDA Sentiment',
+    #                  y_label='Skin Color Intensity',
+    #                  title='Skin Color Intensity, Binned by TDA Sentiment')
+    #
+    # # Histplot for Occupation/Gender
+    # generate_histplot(df=occ_res,
+    #                   x_col='a_median',
+    #                   hue_col='gender_detected_val',
+    #                   hue_order=['woman', 'man'],
+    #                   title='Gender Count Distribution by Annual Median Salary',
+    #                   xlabel='Annual Median Salary',
+    #                   ylabel='Count'
+    #                   )
+    # # Displot for Occupations/Gender
+    # generate_displot(df=occ_res,
+    #                  x_col='a_median',
+    #                  hue_col='gender_detected_val',
+    #                  kind='kde',
+    #                  title='Gender Density Distribution by Annual Median Salary')
+    #
+    # # RGB Histogram for Occupations/Gender
+    # rgb_histogram(df=occ_res,
+    #               x_col='a_median',
+    #               rgb_col='skin color',
+    #               n_bins=21,
+    #               x_label='Annual Median Salary',
+    #               y_label='Face Count',
+    #               title='Visual Examples of Skin Color Intensity, Binned by Annual Median Salary')
+    #
+    # # Violinplot Occupations/Gender
+    # lumia_violinplot(df=occ_res,
+    #                  x_col='a_median',
+    #                  rgb_col='skin color',
+    #                  n_bins=21,
+    #                  widths_val=7500.0,
+    #                  points_val=100,
+    #                  x_label='Annual Median Salary',
+    #                  y_label='Skin Color Intensity',
+    #                  title='Skin Color Intensity, Binned by Annual Median Salary')
